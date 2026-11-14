@@ -1,4 +1,4 @@
-/* MARGIN 3D Flight Operations Viewport (js/ops-view.js)
+/* BEYOND-ORBIT 3D Flight Operations Viewport (js/ops-view.js)
    Full-screen 3D Solar System flight operations center.
    Renders real-time interplanetary spacecraft trajectory, live probe model,
    DSN Earth communication laser, and adaptive camera tracking.
@@ -446,7 +446,7 @@ function mountOpsCraft() {
   V.craftToken = token;
   const sel = readSel();
   const hero = heroForLevel(sel.level);
-  // Fallback chain: hero -> kit assembly -> margin bus -> tiny marker.
+  // Fallback chain: hero -> kit assembly -> BEYOND-ORBIT bus -> tiny marker.
   const wantKit = () => {
     const urls = [KIT.bodies[bodyTierOf(sel)], KIT.wings[wingTierOf(sel)],
       KIT.radios[radioTierOf(sel)]];
@@ -2672,8 +2672,8 @@ function satLatchKey() {
     const lvl = (typeof S !== 'undefined' && S.levelId) ? S.levelId : 'x';
     const tdep = (typeof S !== 'undefined' && S.launch && isFinite(S.launch.tDep))
       ? S.launch.tDep : 'x';
-    return 'margin_sat_v1:' + lvl + ':' + tdep;
-  } catch (e) { return 'margin_sat_v1:x:x'; }
+    return 'BEYOND-ORBIT_sat_v1:' + lvl + ':' + tdep;
+  } catch (e) { return 'BEYOND-ORBIT_sat_v1:x:x'; }
 }
 function satLatchRead() {
   try {
@@ -4112,10 +4112,10 @@ function dzBegin3D() {
     DZ3D.T = DZ3D.prof.dur || 10;
     dzBuildScene(DZ3D.prof, DZ3D.land);
     if (!DZ3D.scene || !DZ3D.wrap) { dzDisposeScene(); return false; }
-    // Margin note for the descent log line (low margin → slightly longer hover
+    // BEYOND-ORBIT note for the descent log line (low BEYOND-ORBIT → slightly longer hover
     // is expressed as a 10% tail stretch, presentation timing only).
     try {
-      if (DZ3D.land && isFinite(DZ3D.land.margin) && DZ3D.land.margin < 1) DZ3D.T *= 1.1;
+      if (DZ3D.land && isFinite(DZ3D.land.BEYOND-ORBIT) && DZ3D.land.BEYOND-ORBIT < 1) DZ3D.T *= 1.1;
     } catch (e) {}
     DZ3D.t = 0; DZ3D.hold = 0; DZ3D.covered = false; DZ3D._acc = 0; DZ3D.lastAria = 0;
     try { V.dz3dOn = true; } catch (e) {}
@@ -4361,7 +4361,7 @@ function startDescent(opts) {
         if (DZ.land && !DZ._diverted) {
           DZ._diverted = true;
           DZ.land.slope = Math.max(0.5, DZ.land.slope - 1.2);
-          DZ.land.margin = Math.round((DZ.land.margin + 1.2) * 10) / 10;
+          DZ.land.BEYOND-ORBIT = Math.round((DZ.land.BEYOND-ORBIT + 1.2) * 10) / 10;
           divert.textContent = 'DIVERTED TO RESERVE (SLOPE -1.2°) ✓';
           divert.classList.add('diverted');
           if (typeof logLine === 'function') {

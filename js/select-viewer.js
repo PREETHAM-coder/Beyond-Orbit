@@ -1059,7 +1059,7 @@ function frame(now) {
   V.simDays += simStep;
   /* publish the live clock: title/brief adopt it when fresh so bodies
      never jump between views of the same system. */
-  try { window.__MARGIN_SIMDAYS = V.simDays; } catch (e) { }
+  try { window.__BEYOND-ORBIT_SIMDAYS = V.simDays; } catch (e) { }
 
   if (V.isPhys) {
     if (V.sysView) V.originKm = [0, 0, 0];
@@ -1664,7 +1664,7 @@ function start(host) {
   V.simDays = todayDays();
   /* adopt the live title/brief clock when fresh: same system, no time jump. */
   try {
-    const s = window.__MARGIN_SIMDAYS;
+    const s = window.__BEYOND-ORBIT_SIMDAYS;
     if (isFinite(s) && Math.abs(s - V.simDays) < 45) V.simDays = s;
   } catch (e) { }
   let def = 'l1';
@@ -1685,7 +1685,7 @@ function start(host) {
        establishing shot — one continuous pull-back, no second intro. */
     let adopted = false;
     try {
-      const h = window.__MARGIN_HANDOFF;
+      const h = window.__BEYOND-ORBIT_HANDOFF;
       /* validate before trusting: a stale or non-finite viewpoint would fling
          the flight start exactly like the old title solver bug did. */
       if (h && isFinite(h.t) && performance.now() - h.t < 15000 &&

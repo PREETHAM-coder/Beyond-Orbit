@@ -1,5 +1,5 @@
 "use strict";
-/* MARGIN canonical constants — single authoritative owner.
+/* BEYOND-ORBIT canonical constants — single authoritative owner.
    Classic script, zero dependencies. Loads FIRST (before astronomy-jpl-data.js).
    ESM modules (solar-system-accuracy.js) read these at import time via globalThis
    with identical literal fallbacks, so file:// and node --check keep working
@@ -42,5 +42,5 @@
   // Phobos 11.08 MAR097, Io 1821.49 / Ganymede 2631.20 JUP365 — "radius of a
   // sphere with the equivalent volume"); radiusKmTrue now reads MOONS directly.
   // Legacy educational values (11.267 / 1821.6 / 2634.1, UNKNOWN provenance) retired.
-  root.MARGIN_CONST = C;
+  root.BEYOND-ORBIT_CONST = C;
 })(typeof window !== "undefined" ? window : globalThis);

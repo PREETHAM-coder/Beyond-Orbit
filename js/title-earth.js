@@ -1,4 +1,4 @@
-/* MARGIN title vista — thin adapter over js/orrery.js.
+/* BEYOND-ORBIT title vista — thin adapter over js/orrery.js.
    The starting page shows the LIVE solar-system Earth (same buildSolarSystem
    scene, same Blue Marble / Black Marble / MODIS-cloud material, same decay-2
    sunlight rig, same simDays clock as the mission-select and briefing views)
@@ -20,8 +20,8 @@
    (see PRESETS).
    Link contract (what keeps the title -> select cut seamless):
    - simDays starts at todayDays() and advances at DAYS_PER_SEC, exactly like
-     every other orrery view; each frame publishes window.__MARGIN_SIMDAYS
-     (adopted by select/brief when fresh) plus window.__MARGIN_HANDOFF with
+     every other orrery view; each frame publishes window.__BEYOND-ORBIT_SIMDAYS
+     (adopted by select/brief when fresh) plus window.__BEYOND-ORBIT_HANDOFF with
      the live camera viewpoint, which the select view adopts as its flight
      start — game.js skips the veil fade for title -> select, so the cut reads
      as one continuous pull-back, not a fade plus a second intro flight.
@@ -95,12 +95,12 @@ const _E = new THREE.Vector3(), _C = new THREE.Vector3(), _T = new THREE.Vector3
   _P = new THREE.Vector3(), _S = new THREE.Vector3(), _D = new THREE.Vector3();
 
 function publishClock() {
-  try { window.__MARGIN_SIMDAYS = V.simDays; } catch (e) {}
+  try { window.__BEYOND-ORBIT_SIMDAYS = V.simDays; } catch (e) {}
 }
 
 function publishHandoff() {
   try {
-    window.__MARGIN_HANDOFF = {
+    window.__BEYOND-ORBIT_HANDOFF = {
       pos: [V.camera.position.x, V.camera.position.y, V.camera.position.z],
       tgt: [_E.x, _E.y, _E.z],
       sim: V.simDays, t: performance.now()
@@ -303,7 +303,7 @@ async function prepareGpuAndReveal() {
   if (V.loadDone || !V.scene || !V.renderer) return;
   V.loadDone = true;
   if (V.bootMaxTimer) { clearTimeout(V.bootMaxTimer); V.bootMaxTimer = 0; }
-  const boot = window.__MARGIN_BOOT;
+  const boot = window.__BEYOND-ORBIT_BOOT;
   if (boot) boot.step(95, 'DECODING 8K EARTH & CLOUD LAYERS…', 97, 3, 'DECODING');
   try {
     const texList = solarTextures();
@@ -359,7 +359,7 @@ function hookTitleStream() {
   if (V.bootMaxTimer) { clearTimeout(V.bootMaxTimer); V.bootMaxTimer = 0; }
   const mgr = THREE.DefaultLoadingManager;
   if (!mgr) return;
-  const boot = window.__MARGIN_BOOT;
+  const boot = window.__BEYOND-ORBIT_BOOT;
   const prev = {
     onStart: mgr.onStart, onProgress: mgr.onProgress,
     onLoad: mgr.onLoad, onError: mgr.onError
@@ -575,7 +575,7 @@ function start(cv) {
     renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true });
   } catch (e) {
     V.failed = true;
-    try { if (window.__MARGIN_BOOT) window.__MARGIN_BOOT.finish('2D FALLBACK READY'); } catch (e2) {}
+    try { if (window.__BEYOND-ORBIT_BOOT) window.__BEYOND-ORBIT_BOOT.finish('2D FALLBACK READY'); } catch (e2) {}
     return;
   }
   V.renderer = renderer;
@@ -595,7 +595,7 @@ function start(cv) {
   } catch (e) {}
   /* the live solar system — same assembly the select/brief views fly,
      REAL Sun included. */
-  try { if (window.__MARGIN_BOOT) window.__MARGIN_BOOT.step(56, 'INITIALIZING 3D SOLAR SYSTEM…', 62, 2, 'SOLAR SYSTEM'); } catch (e) {}
+  try { if (window.__BEYOND-ORBIT_BOOT) window.__BEYOND-ORBIT_BOOT.step(56, 'INITIALIZING 3D SOLAR SYSTEM…', 62, 2, 'SOLAR SYSTEM'); } catch (e) {}
   hookTitleStream();
   const built = buildSolarSystem(V.scene, () => !!V.scene, {
     simDays: todayDays(), physical: V.isPhys,
@@ -655,9 +655,9 @@ function start(cv) {
         if (!V.loadDone && V.scene && V.renderer) prepareGpuAndReveal();
       });
     }
-    if (!V.loadDone && window.__MARGIN_BOOT) {
+    if (!V.loadDone && window.__BEYOND-ORBIT_BOOT) {
       const totalShow = Math.max(V.mgrPending, pendingTex.length);
-      window.__MARGIN_BOOT.step(58, 'STREAMING 8K EARTH & SOLAR MAPS…', 68, 2, `0 / ${totalShow} ASSETS`);
+      window.__BEYOND-ORBIT_BOOT.step(58, 'STREAMING 8K EARTH & SOLAR MAPS…', 68, 2, `0 / ${totalShow} ASSETS`);
     }
   }
 }
@@ -671,14 +671,14 @@ function sync() {
     if (V.raf || V.canvas) stop();
     try {
       const scr = (typeof S !== 'undefined' && S) ? S.screen : '';
-      if (scr && scr !== 'title' && window.__MARGIN_BOOT) window.__MARGIN_BOOT.finish('FLIGHT SYSTEM READY');
+      if (scr && scr !== 'title' && window.__BEYOND-ORBIT_BOOT) window.__BEYOND-ORBIT_BOOT.finish('FLIGHT SYSTEM READY');
     } catch (e) {}
     return;
   }
   if (V.canvas === cv && V.raf) return;
   stop();
   if (V.failed) {
-    try { if (window.__MARGIN_BOOT) window.__MARGIN_BOOT.finish('2D FALLBACK READY'); } catch (e) {}
+    try { if (window.__BEYOND-ORBIT_BOOT) window.__BEYOND-ORBIT_BOOT.finish('2D FALLBACK READY'); } catch (e) {}
     return;
   }
   start(cv);
@@ -707,7 +707,7 @@ function debug() {
     out.dayF = +dayFactor().toFixed(3);
     out.exposure = +V.exposure.toFixed(4);
     out.bodies = V.bodies ? Object.keys(V.bodies).length : 0;
-    try { out.handoff = !!window.__MARGIN_HANDOFF; } catch (e) {}
+    try { out.handoff = !!window.__BEYOND-ORBIT_HANDOFF; } catch (e) {}
   } catch (e) {}
   return out;
 }

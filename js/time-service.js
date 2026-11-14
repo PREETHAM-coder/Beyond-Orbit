@@ -1,5 +1,5 @@
 "use strict";
-/* MARGIN TimeService — the SINGLE owner of astronomical time (spec §11).
+/* BEYOND-ORBIT TimeService — the SINGLE owner of astronomical time (spec §11).
    Classic script, zero dependencies. Loads after js/constants.js, before
    js/astronomy.js. Consumers (astronomy.js, game.js, QA harnesses) delegate;
    the conversion math below is moved verbatim from js/astronomy.js, and
@@ -12,7 +12,7 @@
    Centralizing documents the offset; converting gameplay to TDB is dynamics-
    boundary work and must change porkchop numbers explicitly, not silently. */
 (function (root) {
-  var C = root.MARGIN_CONST || {};
+  var C = root.BEYOND-ORBIT_CONST || {};
   var DAY_S = C.DAY_S || 86400;
   var J2000_JD = C.J2000_JD || 2451545.0; // JD(TDB) 2000-01-01 12:00 TDB
   var JULIAN_YEAR_D = C.JULIAN_YEAR_D || 365.25;

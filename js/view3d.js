@@ -1,4 +1,4 @@
-/* MARGIN 3D presentation layer — build-bay viewer (renderer + highlight).
+/* BEYOND-ORBIT 3D presentation layer — build-bay viewer (renderer + highlight).
    The craft itself is built by the ONE shared composer (js/kit-assembly.js),
    also used by ops — this file only frames, highlights and hosts it.
    Fixed missions (l2–l5) show their NASA hero craft (HERO_BY_LEVEL);
@@ -231,7 +231,7 @@ function attachRoverPreview(craft, key) {
 /* Compose hero or kit for the current selection key. Fixed missions (l2–l5)
    show their real NASA hero craft; l1/sbx show the player's kit build.
    Preloads once per key; concurrent sync() calls share the in-flight promise.
-   Fallback: hero-load failure drops back to the kit assembly, then margin bus. */
+   Fallback: hero-load failure drops back to the kit assembly, then BEYOND-ORBIT bus. */
 function compose(skipHero) {
   const sel = selOfS();
   const hero = skipHero ? null : heroForLevel(sel.level);
@@ -317,7 +317,7 @@ function compose(skipHero) {
     try { document.body.classList.add('v3on'); } catch (e) {}
     M3D.loading = null;
   }).catch(() => {
-    // fallback: original MARGIN bus (honest fallback, not NASA)
+    // fallback: original BEYOND-ORBIT bus (honest fallback, not NASA)
     M3D.loading = null;
     return loadKitGltf(KIT.fallback).then((gltf) => {
       if (M3D.craft) { try { M3D.scene.remove(M3D.craft); } catch (e) {} M3D.groups = {}; }

@@ -1,4 +1,4 @@
-/* MARGIN UI scroll & accordion preservation across in-screen innerHTML repaints.
+/* BEYOND-ORBIT UI scroll & accordion preservation across in-screen innerHTML repaints.
    Loaded as a classic script before game.js (file:// and ?no3d safe). */
 (function () {
   "use strict";

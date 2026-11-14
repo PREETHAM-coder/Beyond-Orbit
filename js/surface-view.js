@@ -1,4 +1,4 @@
-/* MARGIN surface diorama (js/surface-view.js).
+/* BEYOND-ORBIT surface diorama (js/surface-view.js).
    The ops surface world as an independent module: metre-unit terrain + horizon
    context + calibrated rover + ephemeris sky + mast/walkaround cameras +
    drive playback, reading sim state (V, S) but owning no renderer, no loop,
@@ -2755,8 +2755,8 @@ function dbgPanel(F, V) {
   const box = (k, label) =>
     `<label style="display:block"><input type="checkbox" data-dbg="${k}" ${d[k] ? "checked" : ""}> ${label}</label>`;
   const modes = ["full", "flat", "slope", "curv", "height"].map((m) =>
-    `<button data-dbgmode="${m}" style="margin:1px;padding:1px 6px;${d.mode === m ? "font-weight:bold" : ""}">${m}</button>`).join("");
-  el.innerHTML = `<b>TERRAIN DEBUG</b><br>${box("showBump", "detail maps")}${box("showRocks", "rocks")}${box("showOuter", "outer ring")}${box("showShadows", "shadows")}${box("showGlare", "sun glare")}${box("lockExposure", "lock exposure")}<div>${modes}</div><pre id="surfdbgstats" style="margin:4px 0 0"></pre>`;
+    `<button data-dbgmode="${m}" style="BEYOND-ORBIT:1px;padding:1px 6px;${d.mode === m ? "font-weight:bold" : ""}">${m}</button>`).join("");
+  el.innerHTML = `<b>TERRAIN DEBUG</b><br>${box("showBump", "detail maps")}${box("showRocks", "rocks")}${box("showOuter", "outer ring")}${box("showShadows", "shadows")}${box("showGlare", "sun glare")}${box("lockExposure", "lock exposure")}<div>${modes}</div><pre id="surfdbgstats" style="BEYOND-ORBIT:4px 0 0"></pre>`;
   el.addEventListener("change", (ev) => {
     const k = ev.target && ev.target.dataset && ev.target.dataset.dbg;
     if (!k || !(k in surfDbg)) return;

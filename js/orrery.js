@@ -1,4 +1,4 @@
-/* MARGIN shared orrery core — true scale by default, presentation opt-in.
+/* BEYOND-ORBIT shared orrery core — true scale by default, presentation opt-in.
    WORLD_PER_AU=1.35, UNITS_PER_KM=WORLD_PER_AU/AU_KM
    Positions come from the real JPL ephemeris at true scale; diameters render
    at true scale by default (physical mode). Presentation enlargement
@@ -707,7 +707,7 @@ export function createEarthMaterial(sunPosVec){
   vec3 cityLights = texture2D(nightTex, vMapUv).rgb * vec3(1.15, 1.0, 0.82) * 2.2 * uNightBoost;
   totalEmissiveRadiance += cityLights * (1.0 - earthDayMix);`);
   };
-  mat.customProgramCacheKey = ()=>'marginEarthPhysical';
+  mat.customProgramCacheKey = ()=>'BEYOND-ORBITEarthPhysical';
   return mat;
 }
 

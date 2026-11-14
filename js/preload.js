@@ -1,4 +1,4 @@
-/* MARGIN asset warm pass (js/preload.js) — presentation only.
+/* BEYOND-ORBIT asset warm pass (js/preload.js) — presentation only.
    Walks the SAME session-cached loaders the scenes use (kit tiers, hero,
    rover, lander promise, planet textures, Bennu) so assets arrive during the
    long countdown+ascent window instead of popping mid-cinematic. Fire-and-

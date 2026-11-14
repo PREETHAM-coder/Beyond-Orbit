@@ -1,6 +1,6 @@
 # Third-Party Notices
 
-MARGIN's original source code is licensed under the **MIT License** — see
+BEYOND-ORBIT's original source code is licensed under the **MIT License** — see
 [`LICENSE`](LICENSE).
 
 This file lists the third-party components bundled in this repository, their
@@ -42,13 +42,13 @@ recorded in [`SOURCES.md`](SOURCES.md) and [`assets/ASSET_SOURCES.md`](assets/AS
 
 ## 2. Fonts
 
-| Family | Files | License | Copyright |
-|---|---|---|---|
-| Inter | `fonts/inter-400/500/600.woff2` | SIL OFL 1.1 | Copyright 2020 The Inter Project Authors |
-| JetBrains Mono | `fonts/jetbrains-mono-400/500.woff2` | SIL OFL 1.1 | Copyright 2020 The JetBrains Mono Project Authors |
-| IBM Plex Mono | `fonts/ibm-plex-mono-400/500.woff2` | SIL OFL 1.1 | Copyright © 2017 IBM Corp. with Reserved Font Name "Plex" |
-| Instrument Sans | `fonts/instrument-sans-600.woff2` | SIL OFL 1.1 | Copyright 2022 The Instrument Sans Project Authors |
-| Material Symbols Outlined | `fonts/material-symbols-outlined.woff2` | Apache License 2.0 | Copyright Google LLC |
+| Family                    | Files                                   | License            | Copyright                                                 |
+| ------------------------- | --------------------------------------- | ------------------ | --------------------------------------------------------- |
+| Inter                     | `fonts/inter-400/500/600.woff2`         | SIL OFL 1.1        | Copyright 2020 The Inter Project Authors                  |
+| JetBrains Mono            | `fonts/jetbrains-mono-400/500.woff2`    | SIL OFL 1.1        | Copyright 2020 The JetBrains Mono Project Authors         |
+| IBM Plex Mono             | `fonts/ibm-plex-mono-400/500.woff2`     | SIL OFL 1.1        | Copyright © 2017 IBM Corp. with Reserved Font Name "Plex" |
+| Instrument Sans           | `fonts/instrument-sans-600.woff2`       | SIL OFL 1.1        | Copyright 2022 The Instrument Sans Project Authors        |
+| Material Symbols Outlined | `fonts/material-symbols-outlined.woff2` | Apache License 2.0 | Copyright Google LLC                                      |
 
 - **OFL text:** [`licenses/OFL-1.1.txt`](licenses/OFL-1.1.txt)
 - **Apache text:** [`licenses/Apache-2.0.txt`](licenses/Apache-2.0.txt)
@@ -122,9 +122,9 @@ identifier is used.
 
 ---
 
-## 6. Background music — “Margin Theme”
+## 6. Background music — “BEYOND-ORBIT Theme”
 
-- **File:** `assets/audio/margin_theme.mp3` (104.4 s, 256 kbps loop)
+- **File:** `assets/audio/BEYOND-ORBIT_theme.mp3` (104.4 s, 256 kbps loop)
 - **Source & Method:** Sine-model resynthesis generated from a Google Flow Music
   (Lyria 3.5) audio render created under a Flow Music Plus plan.
 - **Rights:** Distributed as a derivative work under Flow Music Plus terms. The
@@ -149,9 +149,9 @@ License text: [`licenses/CC0-1.0.txt`](licenses/CC0-1.0.txt).
 ## 8. Original project assets — MIT
 
 The following visual assets and procedural maps were created specifically for
-MARGIN and are covered by the project [`LICENSE`](LICENSE) (MIT):
+BEYOND-ORBIT and are covered by the project [`LICENSE`](LICENSE) (MIT):
 
-- `assets/margin-mission-bus-preview.png` — Spacecraft schematic fallback preview
+- `assets/BEYOND-ORBIT-mission-bus-preview.png` — Spacecraft schematic fallback preview
 - `models/nasa/launch_env_lc39b.glb` — Authored launch pad terrain slab and lightning-mast environment geometry (hosts the NASA Mobile Launcher GLB)
 - `assets/textures/lroc_nac_tile.png` — Procedural lunar regolith micro-relief tangent-space normal map
 - `assets/textures/mars_sand_tile_v2.png` — Procedural Martian basalt grit and sand ripple tangent-space normal map

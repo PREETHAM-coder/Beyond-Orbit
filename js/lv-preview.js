@@ -1,4 +1,4 @@
-/* MARGIN launch-screen 3D vehicle stage (js/lv-preview.js).
+/* BEYOND-ORBIT launch-screen 3D vehicle stage (js/lv-preview.js).
    Progressive enhancement for the LAUNCH VEHICLE FLEET page:
       - builds the SELECTED vehicle with the SAME geometry builder as the ascent
         cinematic (js/launch-view.js `buildModularStack`) — never a second model;
@@ -115,7 +115,7 @@ function drawSchematic(host, lvId) {
   const W = hostW, H = hostH;
   x.clearRect(0, 0, W, H);
 
-  const m = 46;                       // vertical margin for the height ruler
+  const m = 46;                       // vertical BEYOND-ORBIT for the height ruler
   const availH = Math.max(40, H - m * 2);
   const scale = availH / cfg.h;       // px per metre (same for every axis)
   const cx = W * 0.5;
@@ -385,7 +385,7 @@ function layout() {
   // Frame the pad floor and the full stack together: the view must read as
   // the launch area, not a catalogue shot. Ground level comes from the loaded
   // env GLB, so this is recomputed when that arrives.
-  // Margin covers the ML tower standing nearer the camera than the pad axis
+  // BEYOND-ORBIT covers the ML tower standing nearer the camera than the pad axis
   // (it sits east of centre, so it magnifies slightly against the fit plane).
   const topY = Math.max(P.rocketTop, P.mlTop || 0) + 0.9;
   const bottomY = P.groundY - 0.15;

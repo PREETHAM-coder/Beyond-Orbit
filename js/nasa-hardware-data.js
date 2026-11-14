@@ -1,7 +1,7 @@
 /* ══════════════════════════════════════════════════════════════
    NASA COMPONENT FLIGHT DATA & PROVENANCE LAYER (NASA_HARDWARE_DATA)
    ══════════════════════════════════════════════════════════════
-   Authoritative provenance registry for MARGIN components.
+   Authoritative provenance registry for BEYOND-ORBIT components.
    Enriches build-bay catalogues (INSTR, POWER, PROP, COMMS, CDH, ADCS,
    BATTERY, ROVER) with verified historical flight metadata, NSSDCA /
    PDS catalog identifiers, actual flight telemetry, and flight history.

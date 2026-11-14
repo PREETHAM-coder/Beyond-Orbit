@@ -1,4 +1,4 @@
-/* MARGIN briefing vista — thin adapter over js/orrery.js. Opens dwelling on
+/* BEYOND-ORBIT briefing vista — thin adapter over js/orrery.js. Opens dwelling on
    the mission's planet INSIDE the same solar system the select dive travels,
    so the handoff is continuous: same bodies, same sun, same light. Entry is
    a short glide; the planet is framed right-of-center for the dossier layout.
@@ -124,7 +124,7 @@ function frame(now) {
   let still = false;
   try { still = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
   V.simDays += still ? 0 : dt * DAYS_PER_SEC;
-  try { window.__MARGIN_SIMDAYS = V.simDays; } catch (e) {}
+  try { window.__BEYOND-ORBIT_SIMDAYS = V.simDays; } catch (e) {}
   if (V.sunMat && V.sunMat.uniforms && V.sunMat.uniforms.uTime && !still) {
     V.sunMat.uniforms.uTime.value = (V.sunMat.uniforms.uTime.value + dt) % 3600;
   }
@@ -224,7 +224,7 @@ async function start(host) {
   V.simDays = todayDays();
   /* adopt the shared live clock when fresh: same system, no time jump. */
   try {
-    const s = window.__MARGIN_SIMDAYS;
+    const s = window.__BEYOND-ORBIT_SIMDAYS;
     if (isFinite(s) && Math.abs(s - V.simDays) < 45) V.simDays = s;
   } catch (e) {}
   V.key = id;

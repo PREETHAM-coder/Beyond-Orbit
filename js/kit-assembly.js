@@ -1,4 +1,4 @@
-/* MARGIN shared spacecraft composer (js/kit-assembly.js).
+/* BEYOND-ORBIT shared spacecraft composer (js/kit-assembly.js).
    The ONE authoritative builder of the player's craft, used by both the build
    bay (js/view3d.js) and ops (js/ops-view.js). No second implementation.
    Side-effect-free module: no renderer, no DOM at import, no globals.
@@ -57,7 +57,7 @@ export function loadKitGltf(url) {
 /* --- hero craft: single-piece NASA flown-mission models per fixed mission ---
    Fixed missions fly their real NASA hero; free-design levels (l1/sbx) fly the
    player's modular kit build. Sim is untouched — this only selects the mesh.
-   Fallback chain everywhere: hero -> kit assembly -> margin bus -> marker. */
+   Fallback chain everywhere: hero -> kit assembly -> BEYOND-ORBIT bus -> marker. */
 export const HERO_BY_LEVEL = {
   l1: { url: 'models/nasa/aqua.glb', assetId: 'AQUA-EOS', why: 'Aqua Earth Observing System Flagship (NASA EOS)' },
   l2: { url: 'models/nasa/lro.glb', assetId: 'LRO-A', why: 'Lunar Reconnaissance Orbiter' },
@@ -407,7 +407,7 @@ export function scalePartAboutCenter(part, f) {
 
 /* ── Authentic Flown NASA Flight Spacecraft Presentation ──────────────
    All artificial procedural rails, hanging boxes, cones, and cylinders are retired.
-   All spacecraft in MARGIN display authentic NASA CAD assets (LRO, MRO, OSIRIS-REx,
+   All spacecraft in BEYOND-ORBIT display authentic NASA CAD assets (LRO, MRO, OSIRIS-REx,
    Voyager, MESSENGER). Payload instruments and propulsion thrusters are authentic
    flight systems integral to the genuine NASA flight spacecraft.
    ══════════════════════════════════════════════════════════════════════ */

@@ -1,4 +1,4 @@
-/* MARGIN ground-to-orbit launch cinematic (js/launch-view.js).
+/* BEYOND-ORBIT ground-to-orbit launch cinematic (js/launch-view.js).
    Rocket: PROCEDURAL dimensionally-true multi-stage aerospace simulation.
    Every stack is anchored to verified published figures (see MODELS_SOURCES.md
    and models/manifest/launch-vehicles.json):
@@ -342,7 +342,7 @@ function riseFromFlight(f, lvId) {
   } catch (e) { return 0; }
 }
 /* Pad-phase wall map (expert method — PRESENTATION): real-time through
-   tower-top + margin (w1), linear rate ramp over PAD_RAMP_S, constant catch-up
+   tower-top + BEYOND-ORBIT (w1), linear rate ramp over PAD_RAMP_S, constant catch-up
    after. Pure in omega so reduced-motion keeps SHAPE; endpoints exact so dRise
    stays 0 at both ends and f = MET/endMet keeps all MET-keyed windows valid. */
 const PAD_RAMP_S = 6;
