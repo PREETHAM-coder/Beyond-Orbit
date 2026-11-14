@@ -2094,7 +2094,7 @@ function scrTitle(){
   <div class="earth-wrap" aria-hidden="true"><canvas id="earthCanvas"></canvas><div class="earth-fallback"></div></div>
   <div class="title-copy">
     <div class="mark-lg">BEYOND-ORBIT</div>
-    <div class="tagline">EVERY GRAM, EVERY WATT, EVERY BIT</div>
+    <div class="tagline">DESIGN BEYOND LIMITS</div>
     <div class="modes hero">
       <button class="btn primary hero-start" data-act="start">START A MISSION</button>
       ${(()=>{ const ses=readSession(), sesL=ses?byId(LEVELS,ses.levelId):null;
