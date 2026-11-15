@@ -100,9 +100,9 @@ flowchart TB
 - **Five mission destinations:** Earth orbit, the Moon, Mars, asteroid Bennu, and Europa.
 - **Mission design:** Select science goals and instruments, then balance spacecraft mass, power, cost, propulsion, launch capability, and communications.
 - **Launch experience:** Review readiness and follow a visual launch sequence with mission-specific vehicles and flight milestones.
-- **Mission operations:** Manage spacecraft resources, science collection, data storage, Deep Space Network support, and operational risk.
+- **Mission operations:** Manage spacecraft resources, science collection, data storage, Deep Space Network support, and operational risk. At arrival, open the destination research hub to explore the target in 3D and review live science-return progress.
 - **Surface missions:** Where a mission profile supports it, operate a rover or lander using terrain-aware surface views and exploration objectives.
-- **Science data:** Generate simulated science data according to mission and instrument settings, with a maximum modeled generation rate of **500 GB per day**.
+- **Science data:** Generate simulated science data according to mission and instrument settings, with a maximum modeled generation rate of **30 GB per day**.
 - **3D exploration:** View the title-screen Earth and interactive solar-system, spacecraft, launch, and surface scenes.
 - **Mission debrief:** Review outcomes, compare against historical mission benchmarks, and see how engineering decisions affected the result.
 - **NASA data provenance:** Inspect in-app source notes and the project’s detailed [source register](SOURCES.md).

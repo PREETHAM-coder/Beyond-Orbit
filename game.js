@@ -313,6 +313,18 @@ const BODY = {
   jupiter:{n:"Jupiter / Europa", a:5.20336301, e:0.04839266, M0:19.65053, peri:14.75385, mu:126686534, rp:1000000, au:5.20, dose:180,
          dv:[["Perijove raise",0.20],["Europa tour (50 flybys)",1.05],["Trajectory corrections",0.15]]}
 };
+const DESTINATION_EXPLORER={
+ earth:{region:"LOW EARTH ORBIT",phase:"EARTH OBSERVATORY",distance:"1.00 AU",color:"#5fa8ff",
+  brief:"Study Earth's oceans, atmosphere, land cover, and changing climate from a stable orbital vantage."},
+ moon:{region:"LUNAR POLAR ORBIT",phase:"LUNAR FRONTIER",distance:"EARTH–MOON SYSTEM",color:"#c8d3df",
+  brief:"Survey cratered highlands and shadowed polar terrain for water ice, geology, and landing-site context."},
+ mars:{region:"MARS CAPTURE ORBIT",phase:"RED PLANET SCIENCE",distance:"1.52 AU",color:"#ff825f",
+  brief:"Map ancient landscapes and atmospheric processes; surface missions can compare orbital context with rover measurements."},
+ bennu:{region:"BENNU RENDEZVOUS",phase:"ASTEROID SAMPLE CAMPAIGN",distance:"1.13 AU",color:"#e5b46d",
+  brief:"Characterize a small primitive asteroid, then connect proximity observations with the mission's touch-and-go sample objective."},
+ jupiter:{region:"JOVIAN SYSTEM · EUROPA TOUR",phase:"OCEAN-WORLD FLYBYS",distance:"5.20 AU",color:"#d5a26d",
+  brief:"Explore Europa through repeated orbital flybys and remote sensing. This architecture is a flyby mission, not a surface landing."}
+};
 
 /* ── L2 lunar landing-site candidates (Phase 1 rover-forward planning) ──
    Coordinates/character: real LRO record (see SOURCES.md §11). Gameplay
@@ -479,7 +491,7 @@ const LEVELS = [
   objs:["o_samp","o_geo","o_org","o_mmap","o_dust","o_rad"], req:1, force:["o_samp"],
   parts:["ctx","hires","therm","vnir","msp","alt","arm","dust","rad","uso","mag"],
   power:["sa2","sa3","sa4"], comms:["mga","hga2","hga3","ka"], prop:["bi","dual","sep"],
-  lvs:["av551","vc4","vc6","fhr","fhe","ng"], dsnHrs:5, dose:1.5,
+  lvs:["av551","vc4","vc6","fhr","fhe","ng"], defaultLv:"fhe", dsnHrs:5, dose:1.5,
   depart:[2029.0,2030.2], tofRange:[300,900],
   par:{mass:2100,power:1400,cost:1050}},
 
@@ -492,7 +504,7 @@ const LEVELS = [
   objs:["o_ocw","o_ice","o_fld","o_geo","o_org","o_rad","o_int","o_dust"], req:3,
   parts:["ctx","hires","therm","vnir","msp","radar","alt","mag","plas","dust","rad","uso"],
   power:["sa4","rtg1","rtg2"], comms:["hga2","hga3","ka"], prop:["bi","dual","sep"],
-  lvs:["vc6","fhe","ng","sls"], dsnHrs:4, dose:180,
+  lvs:["vc6","fhe","ng","sls"], defaultLv:"sls", defaultPower:"sa4", dsnHrs:4, dose:180,
   depart:[2030.0,2031.5], tofRange:[700,2400],
   par:{mass:6000,power:2700,cost:4200}},
 
@@ -558,8 +570,8 @@ const AU = 1.49597870700e8;          // km — SPEC §1 IAU exact 149,597,870.70
 const G0 = 9.80665;                // m/s^2
 const DAY = 86400; // canonical owner js/constants.js DAY_S (identical value)
 const DATA_DUTY = 0.12;
-const DATA_GEN_SCALE = 8.0; // Lets the maximum L5 payload reach the 500 GB/day ceiling.
-const MAX_GEN_DATA_MBIT_PER_DAY = 500 * 8000;
+const DATA_GEN_SCALE = 8.0; // Preserves mission scaling while enforcing the 30 GB/day ceiling.
+const MAX_GEN_DATA_MBIT_PER_DAY = 30 * 8000;
 function generatedDataMbPerDay(dataMbps,L,duty=1,sciMult=1){
   return Math.min(MAX_GEN_DATA_MBIT_PER_DAY,
     dataMbps*DATA_DUTY*DAY*(L.dataScale||1)*DATA_GEN_SCALE*duty*sciMult);
@@ -2939,7 +2951,10 @@ function initLaunch(){
   }else{
     S.launch.c3=0; S.launch.vinf=0; S.launch.tof=0; S.launch.tDep=2029.0; S.launch.set=true;
   }
-  if((!S.launch.lv||!L.lvs.includes(S.launch.lv))&&L.lvs&&L.lvs.length){ S.launch.lv=L.lvs[0]; S.launch.outcome=null; S.launch.acked=false; }
+  if((!S.launch.lv||!L.lvs.includes(S.launch.lv))&&L.lvs&&L.lvs.length){
+    S.launch.lv=L.defaultLv&&L.lvs.includes(L.defaultLv)?L.defaultLv:L.lvs[0];
+    S.launch.outcome=null; S.launch.acked=false;
+  }
   renderLV(); renderHUD();
   try { import("./js/launch-view.js?v=20261108c").catch(()=>{}); } catch(e) {}
 }
@@ -3366,6 +3381,7 @@ function scrOps(){
       <div class="minimap-hdr">
         <span class="minimap-title">TACTICAL MAP [2.5D]</span>
         <span class="minimap-actions">
+          <button data-act="explorer-open" class="minimap-action-btn dest-minimap-btn" title="Open destination explorer and research">EXPLORE</button>
           <button data-act="cam-mode" data-v="system" class="minimap-action-btn" title="Align 3D camera to solar system view">ALIGN 3D</button>
           <button data-act="toggle-minimap" class="minimap-action-btn" title="Minimize/expand map" id="btnMinimapToggle">&minus;</button>
         </span>
@@ -3405,6 +3421,115 @@ function initOps(){
       if(!(live && live.isConnected && live===mine)) OpsView.start(m, { levelId: S.levelId, body: byId(LEVELS,S.levelId).body });
     }
   }catch(e){ console.warn("[ops] 3D init:", e); }
+  maybeShowDestinationExplorer();
+}
+function destinationExplorerHtml(){
+  const L=byId(LEVELS,S.levelId), O=S.ops, D=derive(S);
+  if(!L||!O) return "";
+  const meta=DESTINATION_EXPLORER[L.body]||DESTINATION_EXPLORER.earth;
+  const bodyName=BODY[L.body]?BODY[L.body].n:L.body;
+  const landed=!!(S.landing&&S.surface);
+  const canLand=!!landSpec();
+  const site=landSite(S);
+  const phase=landed?"SURFACE EXPLORATION":(O.day>=O.cruise?"ORBITAL SCIENCE":"CRUISE TO DESTINATION");
+  const rvTags=landed&&D.rv&&D.rv.ry?D.rv.ry.tags:[];
+  const live=D.instr.filter(i=>!O.dead.has(i.id));
+  const research=(S.objectives||[]).map(oid=>{
+    const obj=OBJ[oid];
+    if(!obj) return "";
+    const need=needMb(L,oid), received=O.delivered[oid]||0;
+    const progress=clamp(received/Math.max(1,need),0,1);
+    const covered=obj.need.every(tag=>live.some(i=>i.tags.includes(tag))||rvTags.includes(tag));
+    return `<details class="dest-research-card">
+      <summary><span class="dest-research-title">${esc(obj.t)}</span><span class="dest-research-progress">${(progress*100).toFixed(0)}%</span></summary>
+      <p>${esc(obj.d)}</p>
+      <div class="dest-progress"><i style="width:${(progress*100).toFixed(1)}%"></i></div>
+      <div class="dest-research-meta"><span>${fmtData(received)} / ${fmtData(need)} received</span><span class="${covered?"is-covered":"is-uncovered"}">${covered?"PAYLOAD COVERAGE":"SENSOR GAP"}</span></div>
+    </details>`;
+  }).join("");
+  const totalScience=Object.keys(O.delivered||{}).reduce((sum,id)=>sum+(O.delivered[id]||0),0);
+  return `<div class="dest-explorer">
+    <header class="dest-explorer-head">
+      <div><span class="dest-kicker">MISSION ARRIVAL · RESEARCH HUB</span><strong>${esc(L.name)}</strong></div>
+      <button class="modal-close-icon" data-act="explorer-close" aria-label="Close destination explorer">&times;</button>
+    </header>
+    <div class="dest-explorer-scroll">
+      <section class="dest-hero" data-body="${esc(L.body)}" style="--dest-accent:${meta.color}">
+        <div class="dest-art" aria-hidden="true"><span class="dest-ring dest-ring-a"></span><span class="dest-ring dest-ring-b"></span><span class="dest-globe"><i></i></span><span class="dest-probe"></span></div>
+        <div class="dest-hero-copy">
+          <div class="dest-kicker">${esc(meta.region)} <span>·</span> ${esc(meta.phase)}</div>
+          <h2>${esc(bodyName)}</h2>
+          <p>${esc(meta.brief)}</p>
+          <div class="dest-tags"><span>${esc(L.sub)}</span><span>${esc(meta.distance)}</span></div>
+        </div>
+      </section>
+      <div class="dest-stats">
+        <div><span>MISSION PHASE</span><b>${phase}</b></div>
+        <div><span>MISSION CLOCK</span><b>${dayLabel(O.day)}</b></div>
+        <div><span>SCIENCE RECEIVED</span><b>${fmtData(totalScience)}</b></div>
+        <div><span>DESTINATION ACCESS</span><b>${landed?"LANDED · "+esc(site?site.n:"SURFACE"):canLand?"LANDING SYSTEM READY":"ORBIT / FLYBY"}</b></div>
+      </div>
+      <section class="dest-explore-section">
+        <div class="dest-section-title"><div><span class="dest-kicker">CHOOSE YOUR VIEW</span><h3>Explore the destination</h3></div><span class="dest-section-code">NAV-01</span></div>
+        <div class="dest-actions">
+          <button class="dest-action primary" data-act="explorer-view" data-v="target"><span>01</span><b>FOCUS TARGET</b><small>Explore the planet or moon from orbit</small></button>
+          <button class="dest-action" data-act="explorer-view" data-v="system"><span>02</span><b>SYSTEM OVERVIEW</b><small>Zoom out to the full mission system</small></button>
+          <button class="dest-action" data-act="explorer-view" data-v="free"><span>03</span><b>FREE ORBIT CONTROLS</b><small>Rotate and inspect the destination scene</small></button>
+          ${landed?`<button class="dest-action" data-act="explorer-view" data-v="surface"><span>04</span><b>ENTER SURFACE</b><small>Return to rover-level exploration</small></button>`:`<div class="dest-access-note"><span>${canLand?"DESCENT PACKAGE SELECTED":"ORBITAL / FLYBY ARCHITECTURE"}</span><p>${canLand?"Surface exploration unlocks after the landing sequence.":"No surface landing is modeled for this mission; explore the target in orbit."}</p></div>`}
+        </div>
+      </section>
+      <section class="dest-research-section">
+        <div class="dest-section-title"><div><span class="dest-kicker">LIVE SCIENCE RETURN</span><h3>Mission research</h3></div><span class="dest-section-code">SCI-02</span></div>
+        <p class="dest-research-intro">Research progress is driven by the data your selected instruments and surface assets actually return.</p>
+        <div class="dest-research-grid">${research||`<p class="dest-empty">No science objectives are assigned to this mission.</p>`}</div>
+      </section>
+    </div>
+    <footer class="dest-explorer-foot"><span>3D VIEW CONTROLS REMAIN AVAILABLE AFTER CLOSING THIS HUB</span><button class="btn primary" data-act="explorer-close">RETURN TO MISSION</button></footer>
+  </div>`;
+}
+function maybeShowDestinationExplorer(force){
+  const O=S&&S.ops;
+  if(!O||S.screen!=="ops"||O.ended) return false;
+  const modal=el("modal");
+  if(modal.classList.contains("on")&&modal.dataset.lock!=="explorer") return false;
+  if(!force){
+    if(O.explorerShown) return false;
+    if(phaseRequired("arrival")&&!O.arrivalApplied) return false;
+    if(phaseRequired("proximity")&&!O.proxApplied) return false;
+    if(aeroSpec()&&!O.aeroApplied) return false;
+    if(landSpec()&&!S.landing) return false;
+  }
+  O.explorerShown=true;
+  O.explorerWasRunning=!!O.running;
+  O.running=false;
+  const box=el("mbox");
+  box.className="mbox modal-wide destination-explorer";
+  box.innerHTML=destinationExplorerHtml();
+  modal.dataset.lock="explorer";
+  modal.classList.add("on");
+  return true;
+}
+function closeDestinationExplorer(mode){
+  const O=S&&S.ops, modal=el("modal");
+  if(mode&&window.OpsView){
+    if(mode==="surface"){
+      if(!(S.landing&&S.surface&&OpsView.enterSurface)) return;
+      if(!OpsView.enterSurface()) return;
+      if(OpsView.setCameraMode) OpsView.setCameraMode("surface");
+    }else if(["target","system","free"].includes(mode)&&OpsView.setCameraMode){
+      OpsView.setCameraMode(mode);
+    }
+  }
+  delete modal.dataset.lock;
+  delete modal.dataset.ev;
+  modal.classList.remove("on");
+  el("mbox").className="mbox";
+  if(O){
+    O.running=!!O.explorerWasRunning;
+    delete O.explorerWasRunning;
+  }
+  if(mode) document.querySelectorAll('[data-act="cam-mode"]').forEach(b=>b.classList.toggle("on",b.dataset.v===mode));
+  renderOpsSide(true);
 }
 /* ── Phase 3 arrival: mission-relevant capture/rendezvous choice, existing OPS fields only. ── */
 function arrivalSpec(){
@@ -3455,6 +3580,7 @@ function resolveArrival(i){
   if(phaseRequired("proximity")&&!O.proxApplied){ maybeShowProxBrief(); return; }
   /* Phase 6: chain aerobrake brief for Mars captures. */
   if(aeroSpec()&&!O.aeroApplied){ maybeShowAeroBrief(); return; }
+  maybeShowDestinationExplorer();
 }
 function proxSpec(){
   const L=byId(LEVELS,S.levelId); if(!L) return null;
@@ -3497,6 +3623,7 @@ function resolveProx(i){
   logLine(O.day,`Proximity (${spec.body}): ${c.t}.`,"good");
   el("modal").classList.remove("on"); delete el("modal").dataset.ev;
   O.running=true;
+  maybeShowDestinationExplorer();
 }
 /* ── Phase 4 LAND: L2 terminal descent (site + rover required) ──
    Triggered once at arrival day (see loopOps), NOT at ops start: the descent
@@ -3598,12 +3725,13 @@ function resolveLand(i){
     if(window.OpsView&&OpsView.startDescent){
       OpsView.startDescent({
         onBlackout:()=>{ try{ if(window.OpsView&&OpsView.enterSurface) OpsView.enterSurface(); }catch(e){} },
-        onDone:()=>{ try{ if(window.OpsView&&OpsView.enterSurface) OpsView.enterSurface(); }catch(e){} finishLanding(); }
+        onDone:()=>{ try{ if(window.OpsView&&OpsView.enterSurface) OpsView.enterSurface(); }catch(e){} finishLanding(); maybeShowDestinationExplorer(); }
       });
       return;
     }
   }catch(e){}
   finishLanding();
+  maybeShowDestinationExplorer();
 }
 /* Touchdown application — exactly once per run (choice, skip, headless and
    exit paths all converge here; the descentActive flag is the single lock). */
@@ -3656,6 +3784,7 @@ function resolveAero(i){
   logLine(O.day,i===1?"Aerobraking: capture on drag passes. ~8% propellant saved; +60 days, +$6M ops.":"Propulsive capture: baseline burn, no change.","good");
   el("modal").classList.remove("on"); delete el("modal").dataset.ev;
   O.running=true;
+  maybeShowDestinationExplorer();
 }
 function aeroLabel(){
   const O=S.ops;
@@ -6271,13 +6400,12 @@ function challengeUrl(){
 }
 /* One default table, two callers (D-17): startLevel() for a fresh mission and
    applyShareObject() for a payload that carries no design (challenge codes,
-   A-13). Values are exactly the pre-remediation startLevel defaults — this
-   refactor is behaviour-preserving for every existing link. */
+   A-13). Mission-specific defaults override the general baseline where needed. */
 function defaultBuild(L){
   return {
     objectives:(L.force||[]).slice(),
     instruments:[],
-    power:L.power[Math.min(1,L.power.length-1)],
+    power:L.defaultPower&&L.power.includes(L.defaultPower)?L.defaultPower:L.power[Math.min(1,L.power.length-1)],
     comms:L.comms[Math.min(1,L.comms.length-1)],
     prop:L.prop[0], shield:"sh0", dsn:"standard", site:null, assist:false,
     cdh:"cdh_std", adcs:"adcs_std",
@@ -7446,6 +7574,9 @@ document.addEventListener("click",e=>{
       break;
     }
     case "landch": resolveLand(+t.dataset.i); Audio_.click(); break;
+    case "explorer-open": maybeShowDestinationExplorer(true); Audio_.click(); break;
+    case "explorer-close": closeDestinationExplorer(); Audio_.click(); break;
+    case "explorer-view": closeDestinationExplorer(t.dataset.v); Audio_.click(); break;
     case "sord": {
       if(!S.surface) break;
       if(!["drive","dwell","drill","recharge","relay"].includes(t.dataset.v)) break;
@@ -7839,8 +7970,9 @@ document.addEventListener("keydown",e=>{
   }
 });
 
-/* ── Phase 2 launch reliability: single deterministic roll from LV rel + existing mulberry32.
-   Failure mass = 1-rel; split deterministically: scrub 35% / partial 30% / catastrophic 35% of failures. */
+/* ── Phase 2 launch reliability: independent roll per attempt.
+   Failure mass = 1-rel; split: scrub 35% / partial 30% / catastrophic 35% of failures.
+   The resolved outcome is stored on S.launch so redraws cannot reroll an attempt. */
 /* ── Launch REFERENCE flight profiles (NOT derive(S) engineering truth) ──
    - derive(S) = engineering truth (mass/dv/power/data/cost/capability).
    - FLIGHT_KEYS = reference timeline keys (documented launch milestones, not a live
@@ -7992,10 +8124,13 @@ function flightDownrangeAt(lvId, met){
   }catch(e){ return 0; }
 }
 function launchRoll(){
-  const li=(S.launch&&S.launch.i||0), lj=(S.launch&&S.launch.j||0);
-  let h=0; const s=String(S.levelId||"")+":"+String(S.launch&&S.launch.lv||"");
-  for(let k=0;k<s.length;k++) h=(h*31+s.charCodeAt(k))|0;
-  const rnd=mulberry32((S.seed^h^(li*131+lj*17))|0);
+  const seed = new Uint32Array(1);
+  if(window.crypto&&typeof window.crypto.getRandomValues==="function"){
+    window.crypto.getRandomValues(seed);
+  }else{
+    seed[0]=Math.floor(Math.random()*4294967296);
+  }
+  const rnd=mulberry32(seed[0]|0);
   return [rnd(),rnd()];
 }
 function resolveLaunchOutcome(){
@@ -8966,7 +9101,7 @@ function seedDemoLaunch(lv){
   }
   else if(L.mode==="fixedC3"){ S.launch.c3=L.c3;S.launch.vinf=0;S.launch.tof=L.tof;S.launch.tDep=2029.2;S.launch.set=true; }
   else { S.launch.c3=0;S.launch.vinf=0;S.launch.tof=0;S.launch.tDep=2029.0;S.launch.set=true; }
-  S.launch.lv=(lv&&byId(LV,lv))?lv:(L.lvs&&L.lvs[0])||"f9";
+  S.launch.lv=(lv&&byId(LV,lv))?lv:(L.defaultLv&&L.lvs.includes(L.defaultLv)?L.defaultLv:(L.lvs&&L.lvs[0])||"f9");
   S.launch.outcome=null;S.launch.acked=false;
   /* Demo build: forced objectives first, else the mission's own minimum-set
      requirement — instruments only, launch/systems stay default. */
