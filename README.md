@@ -9,6 +9,8 @@
 
 **Explore space. Design missions. Discover beyond.**
 
+**Live demo:** [beyondorbit-umber.vercel.app](https://beyondorbit-umber.vercel.app/)
+
 BEYOND-ORBIT is a browser-based mission-design game that turns spacecraft engineering trade-offs into a playable end-to-end mission. Choose a destination, configure a spacecraft and science objectives, fly a launch, then operate the mission while balancing power, fuel, communications, data storage, risk, and time.
 
 The experience combines a 3D Earth and solar-system visualization with NASA/JPL-derived reference data, mission operations, and surface exploration. It is an educational prototype; it is not an official NASA product or a flight-planning tool.
