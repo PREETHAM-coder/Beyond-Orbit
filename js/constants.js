@@ -42,5 +42,5 @@
   // Phobos 11.08 MAR097, Io 1821.49 / Ganymede 2631.20 JUP365 — "radius of a
   // sphere with the equivalent volume"); radiusKmTrue now reads MOONS directly.
   // Legacy educational values (11.267 / 1821.6 / 2634.1, UNKNOWN provenance) retired.
-  root.BEYOND-ORBIT_CONST = C;
+  root.ORBIT_CONST = C;
 })(typeof window !== "undefined" ? window : globalThis);

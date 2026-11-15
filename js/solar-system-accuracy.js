@@ -9,10 +9,10 @@
 
    No THREE dependency — safe for `node --check` and node validation. */
 
-export const AU_KM = (globalThis.BEYOND-ORBIT_CONST && globalThis.BEYOND-ORBIT_CONST.AU_KM) || 149597870.700;          // IAU exact (§1) — AUTHORITATIVE, owned by js/constants.js
-export const DAY_S = (globalThis.BEYOND-ORBIT_CONST && globalThis.BEYOND-ORBIT_CONST.DAY_S) || 86400; // AUTHORITATIVE, owned by js/constants.js
-export const JULIAN_YEAR_D = (globalThis.BEYOND-ORBIT_CONST && globalThis.BEYOND-ORBIT_CONST.JULIAN_YEAR_D) || 365.25;
-export const J2000_JD = (globalThis.BEYOND-ORBIT_CONST && globalThis.BEYOND-ORBIT_CONST.J2000_JD) || 2451545.0; // DERIVED epoch anchor, owned by js/constants.js
+export const AU_KM = (globalThis.ORBIT_CONST && globalThis.ORBIT_CONST.AU_KM) || 149597870.700;          // IAU exact (§1) — AUTHORITATIVE, owned by js/constants.js
+export const DAY_S = (globalThis.ORBIT_CONST && globalThis.ORBIT_CONST.DAY_S) || 86400; // AUTHORITATIVE, owned by js/constants.js
+export const JULIAN_YEAR_D = (globalThis.ORBIT_CONST && globalThis.ORBIT_CONST.JULIAN_YEAR_D) || 365.25;
+export const J2000_JD = (globalThis.ORBIT_CONST && globalThis.ORBIT_CONST.J2000_JD) || 2451545.0; // DERIVED epoch anchor, owned by js/constants.js
 export const LIGHT_KM_S = 299792.458;        // §1 — AUTHORITATIVE
 export const LIGHT_S_PER_AU = 499.004783836; // §1
 
@@ -50,7 +50,7 @@ export function albedoOf(key){
 
 export const R_SUN_KM = 695700;              // IAU nominal (§3)
 export const D_SUN_KM = 1391400;
-export const GM_SUN_KM3_S2 = (globalThis.BEYOND-ORBIT_CONST && globalThis.BEYOND-ORBIT_CONST.GM_SUN_KM3_S2) || 132712440041.27942; // JPL SSD astrodynamic parameters, DE440-compatible — AUTHORITATIVE per solution, owned by js/constants.js
+export const GM_SUN_KM3_S2 = (globalThis.ORBIT_CONST && globalThis.ORBIT_CONST.GM_SUN_KM3_S2) || 132712440041.27942; // JPL SSD astrodynamic parameters, DE440-compatible — AUTHORITATIVE per solution, owned by js/constants.js
 export const M_SUN_KG = 1.9884e30;           // NASA approximate (§3)
 
 export const FRAME = 'ECLIPTIC_J2000 (JPL Horizons native; X-Y = J2000 mean ecliptic)';

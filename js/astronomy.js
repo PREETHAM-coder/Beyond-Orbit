@@ -31,9 +31,9 @@
    ══════════════════════════════════════════════════════════════════════ */
 (function (root) {
 
-var AU_KM = (root.BEYOND-ORBIT_CONST && root.BEYOND-ORBIT_CONST.AU_KM) || 149597870.700;
-var DAY_S = (root.BEYOND-ORBIT_CONST && root.BEYOND-ORBIT_CONST.DAY_S) || 86400;
-var J2000_JD = (root.BEYOND-ORBIT_CONST && root.BEYOND-ORBIT_CONST.J2000_JD) || 2451545.0; // JD(TDB) 2000-01-01 12:00 TDB
+var AU_KM = (root.ORBIT_CONST && root.ORBIT_CONST.AU_KM) || 149597870.700;
+var DAY_S = (root.ORBIT_CONST && root.ORBIT_CONST.DAY_S) || 86400;
+var J2000_JD = (root.ORBIT_CONST && root.ORBIT_CONST.J2000_JD) || 2451545.0; // JD(TDB) 2000-01-01 12:00 TDB
 
 /* ── Time: owned by TimeService (js/time-service.js, spec §11) ─────────
    This core delegates; the math moved verbatim. Load order (index.html +
@@ -136,7 +136,7 @@ var KEPLER_ELEMENTS = { // a AU, e, I deg, L deg, peri deg, node deg (JPL approx
   // Chebyshev pack (ORX_merged_DE424). M0@J2000 = 28.84 derived from
   // SBDB tp=2455439.142 (orbit_id 118, condition_code 0).
 };
-var GM_SUN = (root.BEYOND-ORBIT_CONST && root.BEYOND-ORBIT_CONST.GM_SUN_KM3_S2) || 132712440041.27942;
+var GM_SUN = (root.ORBIT_CONST && root.ORBIT_CONST.GM_SUN_KM3_S2) || 132712440041.27942;
 function keplerState(el, simDays) {
   var M0 = (el.M0 !== undefined) ? el.M0 : ((el.L - el.peri) % 360 + 360) % 360;
   var n = 360 / (Math.pow(el.a, 1.5) * 365.25);

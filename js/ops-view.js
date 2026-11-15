@@ -4115,7 +4115,7 @@ function dzBegin3D() {
     // BEYOND-ORBIT note for the descent log line (low BEYOND-ORBIT → slightly longer hover
     // is expressed as a 10% tail stretch, presentation timing only).
     try {
-      if (DZ3D.land && isFinite(DZ3D.land.BEYOND-ORBIT) && DZ3D.land.BEYOND-ORBIT < 1) DZ3D.T *= 1.1;
+      if (DZ3D.land && isFinite(DZ3D.land.rvSlope) && DZ3D.land.rvSlope < 1) DZ3D.T *= 1.1;
     } catch (e) {}
     DZ3D.t = 0; DZ3D.hold = 0; DZ3D.covered = false; DZ3D._acc = 0; DZ3D.lastAria = 0;
     try { V.dz3dOn = true; } catch (e) {}
@@ -4360,8 +4360,9 @@ function startDescent(opts) {
       try {
         if (DZ.land && !DZ._diverted) {
           DZ._diverted = true;
-          DZ.land.slope = Math.max(0.5, DZ.land.slope - 1.2);
-          DZ.land.BEYOND-ORBIT = Math.round((DZ.land.BEYOND-ORBIT + 1.2) * 10) / 10;
+          const previousSlope = DZ.land.slope;
+          DZ.land.slope = Math.max(0.5, previousSlope - 1.2);
+          DZ.land.rvSlope = Math.round((DZ.land.rvSlope + previousSlope - DZ.land.slope) * 10) / 10;
           divert.textContent = 'DIVERTED TO RESERVE (SLOPE -1.2°) ✓';
           divert.classList.add('diverted');
           if (typeof logLine === 'function') {

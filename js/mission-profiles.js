@@ -39,7 +39,7 @@
         id: "orbital",
         name: "Polar Reconnaissance (LRO Class)",
         sub: "Pure Remote Sensing Orbiter · Standoff Mapping",
-        desc: "Laser altimetry, gamma-ray ice detection, and context mapping from 50 km orbit. High mass BEYOND-ORBITs, lean budget, zero landing risk.",
+        desc: "Laser altimetry, gamma-ray ice detection, and context mapping from 50 km orbit. High mass margins, lean budget, zero landing risk.",
         capM: 520,
         par: { mass: 1800, power: 540, cost: 440 },
         hasRover: false,
@@ -160,12 +160,12 @@
       var on = p.id === curId;
       return '<button class="obj site ' + (on ? 'sel' : '') + '" data-act="profile" data-id="' + p.id + '" style="--i:' + idx + ';text-align:left;width:100%">'
         + '<div class="site-card-body" style="width:100%">'
-        + '<div class="site-header" style="display:flex;justify-content:space-between;align-items:center;gap:8px;BEYOND-ORBIT-bottom:4px">'
+        + '<div class="site-header" style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:4px">'
         + '<span class="t" style="font-size:13px;font-weight:600">' + p.name + '</span>'
         + '<span class="site-badge ' + (on ? 'sel' : '') + '">' + (on ? '<span class="g-icon">check</span> ACTIVE DIRECTIVE' : 'SELECT DIRECTIVE') + '</span>'
         + '</div>'
-        + '<span class="d" style="display:block;BEYOND-ORBIT-bottom:6px;color:var(--phosphor);font-size:11.5px">' + p.sub + '</span>'
-        + '<p class="hint" style="font-size:11.5px;line-height:1.5;BEYOND-ORBIT-bottom:8px;color:var(--bone)">' + p.desc + '</p>'
+        + '<span class="d" style="display:block;margin-bottom:6px;color:var(--phosphor);font-size:11.5px">' + p.sub + '</span>'
+        + '<p class="hint" style="font-size:11.5px;line-height:1.5;margin-bottom:8px;color:var(--bone)">' + p.desc + '</p>'
         + '<div class="site-metrics-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-family:var(--mono);font-size:11px;background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:4px;border:1px solid rgba(255,255,255,0.04)">'
         + '<div><span style="color:var(--dim);display:block;font-size:9.5px">BUDGET CAP</span><b style="color:var(--phosphor)">$' + p.capM + 'M</b></div>'
         + '<div><span style="color:var(--dim);display:block;font-size:9.5px">PAR MASS</span><b style="color:var(--bone)">' + p.par.mass + ' kg</b></div>'
@@ -177,7 +177,7 @@
     return '<div class="panel glass mt"><span class="bracket tl"></span><span class="bracket br"></span>'
       + '<h3>MISSION ARCHITECTURE DIRECTIVE <span class="code">ARCH-01</span></h3>'
       + '<div class="pad">'
-      + '<p class="hint" style="BEYOND-ORBIT-bottom:8px">Select the NASA mission architecture profile. Your choice configures hardware rails, payload expectations, and exploration scope.</p>'
+      + '<p class="hint" style="margin-bottom:8px">Select the NASA mission architecture profile. Your choice configures hardware rails, payload expectations, and exploration scope.</p>'
       + '<div class="objlist" style="display:flex;flex-direction:column;gap:8px">' + cards + '</div>'
       + '</div></div>';
   }

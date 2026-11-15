@@ -67,14 +67,14 @@ function nasaHardwareModal(cat, id){
   if(!h) return;
   let specRows = '';
   if(h.flightSpecs){
-    specRows = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;background:rgba(255,255,255,0.03);padding:10px;border-radius:3px;BEYOND-ORBIT:12px 0">'
+    specRows = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;background:rgba(255,255,255,0.03);padding:10px;border-radius:3px;margin:12px 0">'
       + '<div><span style="font-size:10px;color:var(--dim);display:block;font-family:var(--mono)">FLIGHT MASS</span><b style="font-size:14px;color:var(--phosphor)">' + h.flightSpecs.massKg + ' kg</b></div>'
       + '<div><span style="font-size:10px;color:var(--dim);display:block;font-family:var(--mono)">POWER DRAW</span><b style="font-size:14px;color:var(--phosphor)">' + h.flightSpecs.powerW + ' W</b></div>'
       + '<div><span style="font-size:10px;color:var(--dim);display:block;font-family:var(--mono)">DATA RATE</span><b style="font-size:14px;color:var(--phosphor)">' + h.flightSpecs.dataRateMbps + ' Mb/s</b></div>'
       + '</div>';
   } else if(h.efficiency || h.specs || h.storage || h.pointing){
     const val = h.efficiency || h.specs || h.storage || h.pointing;
-    specRows = '<div style="background:rgba(255,255,255,0.03);padding:10px;border-radius:3px;BEYOND-ORBIT:12px 0">'
+    specRows = '<div style="background:rgba(255,255,255,0.03);padding:10px;border-radius:3px;margin:12px 0">'
       + '<span style="font-size:10px;color:var(--dim);display:block;font-family:var(--mono)">TECHNICAL PERFORMANCE</span>'
       + '<span style="font-size:12.5px;color:var(--phosphor);font-family:var(--mono)">' + esc(val) + '</span>'
       + '</div>';
@@ -89,12 +89,12 @@ function nasaHardwareModal(cat, id){
     + '<div class="prov-sub">' + esc(h.mission || h.flightOrigin || '') + '</div>'
     + '</div>'
     + '<div class="mb" style="font-size:12.5px;line-height:1.6;max-height:60vh;overflow:auto">'
-    + (h.sponsor ? '<p style="BEYOND-ORBIT:4px 0"><b style="color:var(--dim)">Principal Sponsor / Facility:</b> ' + esc(h.sponsor) + '</p>' : '')
-    + (h.nssdcId ? '<p style="BEYOND-ORBIT:4px 0"><b style="color:var(--dim)">NASA NSSDCA Master ID:</b> <span style="font-family:var(--mono);color:var(--bone)">' + esc(h.nssdcId) + '</span></p>' : '')
-    + (h.heritageClass ? '<p style="BEYOND-ORBIT:4px 0"><b style="color:var(--dim)">Hardware Class:</b> ' + esc(h.heritageClass) + '</p>' : '')
+    + (h.sponsor ? '<p style="margin:4px 0"><b style="color:var(--dim)">Principal Sponsor / Facility:</b> ' + esc(h.sponsor) + '</p>' : '')
+    + (h.nssdcId ? '<p style="margin:4px 0"><b style="color:var(--dim)">NASA NSSDCA Master ID:</b> <span style="font-family:var(--mono);color:var(--bone)">' + esc(h.nssdcId) + '</span></p>' : '')
+    + (h.heritageClass ? '<p style="margin:4px 0"><b style="color:var(--dim)">Hardware Class:</b> ' + esc(h.heritageClass) + '</p>' : '')
     + specRows
-    + '<p style="BEYOND-ORBIT-top:10px;color:var(--bone)">' + esc(h.description) + '</p>'
-    + (h.pdsUrl ? '<div style="BEYOND-ORBIT-top:14px;padding-top:10px;border-top:1px solid var(--hairline);font-size:11px">'
+    + '<p style="margin-top:10px;color:var(--bone)">' + esc(h.description) + '</p>'
+    + (h.pdsUrl ? '<div style="margin-top:14px;padding-top:10px;border-top:1px solid var(--hairline);font-size:11px">'
       + '<span style="color:var(--dim)">Archival PDS / Flight Records: </span>'
       + '<a href="' + esc(h.pdsUrl) + '" target="_blank" rel="noopener" style="color:var(--blue-lift);word-break:break-all">' + esc(h.pdsUrl) + '</a>'
       + '</div>' : '')
@@ -320,7 +320,7 @@ const BODY = {
    ABSTRACTIONS in the house style (cf. line 55): they order the sites
    correctly (benign↔rugged, dark↔lit, near↔far ice) without claiming survey
    precision. Only L2 reads them; S.site null or elsewhere = zero effect, so
-   old saves and share links derive byte-identical BEYOND-ORBITs. */
+   old saves and share links derive byte-identical margins. */
 const MOON_SITES=[
  {id:"tranq",n:"Mare Tranquillitatis",lat:"0.67°N",lon:"23.47°E",
   d:"Apollo 11 mare basalts. Flat and benign with a full day/night cycle — easy landing, harsh 354 h night, modest polar science.",
@@ -344,7 +344,7 @@ function moonSite(S){ if(!S||(S.levelId!=="l2"&&S.levelId!=="sbx_moon")||!S.site
    the house style: they order the sites correctly (benign↔rugged,
    dust-dimmed sun, Earth low so relay matters) without claiming survey
    precision. Only Mars-body levels (l3/sbx) read them; S.site null or
-   elsewhere = zero effect, so old saves derive byte-identical BEYOND-ORBITs. */
+   elsewhere = zero effect, so old saves derive byte-identical margins. */
 const MARS_SITES=[
  {id:"elysium",n:"Elysium Planitia",lat:"4.50°N",lon:"135.62°E",
   d:"InSight flat volcanic plain. Benign and boring — easy landing, long drive to interesting science.",
@@ -380,7 +380,7 @@ function surfPatchFor(siteId){
    correctly, capability thresholds the site table is tuned against. Landing levels only (l2 + Mars l3/sbx). */
 const ROVER_MOB=[
  {id:"rm1",n:"Rigid 4-wheel chassis (LRV class)",m:80,c:40,slope:12,grip:0.3,
-  d:"Apollo-LRV-class rigid suspension. Fine on mare, BEYOND-ORBITal on rims.",her:"LRV class",p:SRC.techport},
+  d:"Apollo-LRV-class rigid suspension. Fine on mare, marginal on rims.",her:"LRV class",p:SRC.techport},
  {id:"rm2",n:"Rocker-bogie 6-wheel (MER class)",m:150,c:90,slope:20,grip:0.6,
   d:"MER-class rocker-bogie. Climbs what the rigid chassis cannot.",her:"MER class",p:SRC.techport},
  {id:"rm3",n:"Active suspension (VIPER/MSL class)",m:260,c:180,slope:30,grip:0.85,
@@ -497,8 +497,8 @@ const LEVELS = [
   par:{mass:6000,power:2700,cost:4200}},
 
  {id:"sbx", num:6, name:"Free Design (Mars)", sub:"Sandbox — Mars transfer, unconstrained",
-  real:"No template. Grade rewards science returned under the cost cap with healthy BEYOND-ORBITs.",
-  brief:"The whole catalogue, the full launch fleet, and a Mars transfer window. Build whatever you can defend. Grade rewards science returned under the cost cap with healthy BEYOND-ORBITs, so an elegant small mission can beat an expensive one.",
+  real:"No template. Grade rewards science returned under the cost cap with healthy margins.",
+  brief:"The whole catalogue, the full launch fleet, and a Mars transfer window. Build whatever you can defend. Grade rewards science returned under the cost cap with healthy margins, so an elegant small mission can beat an expensive one.",
   newMech:"No constraints but physics and money.",
   body:"mars", mode:"pork", capM:3000, uncapped:true, years:5, dataScale:9, storeMb:160000,
   objs:["o_mmap","o_ice","o_geo","o_relay","o_atm","o_int","o_org","o_rad","o_dust","o_fld"], req:1,
@@ -558,6 +558,18 @@ const AU = 1.49597870700e8;          // km — SPEC §1 IAU exact 149,597,870.70
 const G0 = 9.80665;                // m/s^2
 const DAY = 86400; // canonical owner js/constants.js DAY_S (identical value)
 const DATA_DUTY = 0.12;
+const DATA_GEN_SCALE = 8.0; // Lets the maximum L5 payload reach the 500 GB/day ceiling.
+const MAX_GEN_DATA_MBIT_PER_DAY = 500 * 8000;
+function generatedDataMbPerDay(dataMbps,L,duty=1,sciMult=1){
+  return Math.min(MAX_GEN_DATA_MBIT_PER_DAY,
+    dataMbps*DATA_DUTY*DAY*(L.dataScale||1)*DATA_GEN_SCALE*duty*sciMult);
+}
+function fmtDailyData(mbitPerDay){
+  const gb=mbitPerDay/8000;
+  if(gb>=1) return fmtN(gb,gb<10?1:0)+" GB";
+  const mb=mbitPerDay/8;
+  return fmtN(mb,mb<10?1:0)+" MB";
+}
 /* objective data requirements, in Mbit. OBJ.data is a relative size; L.dataScale sets the
    absolute volume a mission of that class has to return. */
 function needMb(L,oid){ return OBJ[oid].data * (L.dataScale||1) * 1000; }
@@ -794,13 +806,13 @@ function derive(S){
   }
   genBOL*=siteSun; genEOL*=siteSun;
   /* Phase-2 rover↔site compatibility (readouts + review gates; the mass/power/
-     cost consequences above already flow through the standard BEYOND-ORBITs):
+     cost consequences above already flow through the standard margins):
      slope cap vs site slope, night tier vs site darkness, link gain vs
      Earth-view fraction, payload science × site science (for Phase-7 grading). */
-  let rvSlopeOk=true, rvSlopeBEYOND-ORBIT=99, rvNightOk=true, rvNightNeed=0,
+  let rvSlopeOk=true, rvSlope=99, rvNightOk=true, rvNightNeed=0,
       rvComOk=true, rvComNeed=0, rvSci=siteSci;
   if(rv&&site){
-    rvSlopeBEYOND-ORBIT=rv.rm.slope-site.slope; rvSlopeOk=rvSlopeBEYOND-ORBIT>=0;
+    rvSlope=rv.rm.slope-site.slope; rvSlopeOk=rvSlope>=0;
     rvNightNeed=site.sun<0.6?1:0; rvNightOk=rv.rp.night>=rvNightNeed;
     rvComNeed=site.earth<0.5?2:(site.earth<0.8?1:0); rvComOk=rv.rc.gain>=rvComNeed;
     rvSci=rv.ry.sci*siteSci;
@@ -816,7 +828,7 @@ function derive(S){
   const darkDemandWh = Math.round(loadAvg * tDark);
   const batCapWh = (pw && !pw.solar) ? 99999 : (bat.wh || 400);
   const batOk = batCapWh >= darkDemandWh;
-  const batBEYOND-ORBIT = darkDemandWh > 0 ? (batCapWh - darkDemandWh) / darkDemandWh : 1;
+  const batFactor = darkDemandWh > 0 ? (batCapWh - darkDemandWh) / darkDemandWh : 1;
 
   // data
   const dsnClass = (L.body==="jupiter"||L.body==="bennu")?70:34;
@@ -824,7 +836,7 @@ function derive(S){
   const rate = cm ? dataRateBps(cm.w, cm.gain, linkAu, dsnClass) : 0;
   const passH = L.dsnHrs * (S.ops?S.ops.dsnFactor:dsnFactorOf());
   const downMbPerDay = rate*passH*3600/1e6;           // Mbit per day
-  const genMbPerDay  = iData*DATA_DUTY*DAY;           // Mbit per day at observing duty cycle
+  const genMbPerDay  = generatedDataMbPerDay(iData,L);
 
   // cost
   const partsCost = iCost + (pw?pw.c:0) + (cm?cm.c:0) + (pr?pr.c:0) + sh.c + rvCost + cdh.dc + adcs.dc + bat.dc;
@@ -848,7 +860,7 @@ function derive(S){
     }
   }
 
-  // BEYOND-ORBITs
+  // margins
   const pf=(typeof activeProfile==="function")?activeProfile(S):null, massCap = capability||(pf&&pf.par?pf.par.mass:L.par.mass);
   const powerCap = genEOL||1;
   /* D-16: the single effective cap. Everything downstream (rails, commit,
@@ -862,12 +874,12 @@ function derive(S){
     sched: 72-months
   };
 
-  return {L,b,instr,pw,cm,pr,sh,cdh,adcs,bat,batCapWh,darkDemandWh,batOk,batBEYOND-ORBIT,tDark,iMass,iPower,iData,iCost,payloadMass,busDry,dryMass,
+  return {L,b,instr,pw,cm,pr,sh,cdh,adcs,bat,m,batCapWh,darkDemandWh,batOk,batFactor,tDark,iMass,iPower,iData,iCost,payloadMass,busDry,dryMass,
           dv,dvTotal,propMass,wetMass,genBOL,genEOL,busLoad,loadPeak,loadAvg,
           rate,passH,downMbPerDay,genMbPerDay,partsCost,busCost,months,integCost,
-          lvCost,opsCost,cost,cap,capability,c3,BEYOND-ORBITs:m,years,auDist,linkAu,dsnClass,
+          lvCost,opsCost,cost,cap,capability,c3,orbits:m.years,auDist,linkAu,dsnClass,
           site,siteSun,siteSci,siteOpsM,siteTravKm,
-          rv,rvMass,rvDraw,rvCost,rvSlopeOk,rvSlopeBEYOND-ORBIT,rvNightOk,rvNightNeed,rvComOk,rvComNeed,rvSci};
+          rv,rvMass,rvDraw,rvCost,rvSlopeOk,rvSlope,rvNightOk,rvNightNeed,rvComOk,rvComNeed,rvSci};
 }
 
 /* ── objective coverage ── */
@@ -895,7 +907,7 @@ const DEFAULT_SEED = 12345;
 const RULES_V = 1;                       /* struck in every run record, D-15 */
 const CAP_MULT = { cadet:1.15, fd:1.00 };
 /* Screens where difficulty may still be changed (A-02). Anywhere later the
-   missions's BEYOND-ORBITs would only be meaningful under the rules it was built
+   missions's margins would only be meaningful under the rules it was built
    in, so the toggle is locked. */
 const MODE_FREE = ["title","select"];
 function effCap(L, mode){
@@ -1676,25 +1688,35 @@ function renderSteps(){
       (k<PHASES.length-1?`<span class="step sep">/</span>`:"")).join("");
 }
 
+function launchReadinessChecks(D){
+  return [
+    ["Mass within launch capability", D.capability>=D.wetMass, `${fmt(D.wetMass)} kg vs ${fmt(D.capability)} kg`, "MASS EXCEEDS CAPABILITY"],
+    ["Power positive at end of life", D.genEOL>=D.loadPeak, `${fmt(D.loadPeak)} W load vs ${fmt(D.genEOL)} W`, "POWER BELOW LOAD"],
+    ["Within cost cap", D.cost<=D.cap, `$${fmt(D.cost)}M vs ${capText(D.L)}`, "COST EXCEEDS BUDGET"],
+    ["Every objective has an instrument", S.objectives.every(o=>objMet(S,o)), S.objectives.filter(o=>!objMet(S,o)).length+" uncovered", "OBJECTIVES UNCOVERED"],
+    ["Launch readiness within 72 months", D.months<=72, `${fmt(D.months)} months`, "SCHEDULE EXCEEDS 72 MONTHS"]
+  ];
+}
+
 /* ══════════════════════════════════════════════════════════════
    HUD RAILS + CASCADE
    ══════════════════════════════════════════════════════════════ */
 const RAILDEF=[
   {k:"mass", nm:"MASS",     unit:"kg"},
   {k:"power",nm:"POWER",    unit:"W"},
-  {k:"data", nm:"DATA",     unit:"Mb/d"},
+  {k:"data", nm:"DATA",     unit:"GB/d"},
   {k:"cost", nm:"COST",     unit:"M"},
   {k:"sched",nm:"SCHEDULE", unit:"mo"}
 ];
 function railValues(D){
   return {
-    mass: {v:D.wetMass, cap:D.capability||D.L.par.mass, m:D.BEYOND-ORBITs.mass, d:0, u:"kg",
+    mass: {v:D.wetMass, cap:D.capability||D.L.par.mass, m:D.m.mass, d:0, u:"kg",
            capLabel:D.capability?"launch capability":"design target"},
-    power:{v:D.loadPeak, cap:D.genEOL, m:D.BEYOND-ORBITs.power, d:0, u:"W", capLabel:"end-of-life generation"},
-    data: {v:D.genMbPerDay/1000, cap:D.downMbPerDay/1000, m:D.BEYOND-ORBITs.data, d:0, u:"Gb/d", capLabel:"daily downlink"},
-    cost: {v:D.cost, cap:D.cap, m:D.BEYOND-ORBITs.cost, d:0, u:"$M",
+    power:{v:D.loadPeak, cap:D.genEOL, m:D.m.power, d:0, u:"W", capLabel:"end-of-life generation"},
+    data: {v:D.genMbPerDay/8000, cap:D.downMbPerDay/8000, m:D.m.data, d:0, u:"GB/d", capLabel:"daily downlink"},
+    cost: {v:D.cost, cap:D.cap, m:D.m.cost, d:0, u:"$M",
            capLabel:(D.L&&D.L.uncapped)?"no cap":"cost cap", uncapped:!!(D.L&&D.L.uncapped)},
-    sched:{v:D.months, cap:72, m:D.BEYOND-ORBITs.sched/72, d:0, u:"mo", capLabel:"launch readiness date"}
+    sched:{v:D.months, cap:72, m:D.m.sched/72, d:0, u:"mo", capLabel:"launch readiness date"}
   };
 }
 let hudCache={k:"",t:0};
@@ -1716,15 +1738,17 @@ function renderHUD(){
     const x=R[r.k]; const frac=clamp(x.cap>0?x.v/x.cap:1,0,1);
     const cls = x.m<0 ? "over" : x.m<0.15 ? "caution" : "";
     const sig = x.m<0 ? "CRIT" : x.m<0.15 ? "WARN" : "NOMINAL";
-    return `<button class="rail ${cls}" data-rail="${r.k}" aria-label="${r.nm} BEYOND-ORBIT ${pct(x.m)}">
+    const vText=r.k==="data"?fmtN(x.v,x.v<10?1:0):fmt(x.v);
+    const capText=r.k==="data"?fmtN(x.cap,x.cap<10?1:0):fmt(x.cap);
+    return `<button class="rail ${cls}" data-rail="${r.k}" aria-label="${r.nm} margin ${pct(x.m)}">
       <div class="rl">
         <span class="nm">${r.nm}</span>
         <div class="status-slot">
           <span class="sig">${sig}</span>
-          <span class="mg">${x.m<0?"OVER":"BEYOND-ORBIT "+(x.m*100).toFixed(0)+"%"}</span>
+          <span class="mg">${x.m<0?"OVER":"margin "+(x.m*100).toFixed(0)+"%"}</span>
         </div>
       </div>
-      <div class="vl" id="rail-vl-${r.k}"><span class="val-txt">${fmt(x.v)}</span> <small>/ ${fmt(x.cap)} ${x.u}</small></div>
+      <div class="vl" id="rail-vl-${r.k}"><span class="val-txt">${vText}</span> <small>/ ${capText} ${x.u}</small></div>
       <div class="bar"><i style="width:${frac*100}%"></i></div>
     </button>`;
   }).join("")+`</div>`;
@@ -1786,7 +1810,7 @@ function renderDock(){
     } else if(S.bstep==="systems"){
       backAct="bstep-payload"; backLabel="← PAYLOAD";
       primaryAct="bstep-review"; primaryLabel="REVIEW READINESS →";
-      const overRails=RAILDEF.filter(r=>D.BEYOND-ORBITs[r.k]<0).map(r=>r.nm);
+      const overRails=RAILDEF.filter(r=>r.k!=="data"&&D.m[r.k]<0).map(r=>r.nm);
       const retFrac=D.genMbPerDay>0?Math.min(1,D.downMbPerDay/D.genMbPerDay):1;
       if(overRails.length>0){
         statusHtml=`<span class="dock-status-chip crit"><span class="g-icon">cancel</span> OVER BUDGET: ${overRails.join(", ")}</span>`;
@@ -1799,7 +1823,7 @@ function renderDock(){
     } else if(S.bstep==="review"){
       backAct="bstep-systems"; backLabel="← SYSTEMS";
       primaryAct="tolaunch"; primaryLabel="PROCEED TO LAUNCH PAD →";
-      const overRails=RAILDEF.filter(r=>D.BEYOND-ORBITs[r.k]<0).map(r=>r.nm);
+      const overRails=RAILDEF.filter(r=>r.k!=="data"&&D.m[r.k]<0).map(r=>r.nm);
       const readyObj=S.objectives.every(o=>objMet(S,o));
       if(overRails.length>0){
         statusHtml=`<span class="dock-status-chip crit"><span class="g-icon">cancel</span> CANNOT CERTIFY: Over ${overRails.join(", ")} budget</span>`;
@@ -1808,9 +1832,9 @@ function renderDock(){
         statusHtml=`<span class="dock-status-chip warn"><span class="g-icon">warning</span> WARNING: Objectives uncovered by instruments</span>`;
         primaryDisabled=false;
       } else {
-        const warnRails=RAILDEF.filter(r=>D.BEYOND-ORBITs[r.k]<0.15).map(r=>r.nm);
+        const warnRails=RAILDEF.filter(r=>D.m[r.k]<0.15).map(r=>r.nm);
         if(warnRails.length>0){
-          statusHtml=`<span class="dock-status-chip warn"><span class="g-icon">warning</span> READY (with warnings): Tight BEYOND-ORBITs on ${warnRails.join(", ")} (&lt;15%)</span>`;
+          statusHtml=`<span class="dock-status-chip warn"><span class="g-icon">warning</span> READY (with warnings): Tight margins on ${warnRails.join(", ")} (&lt;15%)</span>`;
         } else {
           statusHtml=`<span class="dock-status-chip ready"><span class="g-icon">check_circle</span> VEHICLE CERTIFIED FOR FLIGHT</span>`;
         }
@@ -1820,18 +1844,20 @@ function renderDock(){
   } else if(S.screen==="launch"){
     backAct="tobuild"; backLabel="← BUILD REVIEW";
     primaryAct="fly";
-    const overMass=D.BEYOND-ORBITs.mass<0, overCost=D.BEYOND-ORBITs.cost<0;
+    const failedCheck=S.launch&&S.launch.lv
+      ? launchReadinessChecks(D).find(check=>!check[1])
+      : null;
     if(!S.launch||!S.launch.lv){
       statusHtml=`<span class="dock-status-chip pending"><span class="g-icon">radio_button_unchecked</span> PENDING: Select a Launch Vehicle</span>`;
       primaryLabel="SELECT VEHICLE";
       primaryDisabled=true;
-    } else if(overMass||overCost){
-      statusHtml=`<span class="dock-status-chip crit"><span class="g-icon">cancel</span> NO-GO: ${overMass?"MASS EXCEEDS CAPABILITY":"COST EXCEEDS BUDGET"}</span>`;
-      primaryLabel="VEHICLE INSUFFICIENT";
+    } else if(failedCheck){
+      statusHtml=`<span class="dock-status-chip crit"><span class="g-icon">cancel</span> NO-GO: ${failedCheck[3]}</span>`;
+      primaryLabel="FLIGHT READINESS HOLD";
       primaryDisabled=true;
     } else {
       const lvObj=byId(LV,S.launch.lv);
-      statusHtml=`<span class="dock-status-chip ready"><span class="g-icon">check_circle</span> GO FOR LAUNCH · ${lvObj?lvObj.n:S.launch.lv} · Mass BEYOND-ORBIT ${(D.BEYOND-ORBITs.mass*100).toFixed(0)}%</span>`;
+      statusHtml=`<span class="dock-status-chip ready"><span class="g-icon">check_circle</span> GO FOR LAUNCH · ${lvObj?lvObj.n:S.launch.lv} · Mass margin ${(D.m.mass*100).toFixed(0)}%</span>`;
       primaryLabel="COMMIT TO LAUNCH";
       primaryDisabled=false;
     }
@@ -1936,7 +1962,7 @@ function cascade(prev){
     if(b.m<0) cls="up"; else if(b.m<0.15&&worse) cls="warn";
     const sign=dv>=0?"+":"\u2212";
     rows.push({k:r.nm,txt:`${sign}${fmt(Math.abs(dv),Math.abs(dv)<10?1:0)} ${b.u}`,
-               mg:`BEYOND-ORBIT ${(a.m*100).toFixed(0)}% \u2192 ${(b.m*100).toFixed(0)}%`,cls});
+               mg:`margin ${(a.m*100).toFixed(0)}% \u2192 ${(b.m*100).toFixed(0)}%`,cls});
   });
   rows.forEach((r,i)=>{
     const d=document.createElement("div");
@@ -2053,7 +2079,7 @@ function render(){
       mb.style.opacity=locked?"0.55":"";
       mb.style.cursor=locked?"not-allowed":"";
       mb.title=locked
-        ? "Difficulty is locked for this mission — the design's BEYOND-ORBITs only mean something under the rules it was built in. Go back to mission select to change it."
+        ? "Difficulty is locked for this mission — the design's margins only mean something under the rules it was built in. Go back to mission select to change it."
         : "Switch between Cadet (simple parts, +15% budget cap) and Flight Director (advanced parts, full budget, more anomalies).";
     }
   }catch(e){}
@@ -2072,7 +2098,7 @@ function go(screen){
   // Crossfade: veil covers the teardown of the old WebGL canvas and the
   // first-frame warmup of the new one, so no white flash breaks immersion.
   // Exception: title -> select hands a live camera viewpoint to the select
-  // view (window.__BEYOND-ORBIT_HANDOFF), which opens on that exact frame and
+  // view (window.ORBIT_HANDOFF), which opens on that exact frame and
   // pulls back — veiling it would reintroduce the fade this handoff removes.
   const seamless = (S.screen === "title" && screen === "select");
   if (!veil || still || seamless) { S.screen=screen; render(); return; }
@@ -2099,7 +2125,7 @@ function scrTitle(){
       <button class="btn primary hero-start" data-act="start">START A MISSION</button>
       ${(()=>{ const ses=readSession(), sesL=ses?byId(LEVELS,ses.levelId):null;
         if(!sesL||!ses.ops) return "";
-        return `<button class="btn secondary" data-act="resumesession" style="BEYOND-ORBIT-top:8px" title="Resume flight in progress from last phase boundary">
+        return `<button class="btn secondary" data-act="resumesession" style="margin-top:8px" title="Resume flight in progress from last phase boundary">
           RESUME IN-PROGRESS FLIGHT &#183; L+${ses.ops.day} (${esc(BODY[sesL.body].n.toUpperCase())}) &#8594;</button>`;
       })()}
     </div>
@@ -2121,7 +2147,7 @@ function scrTitle(){
    scored against a shared event deck. */
 function challengeBanner(){
   const c=S.challenge; if(!c) return "";
-  return `<div class="panel" style="border-color:var(--blue-lift);background:rgba(75,130,215,.10);BEYOND-ORBIT-bottom:10px">
+  return `<div class="panel" style="border-color:var(--blue-lift);background:rgba(75,130,215,.10);margin-bottom:10px">
     <div class="pad" style="padding:9px 12px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">
       <span style="font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--blue-lift)">COMPETITIVE CHALLENGE</span>
       <span class="hint" style="font-size:12px">Same objective, same anomaly deck (seed <b>${c.seed}</b>, ${c.mode==="fd"?"Flight Director":"Cadet"}). Your spacecraft is your own — everyone's runs are grouped under this seed so the scores mean the same thing.</span>
@@ -2148,9 +2174,9 @@ function scrSelect(){
         <div id="selcontrols"></div>
         <div class="sel-tools"><span class="tape">${S.mode==="cadet"?"CADET MODE":"FLIGHT DIRECTOR MODE"}</span>
           <button class="btn ghost" data-act="teamsize" title="One click: solo. Click again to add hot-seat seats (up to 4). Each seat owns a set of decisions; you can override, and every override is logged in the report."
-            style="padding:3px 10px;font-size:10.5px;BEYOND-ORBIT-left:8px;--seat:${TEAM_SEAT_COL[0]}">${teamCfgSize()>1?"TEAM &#183; "+teamCfgSize():"SOLO"}</button>
+            style="padding:3px 10px;font-size:10.5px;margin-left:8px;--seat:${TEAM_SEAT_COL[0]}">${teamCfgSize()>1?"TEAM &#183; "+teamCfgSize():"SOLO"}</button>
           <button class="btn ghost" data-act="history" title="Every run you have finished, with its design and outcome"
-            style="padding:3px 10px;font-size:10.5px;BEYOND-ORBIT-left:8px">HISTORY${runs.length?" &#183; "+runs.length:""}</button></div>
+            style="padding:3px 10px;font-size:10.5px;margin-left:8px">HISTORY${runs.length?" &#183; "+runs.length:""}</button></div>
       </div>
     </div>
     <div class="selcap-chip" id="selcap" aria-live="polite">
@@ -2207,8 +2233,8 @@ function scrSelect(){
 function orbitExplainerHtml(L){
   if(L.mode==="leo"){
     return `<div class="orbit-card" style="font-size:12px;line-height:1.6">
-      <div style="font-family:var(--mono);font-size:11px;color:var(--phosphor);font-weight:600;BEYOND-ORBIT-bottom:4px">SUN-SYNCHRONOUS CIRCULAR ORBIT (SSO)</div>
-      <p style="color:var(--bone);BEYOND-ORBIT-bottom:6px">Altitude: <b>690 km</b> · Period: <b>98.5 min</b> · Inclination: <b>98.2°</b> · 14.6 revs/day</p>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--phosphor);font-weight:600;margin-bottom:4px">SUN-SYNCHRONOUS CIRCULAR ORBIT (SSO)</div>
+      <p style="color:var(--bone);margin-bottom:6px">Altitude: <b>690 km</b> · Period: <b>98.5 min</b> · Inclination: <b>98.2°</b> · 14.6 revs/day</p>
       <p class="hint" style="font-size:11.5px">Nodal precession (~0.9856°/day) matches Earth's mean orbital motion around the Sun, keeping a constant local solar time and lighting geometry for ocean color and land imaging. Ground station contacts occur 14 times daily.</p>
     </div>`;
   }
@@ -2216,9 +2242,9 @@ function orbitExplainerHtml(L){
   if(spec && spec.kind==="rendezvous"){
     const ch = arrivalChoices("rendezvous");
     return `<div class="orbit-card" style="font-size:12px;line-height:1.6">
-      <div style="font-family:var(--mono);font-size:11px;color:var(--phosphor);font-weight:600;BEYOND-ORBIT-bottom:4px">ASTEROID PROXIMITY &amp; RENDEZVOUS STRATEGY</div>
-      <p style="color:var(--bone);BEYOND-ORBIT-bottom:6px">Arrival burn matches the target asteroid's heliocentric velocity exactly (full V-infinity cancelled). Proximity operations trade cruise duration against survey detail.</p>
-      <div style="display:flex;flex-direction:column;gap:5px;BEYOND-ORBIT-top:6px">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--phosphor);font-weight:600;margin-bottom:4px">ASTEROID PROXIMITY &amp; RENDEZVOUS STRATEGY</div>
+      <p style="color:var(--bone);margin-bottom:6px">Arrival burn matches the target asteroid's heliocentric velocity exactly (full V-infinity cancelled). Proximity operations trade cruise duration against survey detail.</p>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-top:6px">
         ${ch.map(c=>`<div style="background:rgba(255,255,255,0.03);padding:5px 8px;border-radius:3px">
           <b style="color:var(--bone)">${esc(c.t)}:</b> <span class="hint" style="font-size:11px">${esc(c.d)}</span>
         </div>`).join("")}
@@ -2228,9 +2254,9 @@ function orbitExplainerHtml(L){
   if(L.body==="jupiter"){
     const ch = proxChoices("tour");
     return `<div class="orbit-card" style="font-size:12px;line-height:1.6">
-      <div style="font-family:var(--mono);font-size:11px;color:var(--phosphor);font-weight:600;BEYOND-ORBIT-bottom:4px">JOVIAN TOUR &amp; EUROPA FLYBY TRAJECTORY</div>
-      <p style="color:var(--bone);BEYOND-ORBIT-bottom:6px">Jupiter orbit insertion followed by 50 resonant flybys of Europa. Tight periapsis yields rich radar/spectral data but multiplies radiation dose rate.</p>
-      <div style="display:flex;flex-direction:column;gap:5px;BEYOND-ORBIT-top:6px">
+      <div style="font-family:var(--mono);font-size:11px;color:var(--phosphor);font-weight:600;margin-bottom:4px">JOVIAN TOUR &amp; EUROPA FLYBY TRAJECTORY</div>
+      <p style="color:var(--bone);margin-bottom:6px">Jupiter orbit insertion followed by 50 resonant flybys of Europa. Tight periapsis yields rich radar/spectral data but multiplies radiation dose rate.</p>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-top:6px">
         ${ch.map(c=>`<div style="background:rgba(255,255,255,0.03);padding:5px 8px;border-radius:3px">
           <b style="color:var(--bone)">${esc(c.t)}:</b> <span class="hint" style="font-size:11px">${esc(c.d)}</span>
         </div>`).join("")}
@@ -2239,9 +2265,9 @@ function orbitExplainerHtml(L){
   }
   const ch = arrivalChoices("capture");
   return `<div class="orbit-card" style="font-size:12px;line-height:1.6">
-    <div style="font-family:var(--mono);font-size:11px;color:var(--phosphor);font-weight:600;BEYOND-ORBIT-bottom:4px">${L.body==="moon"?"LUNAR POLAR ORBIT CAPTURE":"PLANETARY CAPTURE ORBIT"}</div>
-    <p style="color:var(--bone);BEYOND-ORBIT-bottom:6px">${L.body==="moon"?"Translunar injection puts the craft on a polar encounter. Capture burn establishes circular mapping orbit before surface descent.":"Arrival burn sets the science orbit for the entire mission lifetime. Lower orbits increase surface resolution but require higher insertion Δv."}</p>
-    <div style="display:flex;flex-direction:column;gap:5px;BEYOND-ORBIT-top:6px">
+    <div style="font-family:var(--mono);font-size:11px;color:var(--phosphor);font-weight:600;margin-bottom:4px">${L.body==="moon"?"LUNAR POLAR ORBIT CAPTURE":"PLANETARY CAPTURE ORBIT"}</div>
+    <p style="color:var(--bone);margin-bottom:6px">${L.body==="moon"?"Translunar injection puts the craft on a polar encounter. Capture burn establishes circular mapping orbit before surface descent.":"Arrival burn sets the science orbit for the entire mission lifetime. Lower orbits increase surface resolution but require higher insertion Δv."}</p>
+    <div style="display:flex;flex-direction:column;gap:5px;margin-top:6px">
       ${ch.map(c=>`<div style="background:rgba(255,255,255,0.03);padding:5px 8px;border-radius:3px">
         <b style="color:var(--bone)">${esc(c.t)}:</b> <span class="hint" style="font-size:11px">${esc(c.d)}</span>
       </div>`).join("")}
@@ -2259,25 +2285,25 @@ function scrBrief(){
     <div class="panel glass mt"><span class="bracket tl"></span><span class="bracket br"></span>
       <h3>LANDING SITE SELECTION <span class="code">SITE-01</span></h3>
       <div class="pad">
-        <p class="hint" style="BEYOND-ORBIT-bottom:8px">Pick one site. ${L.body==="moon"?"Rugged ice-rich polar rim costs divert propellant; benign mare costs traverse distance.":"Mars dust trims solar duty; broken delta ground costs divert propellant while benign plains cost traverse distance."}</p>
+        <p class="hint" style="margin-bottom:8px">Pick one site. ${L.body==="moon"?"Rugged ice-rich polar rim costs divert propellant; benign mare costs traverse distance.":"Mars dust trims solar duty; broken delta ground costs divert propellant while benign plains cost traverse distance."}</p>
         <div class="objlist" id="siteList">
         ${((L.body==="moon"?MOON_SITES:MARS_SITES).map((s,idx)=>{
           const on=S.site===s.id;
           return `<button class="obj site ${on?'sel':''}" data-act="site" data-id="${s.id}" style="--i:${idx}">
             <div class="site-card-body" style="width:100%">
-              <div class="site-header" style="display:flex;justify-content:space-between;align-items:center;gap:8px;BEYOND-ORBIT-bottom:4px">
+              <div class="site-header" style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:4px">
                 <span class="t">${esc(s.n)}</span>
                 <span class="site-badge ${on?'sel':''}">${on?'<span class="g-icon">check</span> SELECTED SITE':'CHOOSE SITE'}</span>
               </div>
-              <span class="d" style="display:block;BEYOND-ORBIT-bottom:8px">${esc(s.lat)} · ${esc(s.lon)} — ${esc(s.d)}</span>
-              <div class="site-metrics-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;BEYOND-ORBIT:8px 0;font-family:var(--mono);font-size:11px;background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:4px;border:1px solid rgba(255,255,255,0.04)">
+              <span class="d" style="display:block;margin-bottom:8px">${esc(s.lat)} · ${esc(s.lon)} — ${esc(s.d)}</span>
+              <div class="site-metrics-grid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:8px 0;font-family:var(--mono);font-size:11px;background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:4px;border:1px solid rgba(255,255,255,0.04)">
                 <div><span style="color:var(--dim);display:block;font-size:9.5px">SLOPE</span><b style="color:var(--bone)">${s.slope}°</b></div>
                 <div><span style="color:var(--dim);display:block;font-size:9.5px">SUN</span><b style="color:var(--phosphor)">${(s.sun*100).toFixed(0)}%</b></div>
                 <div><span style="color:var(--dim);display:block;font-size:9.5px">EARTH</span><b style="color:var(--blue-lift)">${(s.earth*100).toFixed(0)}%</b></div>
                 <div><span style="color:var(--dim);display:block;font-size:9.5px">SCI MULT</span><b style="color:var(--amber)">×${s.sci.toFixed(2)}</b></div>
                 <div><span style="color:var(--dim);display:block;font-size:9.5px">TRAVERSE</span><b style="color:var(--bone)">${s.travKm} km</b></div>
               </div>
-              <div class="bar-legend" style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--dim);BEYOND-ORBIT-top:6px">
+              <div class="bar-legend" style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:6px">
                 <span>Terrain Hazard Index</span><span>${(s.hazard*100).toFixed(0)}%</span>
               </div>
               <span class="mini" title="Site hazard — share of the roughest option"><i style="width:${(s.hazard/Math.max(...(L.body==="moon"?MOON_SITES:MARS_SITES).map(q=>q.hazard))*100).toFixed(0)}%"></i></span>
@@ -2292,17 +2318,17 @@ function scrBrief(){
     <h3>MISSION BRIEF &amp; ENVIRONMENT <span class="code">FRM-01</span></h3>
     <div class="pad">
       ${(S.levelId === "l1" || S.mode === "cadet") ? `
-      <div style="background:rgba(101,242,165,.08);border:1px solid rgba(101,242,165,.25);border-radius:4px;padding:8px 12px;BEYOND-ORBIT-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px">
+      <div style="background:rgba(101,242,165,.08);border:1px solid rgba(101,242,165,.25);border-radius:4px;padding:8px 12px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px">
         <div>
           <span style="font-family:var(--mono);font-size:10px;color:var(--phosphor);letter-spacing:.12em">CADET FLIGHT SCHOOL</span>
-          <div style="font-size:11.5px;color:var(--bone);BEYOND-ORBIT-top:2px">New to mission formulation? Review objectives, bus coupling, and telemetry BEYOND-ORBITs.</div>
+          <div style="font-size:11.5px;color:var(--bone);margin-top:2px">New to mission formulation? Review objectives, bus coupling, and telemetry margins.</div>
         </div>
         <button class="btn primary btn-sm" data-act="flight-school" style="white-space:nowrap;font-size:10.5px">FLIGHT SCHOOL TOUR</button>
       </div>` : ''}
-      <p class="hint" style="BEYOND-ORBIT-bottom:10px;font-size:12.5px;line-height:1.6">${esc(L.real)}</p>
+      <p class="hint" style="margin-bottom:10px;font-size:12.5px;line-height:1.6">${esc(L.real)}</p>
       <p style="line-height:1.7;font-size:13.5px;color:var(--bone);max-width:65ch">${esc(L.brief)}</p>
-      <div class="heritage" style="BEYOND-ORBIT-top:14px">${esc(L.newMech)} This is the only new thing in this mission &mdash; everything else you already know.</div>
-      <dl class="briefstats" style="BEYOND-ORBIT-top:16px">
+      <div class="heritage" style="margin-top:14px">${esc(L.newMech)} This is the only new thing in this mission &mdash; everything else you already know.</div>
+      <dl class="briefstats" style="margin-top:16px">
         <dt class="hint">Deep Space Network time ${infoTag(SRC.dsn,"DSN pass allocation")}</dt><dd class="num">${L.dsnHrs} h/day</dd>
         <dt class="hint">Radiation environment ${infoTag(SRC.nssdc,"Radiation dose")}</dt><dd class="num">${L.dose} krad/yr</dd>
       </dl>
@@ -2318,7 +2344,7 @@ function scrBrief(){
     <h3>MISSION IDENTITY &amp; TARGETS <span class="code">ID-01</span></h3>
     <div class="pad" style="display:flex;flex-direction:column;gap:10px">
       <div>
-        <label style="font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.12em;display:block;BEYOND-ORBIT-bottom:4px">CUSTOM MISSION NAME</label>
+        <label style="font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.12em;display:block;margin-bottom:4px">CUSTOM MISSION NAME</label>
         <div style="display:flex;gap:6px">
           <input type="text" id="inMissionName" maxlength="32" placeholder="${esc(L.name)}" value="${esc(S.missionName||'')}"
             style="background:rgba(15,23,42,0.8);border:1px solid var(--hairline);color:var(--bone);font-family:var(--sans);font-size:13px;padding:5px 8px;border-radius:4px;flex:1"
@@ -2328,7 +2354,7 @@ function scrBrief(){
         </div>
       </div>
       <div>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;BEYOND-ORBIT-bottom:4px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px">
           <label style="font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.12em">SCIENCE RETURN TARGET</label>
           <span style="font-family:var(--mono);font-size:11.5px;color:var(--phosphor);font-weight:600" id="targetSciVal">${S.targetSci||100}%</span>
         </div>
@@ -2338,7 +2364,7 @@ function scrBrief(){
             aria-label="Science return target percentage">
           <button class="btn ghost" data-act="settarget" style="padding:4px 10px;font-size:10.5px">SET</button>
         </div>
-        <p class="hint" style="font-size:11px;BEYOND-ORBIT-top:4px;line-height:1.4">Target science threshold is evaluated in the final mission report against total returned data.</p>
+        <p class="hint" style="font-size:11px;margin-top:4px;line-height:1.4">Target science threshold is evaluated in the final mission report against total returned data.</p>
       </div>
     </div>
   </div>`;
@@ -2346,7 +2372,7 @@ function scrBrief(){
   const objsPanel = `<div class="panel glass"><span class="bracket tl"></span><span class="bracket br"></span>
     <h3>SCIENCE OBJECTIVES <span class="code" id="objCountCode">${sel.length} / ${L.req} SELECTED</span></h3>
     <div class="pad">
-      <p class="hint" style="BEYOND-ORBIT-bottom:10px;font-size:12px">Pick at least ${L.req}. Every objective you take must be
+      <p class="hint" style="margin-bottom:10px;font-size:12px">Pick at least ${L.req}. Every objective you take must be
       matched by an instrument that can measure it &mdash; and every instrument costs you mass.</p>
       <div class="objlist${L.objs.length>4?' many':''}">
       ${L.objs.map((oid,idx)=>{
@@ -2356,7 +2382,7 @@ function scrBrief(){
           <span style="flex:1"><span class="t">${esc(o.t)}${forced?' <span class="tag">REQUIRED</span>':''}</span>
           <span class="d">${esc(o.d)}</span>
           <span class="need">${o.need.map(t=>`<span class="nchip">${t}</span>`).join("")}<span class="wnum">${fmtData(needMb(L,oid))} &#183; weight ${o.w} pts</span></span>
-          <div class="bar-legend" style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--dim);BEYOND-ORBIT-top:4px">
+          <div class="bar-legend" style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--dim);margin-top:4px">
             <span>Science Scoring Weight</span><span>${o.w} pts</span>
           </div>
           <span class="mini" title="Scoring weight — share of the science score this objective is worth"><i style="width:${(o.w/wmax*100).toFixed(0)}%"></i></span></span>
@@ -2395,7 +2421,7 @@ function roverPanels(){
     </div>`;
   const compat=st?(()=>{ 
     const rows=[
-      ["Clears site slopes",D.rvSlopeOk,`${D.rv?D.rv.rm.slope:0}° chassis vs ${st.slope}° ground (BEYOND-ORBIT ${D.rvSlopeBEYOND-ORBIT>=0?"+":""}${D.rvSlopeBEYOND-ORBIT}°)`],
+      ["Clears site slopes",D.rvSlopeOk,`${D.rv?D.rv.rm.slope:0}° chassis vs ${st.slope}° ground (${D.rvSlope>=0?"+":""}${D.rvSlope}° clearance)`],
       ["Survives the night",D.rvNightOk,D.rvNightNeed>0?"Site needs hibernation-grade heat":"Polar light — day ops suffice"],
       ["Link closes",D.rvComOk,D.rvComNeed>=2?"Rim site needs orbiter relay":(D.rvComNeed>=1?"Low-horizon site needs aimed HGA":"Earth rides high — omni suffices")]
     ];
@@ -2519,7 +2545,7 @@ function scrBuild(){
               ["systems","2 · SYSTEMS","Can the spacecraft support it?"],
               ["review","3 · REVIEW","Are we actually ready?"]];
   const si=steps.findIndex(s=>s[0]===S.bstep);
-  const stepTabs=`<div class="build-tabs" style="BEYOND-ORBIT-bottom:12px"><div class="spread" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+  const stepTabs=`<div class="build-tabs" style="margin-bottom:12px"><div class="spread" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
     <span class="hint" style="font-family:var(--font-ui);font-size:13px;color:rgba(255,255,255,0.7)">${esc(steps[si][2])}</span>
     <span class="spd">${steps.map((s,k)=>`<button data-act="bstep" data-v="${s[0]}" class="${k===si?'on':''}" ${k===2&&S.instruments.length===0?"disabled":""}>${s[1]}</button>`).join("")}</span>
   </div></div>`;
@@ -2544,16 +2570,16 @@ function scrBuild(){
     <div class="bay bay-payload">
       <div class="bay-col bay-cat-col">
         <div class="panel">
-          <div class="cat-header-wrap" style="padding:0 0 10px 0;BEYOND-ORBIT-bottom:6px">
-            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;BEYOND-ORBIT-bottom:6px">
-              <h3 class="cat-heading" style="BEYOND-ORBIT:0;font-family:var(--font-display);font-size:16px;font-weight:650;letter-spacing:-0.01em;color:var(--text-1)">
-                INSTRUMENT CATALOGUE <span class="code" style="font-family:var(--font-data);font-size:10.5px;letter-spacing:0.12em;opacity:0.45;font-weight:400;BEYOND-ORBIT-left:6px">PLD-01</span>
+          <div class="cat-header-wrap" style="padding:0 0 10px 0;margin-bottom:6px">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:6px">
+              <h3 class="cat-heading" style="margin:0;font-family:var(--font-display);font-size:16px;font-weight:650;letter-spacing:-0.01em;color:var(--text-1)">
+                INSTRUMENT CATALOGUE <span class="code" style="font-family:var(--font-data);font-size:10.5px;letter-spacing:0.12em;opacity:0.45;font-weight:400;margin-left:6px">PLD-01</span>
               </h3>
               <button class="btn-filter-useful ${S.filterUseful?'active':''}" data-act="filter-useful" title="Toggle filtering to show only instruments that fulfill your chosen science objectives">
                 <span class="filter-dot"></span>${S.filterUseful?'SHOWING USEFUL ONLY':'FILTER: USEFUL ONLY'}
               </button>
             </div>
-            <p class="hint" style="font-size:11.5px;color:rgba(255,255,255,0.5);BEYOND-ORBIT:0;line-height:1.45">Match <b style="color:var(--accent,#5b9bff);font-weight:600">USEFUL</b> tags to your science objectives. Hover options to preview budget deltas.</p>
+            <p class="hint" style="font-size:11.5px;color:rgba(255,255,255,0.5);margin:0;line-height:1.45">Match <b style="color:var(--accent,#5b9bff);font-weight:600">USEFUL</b> tags to your science objectives. Hover options to preview budget deltas.</p>
           </div>
           <div class="cat">${catHtml}</div>
         </div>
@@ -2589,9 +2615,9 @@ function scrBuild(){
           ${pick("ONBOARD COMPUTER (C&DH)",CDH,"cdh","CDH-06")}
         </div>
         ${D.dv.length?`
-        <div class="panel mt"><h3>DELTA-V BUDGET &amp; BEYOND-ORBIT ${infoTag(SRC.nssdc,"Delta-v line items")} <span class="code">GNC-07</span></h3>
+        <div class="panel mt"><h3>DELTA-V BUDGET &amp; MASS MARGIN ${infoTag(SRC.nssdc,"Delta-v line items")} <span class="code">GNC-07</span></h3>
           <div class="pad" style="font-family:var(--mono);font-size:12px">
-            <div class="budget-bar-wrap" style="BEYOND-ORBIT-bottom:8px">
+            <div class="budget-bar-wrap" style="margin-bottom:8px">
               <div class="budget-bar-head">
                 <span>ΔV Budget: ${D.dvTotal.toFixed(2)} km/s</span>
                 <span style="color:var(--phosphor)">Available Isp ${D.pr?D.pr.isp:0}s</span>
@@ -2601,10 +2627,10 @@ function scrBuild(){
               </div>
             </div>
             ${D.dv.map(x=>`<div class="spread" style="padding:3px 0"><span style="color:var(--dim)">${esc(x[0])}</span><span>${x[1].toFixed(2)} km/s</span></div>`).join("")}
-            <div class="spread" style="padding:7px 0 0;border-top:1px solid var(--hairline);BEYOND-ORBIT-top:6px">
+            <div class="spread" style="padding:7px 0 0;border-top:1px solid var(--hairline);margin-top:6px">
               <span>TOTAL MANEUVER &#916;V</span><span style="color:var(--phosphor);font-weight:600">${D.dvTotal.toFixed(2)} km/s</span>
             </div>
-            <div class="hint" style="BEYOND-ORBIT-top:8px;font-family:var(--sans);font-size:11.5px">Tsiolkovsky: ${fmt(D.propMass)} kg propellant for a ${fmt(D.dryMass)} kg dry spacecraft at Isp ${D.pr?D.pr.isp:0} s.</div>
+            <div class="hint" style="margin-top:8px;font-family:var(--sans);font-size:11.5px">Tsiolkovsky: ${fmt(D.propMass)} kg propellant for a ${fmt(D.dryMass)} kg dry spacecraft at Isp ${D.pr?D.pr.isp:0} s.</div>
           </div>
         </div>`:""}
       </div>
@@ -2646,7 +2672,7 @@ function scrBuild(){
                   <span class="ps"><span>${esc(t.d)}</span></span></button>`}).join("")}
             </div>
           </div>
-          ${(L.body==="moon"||L.body==="mars")&&(pf?pf.hasRover!==false:true)?roverPanels():((L.body==="moon"||L.body==="mars")&&pf&&pf.hasRover===false?`<div class="panel mt"><div class="pad hint" style="font-size:12px;color:var(--dim)"><span class="g-icon" style="color:var(--phosphor);vertical-align:middle;BEYOND-ORBIT-right:4px">check_circle</span><b>${esc(pf.name)}</b>: Pure orbital remote sensing architecture. Surface rover not required.</div></div>`:"")}
+          ${(L.body==="moon"||L.body==="mars")&&(pf?pf.hasRover!==false:true)?roverPanels():((L.body==="moon"||L.body==="mars")&&pf&&pf.hasRover===false?`<div class="panel mt"><div class="pad hint" style="font-size:12px;color:var(--dim)"><span class="g-icon" style="color:var(--phosphor);vertical-align:middle;margin-right:4px">check_circle</span><b>${esc(pf.name)}</b>: Pure orbital remote sensing architecture. Surface rover not required.</div></div>`:"")}
         </div>
         ${commsBottleneck?`
         <div class="panel mt" style="border-color:rgba(255,183,77,0.4);background:rgba(255,183,77,0.05)">
@@ -2699,7 +2725,7 @@ function scrBuild(){
               <tr><td>DSN Allocation</td><td>${esc(dsnTier().n)} (${(L.dsnHrs*dsnTier().f).toFixed(1)} h/day)</td></tr>
               ${D.rv?`<tr><td>Surface Rover</td><td>${D.rvMass} kg · ${D.rvDraw} W · Chassis ${D.rv.rm.slope}°</td></tr>`:""}
             </table>
-            <div class="hint" style="font-size:11px;line-height:1.6;BEYOND-ORBIT-top:8px">Representative spacecraft configuration anchored to NASA/JPL subsystem data.</div>
+            <div class="hint" style="font-size:11px;line-height:1.6;margin-top:8px">Representative spacecraft configuration anchored to NASA/JPL subsystem data.</div>
           </div>
         </div>
       </div>
@@ -2709,7 +2735,7 @@ function scrBuild(){
           ${ready.map(r=>`<button class="spread rev-check-btn" data-act="bstep" data-v="${r[3]}" style="width:100%;text-align:left;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.04);padding:6px 0;cursor:pointer">
             <span style="color:${r[1]?'var(--phosphor)':'var(--red)'};font-size:12.5px">${r[1]?'<span class="g-icon">check</span>':'<span class="g-icon">close</span>'} ${r[0]}</span>
             <span class="num hint" style="font-size:11.5px">${r[2]} →</span></button>`).join("")}
-          <div style="text-align:center;BEYOND-ORBIT:16px 0 10px"><span class="stamp ${allReady?'go':'nogo'}">${stampText}</span></div>
+          <div style="text-align:center;margin:16px 0 10px"><span class="stamp ${allReady?'go':'nogo'}">${stampText}</span></div>
         </div></div>
 
         ${retFrac<0.9?`
@@ -2730,7 +2756,7 @@ function scrBuild(){
 
 /* ── spacecraft engineering preview ── */
 const BUS_PREVIEW = new Image();
-BUS_PREVIEW.src = "assets/BEYOND-ORBIT-mission-bus-preview.png";
+BUS_PREVIEW.src = "assets/margin-mission-bus-preview.png";
 BUS_PREVIEW.onload = ()=>{ if(S.screen==="build") drawBay(); };
 function drawBay(){
   const cv=el("bayCanvas"); if(!cv)return;
@@ -2765,7 +2791,7 @@ function drawBay(){
   x.fillStyle="#9AA6B5"; x.fillText(`WET ${fmt(D.wetMass)} KG`,28,38);
   x.textAlign="right";
   x.fillText(D.pw?`PWR ${fmt(D.genEOL)} W EOL`:"PWR SOURCE OFFLINE",W-28,22);
-  x.fillText(`BUS STATUS ${D.BEYOND-ORBITs.power<0?"CRITICAL":D.BEYOND-ORBITs.power<.15?"WARNING":"NOMINAL"}`,W-28,38);
+  x.fillText(`BUS STATUS ${D.m.power<0?"CRITICAL":D.m.power<.15?"WARNING":"NOMINAL"}`,W-28,38);
   x.fillStyle="#667384"; x.fillText("2D SCHEMATIC / 3D: NASA HARDWARE",W-28,H-22);
   x.textAlign="left";
 }
@@ -2782,7 +2808,7 @@ function scrLaunch(){
   const trajPanel = L.mode==="pork" ? `
       <div class="panel trj-block"><span class="bracket tl"></span><span class="bracket br"></span>
         <h3>PORKCHOP PLOT &mdash; EARTH TO ${esc(BODY[L.body].n.toUpperCase())} ${infoTag(SRC.horizons,"Lambert solution")}
-          <span class="spd" style="BEYOND-ORBIT-left:auto">
+          <span class="spd" style="margin-left:auto">
             <button data-act="pmode" data-v="c3" class="${S.pmode==='vinf'?'':'on'}">DEPARTURE C3</button>
             <button data-act="pmode" data-v="vinf" class="${S.pmode==='vinf'?'on':''}">ARRIVAL V&#8734;</button>
           </span></h3>
@@ -2833,7 +2859,7 @@ function scrLaunch(){
 
       ${L.assist?`<div class="panel mt"><h3>TRAJECTORY OPTION <span class="code">TRJ-02</span></h3>
         <div class="pad">
-          <button class="obj ${S.assist?'sel':''}" data-act="assist" style="BEYOND-ORBIT:0;width:100%">
+          <button class="obj ${S.assist?'sel':''}" data-act="assist" style="margin:0;width:100%">
             <span class="box">${S.assist?'<span class="g-icon icon-alone">check</span>':""}</span>
             <span><span class="t">${esc(L.assist.label)}</span>
             <span class="d">Gravity assist drops departure energy to C3 ${L.assist.c3} km&sup2;/s&sup2; (triples vehicle lift), adding ${(L.assist.addDays/365.25).toFixed(1)} yr cruise and $${L.assist.costM}M ops.</span></span>
@@ -3042,7 +3068,7 @@ function renderLV(){
   box.innerHTML=list.map(v=>{
     const cap = L.mode==="leo" ? v.leo*0.34 : lvCapability(v,S.launch?S.launch.c3:0);
     const ok = cap>=D.wetMass;
-    const BEYOND-ORBIT = cap>0 ? (cap-D.wetMass)/cap : -1;
+   const capRatio = cap > 0 ? (cap-D.wetMass)/cap : -1;
     const isSel = S.launch&&S.launch.lv===v.id;
     return `
     <button class="lv ${isSel?'on':''} ${ok?'go':'nogo'}" data-act="lv" data-id="${v.id}" style="${isSel?'border-color:var(--phosphor);background:rgba(101,242,165,0.08);':''}">
@@ -3050,15 +3076,15 @@ function renderLV(){
         <span style="font-weight:600;font-size:13px">${esc(v.n)}</span>
         <span class="cap" style="font-weight:600;color:${ok?'var(--phosphor)':'var(--red)'}">${fmt(cap)} kg capacity</span>
       </div>
-      <div class="r2" style="BEYOND-ORBIT:4px 0 6px">
+      <div class="r2" style="margin:4px 0 6px">
         <span>Unit Cost: $${v.cost}M &#183; Reliability: ${(v.rel*100).toFixed(0)}%</span>
         <span class="cap">${ok?"+"+fmt(cap-D.wetMass)+" kg spare":fmt(D.wetMass-cap)+" kg deficit"}</span>
       </div>
       <div class="budget-bar-track" style="height:5px">
-        <div class="budget-bar-fill ${BEYOND-ORBIT<0?'crit':BEYOND-ORBIT<0.15?'warn':'nominal'}" style="width:${Math.max(0,Math.min(100,(cap/Math.max(cap,D.wetMass*1.2))*100))}%"></div>
+        <div class="budget-bar-fill ${capRatio<0?'crit':capRatio<0.15?'warn':'nominal'}" style="width:${Math.max(0,Math.min(100,(cap/Math.max(cap,D.wetMass*1.2))*100))}%"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;BEYOND-ORBIT-top:6px;font-family:var(--mono);font-size:10.5px">
-        <span style="color:var(--dim)">Mass BEYOND-ORBIT: ${(BEYOND-ORBIT*100).toFixed(0)}%</span>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-family:var(--mono);font-size:10.5px">
+        <span style="color:var(--dim)">Mass margin: ${(D.m.mass*100).toFixed(0)}%</span>
         <span style="color:${isSel?'var(--phosphor)':'var(--bone)'}">${isSel?'<span class="g-icon">check</span> SELECTED':'SELECT'}</span>
       </div>
     </button>`;
@@ -3104,16 +3130,10 @@ function renderGo(){
   const D=derive(S), L=byId(LEVELS,S.levelId);
   if(!S.launch||!S.launch.lv){
     box.innerHTML=`<h3>FLIGHT READINESS REVIEW <span class="code">FRR-01</span></h3>
-      <div class="pad frr-pad"><p class="hint">Select a launch vehicle on the left to evaluate flight BEYOND-ORBITs.</p></div>`;
+      <div class="pad frr-pad"><p class="hint">Select a launch vehicle on the left to evaluate flight margins.</p></div>`;
     return;
   }
-  const checks=[
-    ["Mass within launch capability", D.capability>=D.wetMass, `${fmt(D.wetMass)} kg vs ${fmt(D.capability)} kg`],
-    ["Power positive at end of life", D.genEOL>=D.loadPeak, `${fmt(D.loadPeak)} W load vs ${fmt(D.genEOL)} W`],
-    ["Within cost cap", D.cost<=D.cap, `$${fmt(D.cost)}M vs ${capText(D.L)}`],
-    ["Every objective has an instrument", S.objectives.every(o=>objMet(S,o)), S.objectives.filter(o=>!objMet(S,o)).length+" uncovered"],
-    ["Launch readiness within 72 months", D.months<=72, `${fmt(D.months)} months`]
-  ];
+  const checks=launchReadinessChecks(D);
   const checksGo=checks.every(c=>c[1]);
     const teamGo=teamActive() ? S.team.seats.every(s=>!!(S.team.votes||{})[s.i]) : true;
     const go=checksGo&&teamGo;
@@ -3122,13 +3142,13 @@ function renderGo(){
   const lvCost = selLv ? selLv.cost : 0;
   const craftCost = D.cost - lvCost;
 
-  const mMass = D.BEYOND-ORBITs.mass, mPower = D.BEYOND-ORBITs.power, mCost = D.BEYOND-ORBITs.cost;
-  const minBEYOND-ORBIT = Math.min(mMass, mPower, mCost);
+  const mMass = D.m.mass, mPower = D.m.power, mCost = D.m.cost;
+const minMetric = Math.min(mMass, mPower, mCost);
   const passed = checks.filter(c=>c[1]).length;
   const barFill = m => m<0?'crit':m<0.15?'warn':'nominal';
   const barInk  = m => m<0?'var(--red)':m<0.15?'var(--amber)':'var(--phosphor)';
   const mSchedule = Math.max(0, 1 - D.months / 72);
-    const BARS=[["MASS",mMass,"baseline"],["POWER",mPower,"BEYOND-ORBIT"],["COST",mCost,"BEYOND-ORBIT"],["SCHEDULE",mSchedule,`${fmt(D.months)}/72 mo`]];
+    const BARS=[["MASS",mMass,"baseline"],["POWER",mPower,"margin"],["COST",mCost,"margin"],["SCHEDULE",mSchedule,`${fmt(D.months)}/72 mo`]];
 
   box.innerHTML=`<h3>FLIGHT READINESS REVIEW <span class="code">FRR-01</span></h3>
     <div class="pad frr-pad">
@@ -3150,14 +3170,14 @@ function renderGo(){
       </section>
 
       <section class="frr-sec">
-        <div class="frr-h">BEYOND-ORBITS</div>
+        <div class="frr-h">MARGINS</div>
         <div class="frr-bars">
           ${BARS.map(([k,m,cap])=>`<div class="budget-bar-wrap">
             <div class="budget-bar-head"><span>${k}</span><span style="color:${barInk(m)}">${(m*100).toFixed(0)}% <em>${cap}</em></span></div>
             <div class="budget-bar-track"><div class="budget-bar-fill ${barFill(m)}" style="width:${Math.max(0,Math.min(100,m*100))}%"></div></div>
           </div>`).join("")}
         </div>
-        ${minBEYOND-ORBIT<0.15?`<div class="hint" style="color:var(--amber);font-size:11px"><span class="g-icon">warning</span> Weakest BEYOND-ORBIT is ${(minBEYOND-ORBIT*100).toFixed(0)}% (${minBEYOND-ORBIT===mMass?'mass':minBEYOND-ORBIT===mPower?'power':'cost'}). Absorbs minimal flight anomalies.</div>`:""}
+        ${minMetric<0.15?`<div class="hint" style="color:var(--amber);font-size:11px"><span class="g-icon">warning</span> Weakest margin is ${(minMetric*100).toFixed(0)}% (${minMetric===mMass?'mass':minMetric===mPower?'power':'cost'}). Absorbs minimal flight anomalies.</div>`:""}
       </section>
 
       <section class="frr-sec">
@@ -3195,7 +3215,7 @@ function teamRollCallHtml(){
         </div>
         <span class="tr-badge">${votes[s.i]?'<span class="g-icon">check</span> GO':'CALL GO'}</span>
       </button>`).join("")}</div>
-    <p class="hint" style="font-size:11px;BEYOND-ORBIT-top:6px">${done}/${T.size} GO &#8212; ${done===T.size?"unanimous, cleared for commit":"every seat must call GO before the Flight Director can commit"}</p>
+    <p class="hint" style="font-size:11px;margin-top:6px">${done}/${T.size} GO &#8212; ${done===T.size?"unanimous, cleared for commit":"every seat must call GO before the Flight Director can commit"}</p>
   </div>`;
 }
 
@@ -3212,7 +3232,7 @@ const EVENTS=[
  {id:"mmod",t:"Micrometeoroid strike",w:2,txt:"A particle has punched through one solar array wing. Output has dropped and the degradation rate has roughly doubled for the rest of the mission.",
   ch:[["Accept the loss and re-plan the power budget","Generation down 9% permanently.",st=>{st.powerMult*=0.91}],
       ["Shed the highest-draw instrument to protect the bus","Full generation preserved, but that instrument stays off.",st=>{st.killTopPower=true}]]},
- {id:"thrust",t:"Thruster underperformance",w:2,txt:"The capture burn came in 4% low on specific impulse. Your orbit is higher than planned and correcting it will eat propellant you were holding as BEYOND-ORBIT.",
+ {id:"thrust",t:"Thruster underperformance",w:2,txt:"The capture burn came in 4% low on specific impulse. Your orbit is higher than planned and correcting it will eat propellant you were holding as margin.",
   ch:[["Correct it now","Burns 6% of remaining propellant. Nominal science orbit.",st=>{st.propUsed+=0.06}],
       ["Live with the higher orbit","No propellant cost. Resolution and data rate both drop 12%.",st=>{st.sciMult*=0.88}]]},
  {id:"dsn",t:"Deep Space Network contention",w:3,txt:"A higher-priority mission has a critical event and has taken your tracking passes for the next two months. You are down to a third of your allocated antenna time.",
@@ -3224,8 +3244,8 @@ const EVENTS=[
  {id:"rad",t:"Radiation upset",w:2,txt:"Total ionising dose is climbing faster than the model predicted. The flight computer has taken three single-event upsets this week.",
   ch:[["Reduce instrument duty cycle to cut exposure","Science rate down 15%, dose rate down 30%.",st=>{st.sciMult*=0.85;st.doseMult*=0.70}],
       ["Press on at full duty cycle","No change. Component failure risk rises sharply.",st=>{st.doseMult*=1.0;st.risky=true}]]},
- {id:"ext",t:"Extended mission opportunity",w:2,good:true,txt:"The spacecraft is healthy and the science team has proposed an extended mission. The senior review will fund it only if you still have propellant and power BEYOND-ORBIT.",
-  ch:[["Propose the extension","Adds 20% more science time if you have the BEYOND-ORBIT.",st=>{st.extend=true}],
+ {id:"ext",t:"Extended mission opportunity",w:2,good:true,txt:"The spacecraft is healthy and the science team has proposed an extended mission. The senior review will fund it only if you still have propellant and power margin.",
+  ch:[["Propose the extension","Adds 20% more science time if you have the margin.",st=>{st.extend=true}],
       ["Decline and close out the mission cleanly","No risk, no extra science.",st=>{}]]}
 ];
 
@@ -3301,7 +3321,7 @@ function scrOps(){
         <span class="badge" id="clkPhase">cruise</span>
         <span class="lt-delay" id="clkLt"></span>
       </div>
-      <div class="clock-hud" id="opsStatusHud" style="BEYOND-ORBIT-left:8px">
+      <div class="clock-hud" id="opsStatusHud" style="margin-left:8px">
         <span class="badge" id="opsStatus">NOMINAL</span>
         <span class="lt-delay" id="primeObj"></span>
       </div>
@@ -3493,15 +3513,27 @@ const LAND_PROFILES=[
  {id:"balanced",t:"Baseline profile",d:"No change. Lands 6 km from the prime target.",dProp:0,dSlope:0,off:6,sci:1.00},
  {id:"save",t:"Fuel-saving ballistic",d:"−3% propellant, +3° effective slope, lands 12 km out.",dProp:-0.03,dSlope:3,off:12,sci:0.98}
 ];
-function computeLanding(prof){
-  const spec=landSpec(); if(!spec) return null;
-  const effSlope=Math.max(1,spec.site.slope+prof.dSlope);
-  const BEYOND-ORBIT=spec.rv.rm.slope-effSlope;
-  const ok=BEYOND-ORBIT>=0;
-  return {profile:prof.id,offsetKm:prof.off,slope:effSlope,BEYOND-ORBIT,degraded:!ok,
-    day:S.ops?S.ops.day:0,site:spec.site.id,
-    travKm:spec.site.travKm+prof.off,
-    dProp:prof.dProp+(ok?0:0.03),opsM:ok?2:15,sciM:ok?prof.sci:0.90};
+function computeLanding(prof) {
+  const spec = landSpec();
+  if (!spec) return null;
+
+  const effSlope = Math.max(1, spec.site.slope + prof.dSlope);
+  const rvSlope = spec.rv.rm.slope - effSlope;
+  const ok = rvSlope >= 0;
+
+  return {
+    profile: prof.id,
+    offsetKm: prof.off,
+    slope: effSlope,
+    rvSlope,
+    degraded: !ok,
+    day: S.ops ? S.ops.day : 0,
+    site: spec.site.id,
+    travKm: spec.site.travKm + prof.off,
+    dProp: prof.dProp + (ok ? 0 : 0.03),
+    opsM: ok ? 2 : 15,
+    sciM: ok ? prof.sci : 0.90
+  };
 }
 function setOpsSpeed(v){
   if(!S.ops) return;
@@ -3584,8 +3616,8 @@ function finishLanding(){
   /* Phase-6: commission the surface loop (standing orders: drive standard). */
   try{ initSurface(); }catch(e){}
   const D=derive(S);
-  if(L.degraded) logLine(O.day,`HARD LANDING: touchdown slope ${L.slope}° exceeds the ${D.rv?D.rv.rm.slope:0}° chassis cap (BEYOND-ORBIT ${L.BEYOND-ORBIT}°). Rover degraded — +$${L.opsM}M recovery, science ×${L.sciM}. Traverse now ${L.travKm} km.`,"bad");
-  else logLine(O.day,`Touchdown confirmed: slope ${L.slope}°, ${L.offsetKm} km from the prime target (BEYOND-ORBIT +${L.BEYOND-ORBIT}°). Traverse ${L.travKm} km. ${fmt(D.propMass*(1-O.propUsed))} kg propellant remaining.`,"good");
+  if(L.degraded) logLine(O.day,`HARD LANDING: touchdown slope ${L.slope}° exceeds the ${D.rv?D.rv.rm.slope:0}° chassis cap (${Math.abs(L.rvSlope)}° deficit). Rover degraded — +$${L.opsM}M recovery, science ×${L.sciM}. Traverse now ${L.travKm} km.`,"bad");
+  else logLine(O.day,`Touchdown confirmed: slope ${L.slope}°, ${L.offsetKm} km from the prime target (+${L.rvSlope}° clearance). Traverse ${L.travKm} km. ${fmt(D.propMass*(1-O.propUsed))} kg propellant remaining.`,"good");
   try{ if(window.OpsView&&OpsView.cancelDescent) OpsView.cancelDescent(true); }catch(e){}
   if(!O.ended) O.running=true;
 }
@@ -3721,7 +3753,7 @@ function stepDay(){
   const down = D.downMbPerDay*dsnF;
   let genMb=0;
   if(atTarget || O.day>O.cruise*0.8){
-    genMb = live.reduce((s,i)=>s+i.d,0)*DATA_DUTY*DAY*duty*O.sciMult*(atTarget?1:0.15);
+    genMb = generatedDataMbPerDay(live.reduce((s,i)=>s+i.d,0),L,duty,O.sciMult*(atTarget?1:0.15));
     if(O.blackout>0&&!O.collectDuringBlackout) genMb=0;
   }
   O.backlog += genMb;
@@ -3773,7 +3805,7 @@ function showEvent(ev){
   const m=el("modal"), b=el("mbox");
   b.innerHTML=`<h3>&#9650; EVENT &mdash; ${dayLabel(S.ops.day)} · WHAT HAPPENED</h3>
     <div class="mb"><h4>${esc(ev.t)}</h4><p class="hint" style="line-height:1.65">${esc(ev.txt)}</p>
-    <p class="hint" style="BEYOND-ORBIT:8px 0 4px">YOUR DECISION — what do you order?</p>
+    <p class="hint" style="margin:8px 0 4px">YOUR DECISION — what do you order?</p>
     <div class="choices">${ev.ch.map((c,i)=>`<button class="choice" data-act="evch" data-i="${i}">
       <span class="ct">${esc(c[0])}</span><span class="cd">${esc(c[1])}</span></button>`).join("")}</div></div>`;
   m.classList.add("on"); m.dataset.ev=ev.id;
@@ -3794,9 +3826,9 @@ function resolveEvent(i){
   if(st.risky)O.risky=true;
   if(st.extend){ O.extend=true;
     const D=derive(S);
-    if(D.BEYOND-ORBITs.mass>0.05&&D.BEYOND-ORBITs.power>0.05){ O.totalDays=Math.round(O.totalDays*1.2);
-      logLine(O.day,"Extended mission approved. You kept enough BEYOND-ORBIT to earn it.","good"); }
-    else logLine(O.day,"Extension declined by the senior review — insufficient BEYOND-ORBIT.","warn");
+    if(D.m.mass>0.05&&D.m.power>0.05){ O.totalDays=Math.round(O.totalDays*1.2);
+      logLine(O.day,"Extended mission approved. You kept enough margin to earn it.","good"); }
+    else logLine(O.day,"Extension declined by the senior review — insufficient margin.","warn");
   }
   const D=derive(S), live=D.instr.filter(x=>!O.dead.has(x.id));
   if(st.killTopPower&&live.length){ const v=live.slice().sort((a,b)=>b.w-a.w)[0]; O.dead.add(v.id);
@@ -3830,7 +3862,7 @@ function evResultLines(ev,i,st){
   if(st.risky) lines.push("Component failure risk elevated from here on.");
   if(st.extend){
     const D2=derive(S);
-    lines.push(D2.BEYOND-ORBITs.mass>0.05&&D2.BEYOND-ORBITs.power>0.05?"Senior review approved the extension: +20% science time.":"Senior review declined the extension: BEYOND-ORBIT too thin.");
+    lines.push(D2.m.mass>0.05&&D2.m.power>0.05?"Senior review approved the extension: +20% science time.":"Senior review declined the extension: margins too thin.");
   }
   if(!lines.length) lines.push("No resource change. Clean close-out.");
   return lines;
@@ -3841,7 +3873,7 @@ function showEvResult(ev,i,st){
   b.innerHTML=`<h3>&#9650; RESULT &mdash; ${dayLabel(O.day)} · WHAT CHANGED</h3>
     <div class="mb"><h4>${esc(ev.t)} → ${esc(ev.ch[i][0])}</h4>
     ${lines.map(l=>`<p class="hint" style="line-height:1.6">• ${esc(l)}</p>`).join("")}
-    <p class="hint" style="BEYOND-ORBIT-top:8px">Consequence is now live in telemetry. Watch the gauges and the log.</p>
+    <p class="hint" style="margin-top:8px">Consequence is now live in telemetry. Watch the gauges and the log.</p>
     <button class="btn primary mt" data-act="evack" style="width:100%">CONTINUE OPERATIONS</button></div>`;
   m.classList.add("on"); m.dataset.lock="result";
   const btn=b.querySelector("[data-act=evack]"); if(btn) btn.focus();
@@ -3858,13 +3890,13 @@ function showExtensionReview(){
   const O=S.ops, L=byId(LEVELS,S.levelId), D=derive(S);
   const m=el("modal"), b=el("mbox");
   const preApproved=!!O.extend;
-  const okBEYOND-ORBIT=D.BEYOND-ORBITs.mass>0.05&&D.BEYOND-ORBITs.power>0.05;
+  const okMetric=D.m.mass>0.05&&D.m.power>0.05;
   const extra=Math.round((O.nominalDays||O.totalDays)*0.2);
   const head=`<h3>&#9650; EXTENSION REVIEW &mdash; ${dayLabel(O.day)} · NOMINAL END OF MISSION</h3>`;
   const body=preApproved
     ?`<p class="hint" style="line-height:1.65">The senior review pre-approved an extension and the spacecraft is healthy. Confirm ${extra} more days of operations, or close out cleanly now.</p>`
-    :`<p class="hint" style="line-height:1.65">Nominal science is complete at ${(scienceRet()*100).toFixed(0)}% return. Mass BEYOND-ORBIT ${(D.BEYOND-ORBITs.mass*100).toFixed(0)}%, power BEYOND-ORBIT ${(D.BEYOND-ORBITs.power*100).toFixed(0)}% — the review funds ${extra} more days only above 5% on both.</p>`;
-  const goLabel=preApproved?"CONFIRM EXTENDED OPERATIONS":(okBEYOND-ORBIT?"PROPOSE THE EXTENSION":"PROPOSE ANYWAY (LIKELY DECLINED)");
+    :`<p class="hint" style="line-height:1.65">Nominal science is complete at ${(scienceRet()*100).toFixed(0)}% return. Mass margin ${(D.m.mass*100).toFixed(0)}%, power margin ${(D.m.power*100).toFixed(0)}% — the review funds ${extra} more days only above 5% on both.</p>`;
+  const goLabel=preApproved?"CONFIRM EXTENDED OPERATIONS":(okMetric?"PROPOSE THE EXTENSION":"PROPOSE ANYWAY (LIKELY DECLINED)");
   b.innerHTML=head+`<div class="mb">${body}<div class="choices">`
     +`<button class="choice" data-act="extrev" data-i="0"><span class="ct">${esc(goLabel)}</span><span class="cd">Short loop: ~${extra} days, real resources, more science.</span></button>`
     +`<button class="choice" data-act="extrev" data-i="1"><span class="ct">END MISSION CLEANLY</span><span class="cd">No risk, no extra science. Final report now.</span></button>`
@@ -3880,14 +3912,14 @@ function resolveExtRev(i){
     O.eomReviewed=true; ensurePhases().done.extension="go";
     O.extSnap={day:O.day,ret:scienceRet(),dose:O.dose,opsCost:O.opsCost,overflow:O.overflow};
     logLine(O.day,`Extended operations confirmed. ${O.totalDays-O.day} days remain in the short loop.`,"good");
-  }else if(D.BEYOND-ORBITs.mass>0.05&&D.BEYOND-ORBITs.power>0.05){
+  }else if(D.m.mass>0.05&&D.m.power>0.05){
     O.extend=true; O.eomReviewed=true; ensurePhases().done.extension="go";
     O.totalDays=Math.round((O.nominalDays||O.totalDays)*1.2);
     O.extSnap={day:O.day,ret:scienceRet(),dose:O.dose,opsCost:O.opsCost,overflow:O.overflow};
-    logLine(O.day,`Extended mission approved at review. You kept enough BEYOND-ORBIT to earn it (+${O.totalDays-O.day} days).`,"good");
+    logLine(O.day,`Extended mission approved at review. You kept enough margin to earn it (+${O.totalDays-O.day} days).`,"good");
   }else{
     O.eomReviewed=true; ensurePhases().done.extension="declined";
-    logLine(O.day,"Extension declined by the senior review — insufficient BEYOND-ORBIT.","warn");
+    logLine(O.day,"Extension declined by the senior review — insufficient margin.","warn");
     endMission("complete"); return;
   }
   const m=el("modal"); delete m.dataset.lock; m.classList.remove("on");
@@ -3907,10 +3939,10 @@ function endMission(reason){
   const L=byId(LEVELS,S.levelId);
   const cap=effCap(L,S.mode);
   const over=isOverCap(cost,L,S.mode);
-  /* A-14: an uncapped mission is never penalised, but its cost BEYOND-ORBIT is
-     still measured against the declared reference cap so the BEYOND-ORBIT bonus
+  /* A-14: an uncapped mission is never penalised, but its cost margin is
+     still measured against the declared reference cap so the margin bonus
      below is earned rather than free. */
-  let score = ret*100 - (over&&cap>0?(cost-cap)/cap*120:0) + Math.max(0,Math.min(D.BEYOND-ORBITs.mass,D.BEYOND-ORBITs.power,D.BEYOND-ORBITs.cost))*22;
+  let score = ret*100 - (over&&cap>0?(cost-cap)/cap*120:0) + Math.max(0,Math.min(D.m.mass,D.m.power,D.m.cost))*22;
   if(reason==="prop") score*=0.5;
   /* Phase-7 surface grade (landed L2 only): three 0..1 components, meaned,
      worth up to +8 bonus points. Null-site/kit/landing/surface (other
@@ -3925,7 +3957,7 @@ function endMission(reason){
     const overall=(land+trav+data)/3;
     surf={land,trav,data,overall,bonus:overall*8,
       sols:F.sol,science:F.science,returnedMb:F.returnedMb,reached:F.reached,
-      degraded:Ld.degraded,offsetKm:Ld.offsetKm,slope:Ld.slope,BEYOND-ORBIT:Ld.BEYOND-ORBIT,
+      degraded:Ld.degraded,offsetKm:Ld.offsetKm,slope:Ld.slope,rvSlope:Ld.rvSlope,
       profile:Ld.profile,site:Ld.site,travKm:Ld.travKm};
     score+=surf.bonus;
   }
@@ -3935,7 +3967,7 @@ function endMission(reason){
   const badges=[];
   if(!over&&ret>=0.999) badges.push("ALL OBJECTIVES, UNDER BUDGET");
   else if(!over) badges.push("UNDER BUDGET");
-  if(Math.min(D.BEYOND-ORBITs.mass,D.BEYOND-ORBITs.power,D.BEYOND-ORBITs.cost)>=0.20) badges.push("HEALTHY BEYOND-ORBITS");
+  if(Math.min(D.m.mass,D.m.power,D.m.cost)>=0.20) badges.push("HEALTHY MARGINS");
   if(O.extend&&O.totalDays>Math.round(L.years*365.25)) badges.push("EXTENDED MISSION");
   if(O.dead.size===0) badges.push("NO HARDWARE LOST");
   if(surf&&surf.reached) badges.push("PRIME TARGET REACHED");
@@ -5462,15 +5494,15 @@ function renderOpsSide(force){
       <div><div class="k">DESCENT PROFILE</div><div class="v">${esc((land.profile||"balanced").toUpperCase())}</div></div>
       <div><div class="k">PROPELLANT REMAINING</div><div class="v" style="color:${propRem<50?'var(--amber)':'var(--phosphor)'}">${fmt(propRem)} kg</div></div>
       <div><div class="k">TOUCHDOWN SLOPE</div><div class="v" style="color:${land.slope>10?'var(--amber)':'var(--phosphor)'}">${land.slope.toFixed(1)}° (CHASSIS CAP ${D.rv?D.rv.rm.slope:0}°)</div></div>
-      <div><div class="k">TERRAIN BEYOND-ORBIT</div><div class="v" style="color:${land.BEYOND-ORBIT<1?'var(--amber)':'var(--phosphor)'}">${land.BEYOND-ORBIT>0?'+':''}${land.BEYOND-ORBIT.toFixed(1)}°</div></div>
+      <div><div class="k">TERRAIN CLEARANCE</div><div class="v" style="color:${land.rvSlope<1?'var(--amber)':'var(--phosphor)'}">${land.rvSlope>0?'+':''}${land.rvSlope.toFixed(1)}°</div></div>
       <div><div class="k">TARGET OFFSET</div><div class="v">&plusmn;${land.offsetKm.toFixed(1)} km</div></div>`;
   } else {
     el("gauges").innerHTML=`
       <div><div class="k">SPACECRAFT HEALTH</div><div class="v" style="color:${O.dead.size?'var(--amber)':'var(--phosphor)'}">${O.dead.size?"DEGRADED":"NOMINAL"} · ${live.length}/${D.instr.length} live</div></div>
-      <div><div class="k">POWER BEYOND-ORBIT (EOL)</div><div class="v" style="color:${D.BEYOND-ORBITs.power<0?'var(--red)':D.BEYOND-ORBITs.power<0.15?'var(--amber)':'var(--bone)'}">${(D.BEYOND-ORBITs.power*100).toFixed(0)}%${O.powerMult<1?" · gen ×"+O.powerMult.toFixed(2):""}</div></div>
+      <div><div class="k">POWER MARGIN (EOL)</div><div class="v" style="color:${D.m.power<0?'var(--red)':D.m.power<0.15?'var(--amber)':'var(--bone)'}">${(D.m.power*100).toFixed(0)}%${O.powerMult<1?" · gen ×"+O.powerMult.toFixed(2):""}</div></div>
       <div><div class="k">COMMS STATUS</div><div class="v">${O.blackout>0?"BLACKOUT":O.dsnCut>0?"35% (CONTENTION)":esc(dsnTier().n.toUpperCase())+" · "+(L.dsnHrs*O.dsnFactor).toFixed(1)+" h/d"}</div></div>
       <div><div class="k">DATA BACKLOG</div><div class="v" style="color:${O.backlog>O.storageMb*0.85?'var(--amber)':'var(--bone)'}">${fmtData(O.backlog)} / ${fmtData(O.storageMb)}</div></div>
-      <div><div class="k">DOWNLINK TODAY</div><div class="v">${fmtData(D.downMbPerDay*(O.blackout>0?0:O.dsnCut>0?0.35:1))}</div></div>
+      <div><div class="k">DOWNLINK TODAY</div><div class="v">${fmtDailyData(D.downMbPerDay*(O.blackout>0?0:O.dsnCut>0?0.35:1))}</div></div>
       <div><div class="k">TOTAL DOSE</div><div class="v" style="color:${O.dose>60?'var(--red)':O.dose>25?'var(--amber)':'var(--bone)'}">${fmt(O.dose)} krad</div></div>
       <div><div class="k">INSTRUMENTS LIVE</div><div class="v">${live.length} / ${D.instr.length}</div></div>
       <div><div class="k">OPERATIONS OVERRUN</div><div class="v">$${fmt(O.opsCost)}M</div></div>
@@ -5534,9 +5566,9 @@ function renderOpsSide(force){
     el("gauges").innerHTML+=`
     <div><div class="k">SURFACE SOL ${F.sol} · ${dist.toFixed(2)} KM TO TARGET</div>
       <div class="v" style="font-size:11px">E ${F.e.toFixed(2)} / N ${F.n.toFixed(2)} km · NRG ${F.energy.toFixed(0)}% · BUF ${fmtData(F.dataMb)} · SCI ${F.science.toFixed(0)}${F.reached?" · <span style='color:var(--phosphor)'>ON TARGET</span>":""}</div></div>
-    <div><div class="k">ORDERS (NEXT SOL)</div><div style="display:flex;gap:4px;flex-wrap:wrap;BEYOND-ORBIT-top:3px">
+    <div><div class="k">ORDERS (NEXT SOL)</div><div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:3px">
       ${btn("sord","drive",om==="drive","DRIVE")}${btn("sord","dwell",om==="dwell","DWELL")}${btn("sord","drill",om==="drill","DRILL")}${btn("sord","recharge",om==="recharge","CHARGE")}${btn("sord","relay",om==="relay","RELAY")}</div></div>
-    <div><div class="k">PACE</div><div style="display:flex;gap:4px;flex-wrap:wrap;BEYOND-ORBIT-top:3px">
+    <div><div class="k">PACE</div><div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:3px">
       ${btn("spce","cautious",op==="cautious","CAUTIOUS")}${btn("spce","standard",op==="standard","STANDARD")}${btn("spce","push",op==="push","PUSH")}</div></div>
     <div class="hint" style="font-size:10px">Traverse display ×${cxz.toFixed(2)} compressed · sol-delayed commands, no joystick</div>${nrgWarn}`;
   }
@@ -5544,7 +5576,7 @@ function renderOpsSide(force){
   if(sb) sb.innerHTML=S.objectives.map(o=>{
     const f=clamp(O.delivered[o]/needMb(L,o),0,1);
     const covered=OBJ[o].need.every(t=>live.some(i=>i.tags.includes(t)));
-    return `<div style="BEYOND-ORBIT-bottom:9px">
+    return `<div style="margin-bottom:9px">
       <div class="spread" style="font-size:12px"><span style="color:${covered?'var(--bone)':'var(--red)'}">${esc(OBJ[o].t)}</span>
       <span class="num hint">${(f*100).toFixed(0)}% <span style="color:var(--dimmer)">of ${fmtData(needMb(L,o))}</span></span></div>
       <div class="mini"><i style="width:${f*100}%;background:${f>=1?'var(--phosphor)':covered?'var(--blue-lift)':'var(--red)'}"></i></div></div>`}).join("")+
@@ -5850,7 +5882,7 @@ function scrReport(){
       <div class="kpi-card">
         <span class="kpi-k">LAUNCH MASS</span>
         <span class="kpi-v">${fmt(D.wetMass)} kg</span>
-        <span class="kpi-sub">BEYOND-ORBIT: ${(D.BEYOND-ORBITs.mass*100).toFixed(0)}%</span>
+        <span class="kpi-sub">margin: ${(D.m.mass*100).toFixed(0)}%</span>
       </div>
       <div class="kpi-card">
         <span class="kpi-k">SPACECRAFT HEALTH</span>
@@ -5891,7 +5923,7 @@ function scrReport(){
                 <div class="rrow"><span class="k">CAPTURE METHOD</span><span class="v">${esc(aeroLabel())}</span></div>
                 <div class="rrow"><span class="k">DSN ALLOCATION</span><span class="v">${esc(dsnTier().n)} (${(L.dsnHrs*dsnTier().f).toFixed(1)} h/day)</span></div>
                 <div class="rrow"><span class="k">EXTENDED PHASE</span><span class="v">${esc(extensionLabel())}</span></div>
-                <div class="rrow"><span class="k">FINAL BEYOND-ORBITS</span><span class="v">mass ${(D.BEYOND-ORBITs.mass*100).toFixed(0)}% &#183; power ${(D.BEYOND-ORBITs.power*100).toFixed(0)}% &#183; cost ${(D.BEYOND-ORBITs.cost*100).toFixed(0)}%</span></div>
+                <div class="rrow"><span class="k">FINAL MARGINS</span><span class="v">mass ${(D.m.mass*100).toFixed(0)}% &#183; power ${(D.m.power*100).toFixed(0)}% &#183; cost ${(D.m.cost*100).toFixed(0)}%</span></div>
                 <div class="rrow"><span class="k">TOTAL ACCUMULATED DOSE</span><span class="v">${fmt(R.dose)} krad</span></div>
                 ${R.overflow>0?`<div class="rrow"><span class="k">SCIENCE DISCARDED</span><span class="v" style="color:var(--amber)">${fmtData(R.overflow)}</span></div>`:""}
                 ${R.dead.length?`<div class="rrow"><span class="k">HARDWARE LOST</span><span class="v" style="color:var(--red)">${R.dead.map(i=>byId(INSTR,i).n).join(", ")}</span></div>`:""}
@@ -6069,7 +6101,7 @@ function timelineHtml(){
   if(!es.length) return `<p class="hint">No flight history recorded.</p>`;
   let lastPh="";
   return es.map((l,k)=>{
-    const ph=tlPhase(l.day); const hdr=ph!==lastPh?`<div class="hint" style="BEYOND-ORBIT:8px 0 3px;font-size:10.5px;letter-spacing:.14em">— ${ph} —</div>`:""; lastPh=ph;
+    const ph=tlPhase(l.day); const hdr=ph!==lastPh?`<div class="hint" style="margin:8px 0 3px;font-size:10.5px;letter-spacing:.14em">— ${ph} —</div>`:""; lastPh=ph;
     return hdr+`<div class="logline ${l.cls||""} tlentry" id="tle-${k}"><span class="d">${dayLabel(l.day)}</span><span>${esc(l.txt)}</span></div>`;
   }).join("");
 }
@@ -6084,7 +6116,7 @@ function renderReplay(){
   if(cur){ cur.style.background="rgba(94,246,160,.08)"; cur.style.outline="1px solid var(--phosphor)"; cur.scrollIntoView({block:"nearest"}); }
   out.textContent=`${dayLabel(es[replayIdx].day)} — ${es[replayIdx].txt}`;
 }
-function liRow(t){ return `<p style="BEYOND-ORBIT-bottom:8px">• ${t}</p>`; }
+function liRow(t){ return `<p style="margin-bottom:8px">• ${t}</p>`; }
 function decisionLines(D,R){
   const O=S.ops, out=[];
   out.push(`Designed for ${S.objectives.length} objective(s): ${S.objectives.map(o=>esc(OBJ[o].t)).join("; ")||"—"}.`);
@@ -6105,8 +6137,8 @@ function eventLines(){
   const es=chronoLog();
   const bad=es.filter(l=>l.cls==="bad"), warn=es.filter(l=>l.cls==="warn");
   if(!bad.length&&!warn.length) return liRow("No major failures or warnings — clean flight.");
-  return bad.map(l=>`<p style="BEYOND-ORBIT-bottom:8px;color:var(--red)">• ${dayLabel(l.day)} — ${esc(l.txt)}</p>`).join("")
-    + warn.map(l=>`<p style="BEYOND-ORBIT-bottom:8px;color:var(--amber)">• ${dayLabel(l.day)} — ${esc(l.txt)}</p>`).join("");
+  return bad.map(l=>`<p style="margin-bottom:8px;color:var(--red)">• ${dayLabel(l.day)} — ${esc(l.txt)}</p>`).join("")
+    + warn.map(l=>`<p style="margin-bottom:8px;color:var(--amber)">• ${dayLabel(l.day)} — ${esc(l.txt)}</p>`).join("");
 }
 function resourceLines(D,R){
   const O=S.ops, out=[];
@@ -6130,43 +6162,43 @@ function finalStateLines(D,R){
   if(!O) return liRow("No operations data.");
   const live=D.instr.filter(i=>!O.dead.has(i.id));
   return liRow(`Ended ${dayLabel(R.days)} (${(R.days/365.25).toFixed(1)} yr) with ${live.length}/${D.instr.length} instruments live, ${fmtData(O.backlog)} backlog of ${fmtData(O.storageMb)} storage.`)
-    + liRow(`Final BEYOND-ORBITs: mass ${(D.BEYOND-ORBITs.mass*100).toFixed(0)}%, power ${(D.BEYOND-ORBITs.power*100).toFixed(0)}%, cost ${(D.BEYOND-ORBITs.cost*100).toFixed(0)}%.`);
+    + liRow(`Final margins: mass ${(D.m.mass*100).toFixed(0)}%, power ${(D.m.power*100).toFixed(0)}%, cost ${(D.m.cost*100).toFixed(0)}%.`);
 }
 function chainLines(D,R){
   const O=S.ops, out=[];
   const LO=(S.launch&&S.launch.outcome)||(R&&R.launch);
   if(R&&R.reason==="launch") return liRow("Vehicle loss on ascent → no cruise, no science → mission grade F. Reliability trades directly against launch cost.");
-  if(LO&&LO.type==="partial") out.push("Partial launch → +6% propellant, ×0.95 power/science → thinner BEYOND-ORBITs for every later anomaly.");
+  if(LO&&LO.type==="partial") out.push("Partial launch → +6% propellant, ×0.95 power/science → thinner margins for every later anomaly.");
   if(LO&&LO.type==="scrub") out.push("Scrub → +2 months schedule → same spacecraft, same science plan.");
   const OA=O&&O.arrival;
   if(OA==="tight"||OA==="low") out.push("Aggressive arrival → more propellant spent → higher science rate the whole mission.");
   if(OA==="high") out.push("High safe orbit → propellant banked → weaker science rate the whole mission.");
   if(OA==="survey") out.push("Cautious survey → +20 days ops cost → +8% science the whole mission.");
   if(O&&O.prox&&O.prox!=="balanced") out.push(`Proximity ${O.prox} → ${O.prox==="coverage"?"time, propellant and budget spent for extra coverage":"propellant and budget spent for sharper science"}.`);
-  if(dsnTier().id==="reduced") out.push(`Reduced tracking → less downlink → backlog pressure → ${O&&O.overflow>500?"data discarded":"BEYOND-ORBIT held"}.`);
+  if(dsnTier().id==="reduced") out.push(`Reduced tracking → less downlink → backlog pressure → ${O&&O.overflow>500?"data discarded":"margin held"}.`);
   if(dsnTier().id==="priority") out.push("Priority tracking → backlog cleared → $24M premium on total cost.");
   if(O&&O.aero==="aero") out.push("Aerobraking → propellant saved → +60 days and +$6M ops.");
   if(O&&O.extend) out.push("Extension → ~20% more days of real operations → extra dose and cost for extra science.");
   if(O&&(O.evIdx||0)>0) out.push(`${O.evIdx} anomal${O.evIdx>1?"ies":"y"} → each decision moved cost, time, or capability → final grade reflects the sum.`);
-  if(!out.length) out.push("Nominal flight: design BEYOND-ORBITs carried the mission with no major excursions.");
-  return out.map(t=>`<p style="BEYOND-ORBIT-bottom:8px">→ ${t}</p>`).join("");
+  if(!out.length) out.push("Nominal flight: design margins carried the mission with no major excursions.");
+  return out.map(t=>`<p style="margin-bottom:8px">→ ${t}</p>`).join("");
 }
 function verdict(D,R,O){
   const out=[];
   const LO=(S.launch&&S.launch.outcome)||(R&&R.launch);
-  if(R&&R.reason==="launch"){ out.push("The mission was lost on ascent. A higher-reliability vehicle trades cost against exactly this risk."); return out.map(p=>`<p style="BEYOND-ORBIT-bottom:8px">${p}</p>`).join(""); }
+  if(R&&R.reason==="launch"){ out.push("The mission was lost on ascent. A higher-reliability vehicle trades cost against exactly this risk."); return out.map(p=>`<p style="margin-bottom:8px">${p}</p>`).join(""); }
   if(LO&&LO.type==="scrub") out.push(`A scrub slipped launch ~${LO.delayMo||2} months, but the spacecraft flew unchanged.`);
-  if(LO&&LO.type==="partial") out.push("A partial launch shortfall cost 6% propellant, 5% power/science efficiency, and $10M — BEYOND-ORBIT is what absorbed it.");
+  if(LO&&LO.type==="partial") out.push("A partial launch shortfall cost 6% propellant, 5% power/science efficiency, and $10M — margin is what absorbed it.");
   const OA=S.ops&&S.ops.arrival;
-  if(OA==="tight"||OA==="low") out.push("You bought a lower science orbit at arrival with propellant — the anomaly BEYOND-ORBIT was thinner afterward.");
+  if(OA==="tight"||OA==="low") out.push("You bought a lower science orbit at arrival with propellant — the anomaly margin was thinner afterward.");
   if(OA==="high") out.push("You took the high safe orbit at arrival, banking propellant against later anomalies.");
   if(OA==="survey") out.push("The cautious Bennu survey cost 20 extra days of operations and returned more science.");
   /* Phase-4: touchdown record feeds the report narrative (full grading in Phase 7). */
   if(S.landing){
     const Ld=S.landing, st=byId(MOON_SITES,Ld.site)||byId(MARS_SITES,Ld.site);
     out.push(Ld.degraded
-      ? `Touchdown at ${st?st.n:"the site"} was hard (${Ld.slope}° on a ${Ld.BEYOND-ORBIT}° deficit) — the rover drove degraded after a $${Ld.opsM}M recovery, ${Ld.offsetKm} km from the prime target.`
-      : `Touchdown at ${st?st.n:"the site"} was nominal (${Ld.slope}°, +${Ld.BEYOND-ORBIT}° BEYOND-ORBIT, ${Ld.offsetKm} km from the prime target).`);
+      ? `Touchdown at ${st?st.n:"the site"} was hard (${Ld.slope}° on a ${Math.abs(Ld.rvSlope)}° deficit) — the rover drove degraded after a $${Ld.opsM}M recovery, ${Ld.offsetKm} km from the prime target.`
+      : `Touchdown at ${st?st.n:"the site"} was nominal (${Ld.slope}°, +${Ld.rvSlope}° clearance, ${Ld.offsetKm} km from the prime target).`);
     /* Phase-7: traverse + data verdicts (graded in endMission). */
     if(S.surface){
       const F=S.surface;
@@ -6190,18 +6222,18 @@ function verdict(D,R,O){
   if(OX&&OX.extend&&OX.totalDays>(OX.nominalDays||OX.totalDays)){
     const snap=OX.extSnap, extra=OX.totalDays-(OX.nominalDays||OX.totalDays);
     const gained=snap?Math.max(0,(R.ret-snap.ret)*100):0;
-    out.push(`Extension was possible because mass and power BEYOND-ORBITs held above 5% at review. ${extra} extra days consumed real power, dose, and downlink for +${gained.toFixed(0)}% science.`);
+    out.push(`Extension was possible because mass and power margins held above 5% at review. ${extra} extra days consumed real power, dose, and downlink for +${gained.toFixed(0)}% science.`);
   }
   if(R.ret>=0.95) out.push("You returned essentially all the science you set out to get.");
   else if(R.ret>=0.6) out.push(`You returned ${(R.ret*100).toFixed(0)}% of the science you promised.`);
   else out.push(`Only ${(R.ret*100).toFixed(0)}% of the promised science came home.`);
   if(R.overflow>500) out.push(`${fmtData(R.overflow)} went to the bit bucket because the downlink could not keep up with the instruments. A higher-gain antenna, or one fewer high-rate instrument, would have recovered most of it.`);
-  if(D.BEYOND-ORBITs.power<0.1) out.push("Power BEYOND-ORBIT was thin from the start, so the first anomaly forced you to shed duty cycle.");
-  if(D.BEYOND-ORBITs.mass<0.08) out.push("You launched with almost no mass BEYOND-ORBIT. Real programmes hold 20% at this stage precisely because the spacecraft always grows.");
+  if(D.m.power<0.1) out.push("Power margin was thin from the start, so the first anomaly forced you to shed duty cycle.");
+  if(D.m.mass<0.08) out.push("You launched with almost no mass margin. Real programmes hold 20% at this stage precisely because the spacecraft always grows.");
   if(R.dead.length) out.push(`You lost ${R.dead.length} instrument${R.dead.length>1?"s":""} to radiation. Shielding mass is cheap compared with losing an objective outright.`);
   if(isOverCap(R.cost,D.L,S.mode)) out.push(`The mission came in $${fmt(R.cost-effCap(D.L,S.mode))}M over cap, most of it operations overrun from anomaly response.`);
-  if(Math.min(D.BEYOND-ORBITs.mass,D.BEYOND-ORBITs.power,D.BEYOND-ORBITs.cost)>=0.2) out.push("You held healthy BEYOND-ORBITs on every budget, which is why the anomalies cost you so little.");
-  return out.map(p=>`<p style="BEYOND-ORBIT-bottom:8px">${p}</p>`).join("");
+  if(Math.min(D.m.mass,D.m.power,D.m.cost)>=0.2) out.push("You held healthy margins on every budget, which is why the anomalies cost you so little.");
+  return out.map(p=>`<p style="margin-bottom:8px">${p}</p>`).join("");
 }
 
 /* ══════════════════════════════════════════════════════════════
@@ -6360,7 +6392,7 @@ function loadDraft(){
    Snapshots in-flight mission state at phase boundaries (D-20).
    Restores without calling initOpsState() to prevent double launch
    penalties or event deck re-draws. Preserves the full launch tuple
-   (A-15) so derive(S) reproduces identical vinf/c3/BEYOND-ORBITs.
+   (A-15) so derive(S) reproduces identical vinf/c3/margins.
    Restores paused at speed 0.
    ══════════════════════════════════════════════════════════════ */
 const SESSION_KEY = "BEYOND-ORBIT.session";
@@ -6437,7 +6469,7 @@ function restoreSession(){
   S.seed = (snap.seed !== undefined && isFinite(snap.seed)) ? (snap.seed | 0) : DEFAULT_SEED;
   S.mode = (snap.mode === "fd") ? "fd" : "cadet";
 
-  /* A-15: restore the complete launch tuple so derive(S) keeps exact vinf/c3/BEYOND-ORBITs */
+  /* A-15: restore the complete launch tuple so derive(S) keeps exact vinf/c3/margins */
   if(snap.launch){
     S.launch = { ...snap.launch };
   }
@@ -6662,11 +6694,11 @@ function runLabel(r){
 function compareModal(a,b){
   const c=compareRuns(a,b);
   const banner=c.issues.length
-    ? `<div style="border:1px solid var(--amber);background:rgba(240,180,41,.10);padding:9px 11px;border-radius:3px;BEYOND-ORBIT-bottom:12px">
-         <div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;color:var(--amber);BEYOND-ORBIT-bottom:5px">NOT DIRECTLY COMPARABLE</div>
+    ? `<div style="border:1px solid var(--amber);background:rgba(240,180,41,.10);padding:9px 11px;border-radius:3px;margin-bottom:12px">
+         <div style="font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;color:var(--amber);margin-bottom:5px">NOT DIRECTLY COMPARABLE</div>
          ${c.issues.map(x=>`<div class="hint" style="font-size:12px">· ${esc(x)}</div>`).join("")}
        </div>`
-    : `<div style="border:1px solid var(--phosphor);background:rgba(101,242,165,.08);padding:8px 11px;border-radius:3px;BEYOND-ORBIT-bottom:12px">
+    : `<div style="border:1px solid var(--phosphor);background:rgba(101,242,165,.08);padding:8px 11px;border-radius:3px;margin-bottom:12px">
          <div class="hint" style="font-size:12px;color:var(--phosphor)">Same mission, difficulty, seed and ruleset — directly comparable.</div>
        </div>`;
   const head=`<div style="display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:6px;padding:6px 0;border-bottom:1px solid var(--hairline)">
@@ -6902,28 +6934,28 @@ function challengeMatchModal(a, b){
 
   const bmMeta = b.benchmarkMeta || (b.isBenchmark ? (REAL[a.level]||REAL.l1) : null);
   const benchmarkBanner = bmMeta ? `
-    <div style="background:rgba(101,242,165,.08);border:1px solid rgba(101,242,165,.25);border-radius:6px;padding:8px 12px;BEYOND-ORBIT-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+    <div style="background:rgba(101,242,165,.08);border:1px solid rgba(101,242,165,.25);border-radius:6px;padding:8px 12px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
       <div>
         <span style="font-family:var(--mono);font-size:10px;color:var(--phosphor);letter-spacing:.12em">VERIFIED NASA HISTORICAL FLIGHT ARCHIVE</span>
-        <div style="font-size:11.5px;color:var(--bone);BEYOND-ORBIT-top:2px">${esc(bmMeta.n)} · ${esc(bmMeta.agency)} (${bmMeta.flownYear}) · Launched on ${esc(bmMeta.lv)}</div>
-        <div class="hint" style="font-size:10.5px;BEYOND-ORBIT-top:1px">${esc(bmMeta.source)}</div>
+        <div style="font-size:11.5px;color:var(--bone);margin-top:2px">${esc(bmMeta.n)} · ${esc(bmMeta.agency)} (${bmMeta.flownYear}) · Launched on ${esc(bmMeta.lv)}</div>
+        <div class="hint" style="font-size:10.5px;margin-top:1px">${esc(bmMeta.source)}</div>
       </div>
       <span class="tag" style="background:rgba(101,242,165,.18);color:var(--phosphor);font-size:10.5px">NASA PDS / LSP</span>
     </div>
   ` : "";
 
   el("mbox").innerHTML = `
-    <div class="th-kicker" style="color:var(--phosphor);font-size:10px;letter-spacing:.14em;BEYOND-ORBIT-bottom:4px">NASA SPACE APPS CHALLENGE 2026 — COMPETITIVE MATCH</div>
-    <h3 style="BEYOND-ORBIT-top:0;display:flex;align-items:center;justify-content:space-between">MISSION FACE-OFF <span class="code" style="font-size:11px">CMP-MATCH</span></h3>
+    <div class="th-kicker" style="color:var(--phosphor);font-size:10px;letter-spacing:.14em;margin-bottom:4px">NASA SPACE APPS CHALLENGE 2026 — COMPETITIVE MATCH</div>
+    <h3 style="margin-top:0;display:flex;align-items:center;justify-content:space-between">MISSION FACE-OFF <span class="code" style="font-size:11px">CMP-MATCH</span></h3>
     <div class="mb" style="font-size:12.5px;max-height:68vh;overflow:auto">
       
       <!-- Opponent Selector Toolbar -->
-      <div style="background:rgba(18,24,38,.75);border:1px solid var(--hairline);padding:8px 12px;border-radius:6px;BEYOND-ORBIT-bottom:12px;display:flex;flex-wrap:wrap;align-items:center;gap:10px">
+      <div style="background:rgba(18,24,38,.75);border:1px solid var(--hairline);padding:8px 12px;border-radius:6px;margin-bottom:12px;display:flex;flex-wrap:wrap;align-items:center;gap:10px">
         <label style="font-family:var(--mono);font-size:10.5px;color:var(--dim);letter-spacing:.08em">OPPONENT:</label>
         <select id="matchOppSelect" style="flex:1;min-width:180px;background:#05070c;border:1px solid rgba(255,255,255,.18);color:var(--bone);font-size:11.5px;padding:4px 8px;border-radius:4px">
           ${oppOptions}
         </select>
-        <div style="display:flex;align-items:center;gap:6px;width:100%;BEYOND-ORBIT-top:4px">
+        <div style="display:flex;align-items:center;gap:6px;width:100%;margin-top:4px">
           <input id="matchOppCode" class="share-inp" placeholder="Paste peer #m=... share code" style="flex:1;font-size:11px;padding:4px 8px">
           <button class="btn ghost btn-sm" data-act="apply-match-code" style="white-space:nowrap">LOAD CODE</button>
         </div>
@@ -6936,7 +6968,7 @@ function challengeMatchModal(a, b){
         <div class="match-team-card">
           <span style="font-size:10px;font-family:var(--mono);color:var(--phosphor);letter-spacing:.12em">TEAM ALPHA (THIS RUN)</span>
           <span style="font-size:14px;font-weight:600;color:var(--bone)">${esc(nameA)}</span>
-          <div style="display:flex;align-items:center;gap:8px;BEYOND-ORBIT-top:2px">
+          <div style="display:flex;align-items:center;gap:8px;margin-top:2px">
             <span class="tag" style="background:rgba(101,242,165,.15);color:var(--phosphor);font-size:12px;padding:2px 8px">${gA} · ${scoreA}%</span>
             <span class="hint" style="font-size:11px">${teamTextA}</span>
           </div>
@@ -6945,7 +6977,7 @@ function challengeMatchModal(a, b){
         <div class="match-team-card" style="text-align:right;align-items:flex-end">
           <span style="font-size:10px;font-family:var(--mono);color:var(--amber);letter-spacing:.12em">TEAM BETA (OPPONENT)</span>
           <span style="font-size:14px;font-weight:600;color:var(--bone)">${esc(nameB)}</span>
-          <div style="display:flex;align-items:center;gap:8px;BEYOND-ORBIT-top:2px">
+          <div style="display:flex;align-items:center;gap:8px;margin-top:2px">
             <span class="hint" style="font-size:11px">${teamTextB}</span>
             <span class="tag" style="background:rgba(240,180,41,.15);color:var(--amber);font-size:12px;padding:2px 8px">${gB} · ${scoreB}%</span>
           </div>
@@ -6954,14 +6986,14 @@ function challengeMatchModal(a, b){
 
       <!-- Verdict Banner -->
       <div class="match-verdict-box" style="border:1px solid ${verdict.col};background:linear-gradient(180deg, rgba(14,20,32,.9), rgba(5,7,12,.95));box-shadow:0 0 16px rgba(0,0,0,.5)">
-        <div style="font-family:var(--font-display);font-size:14px;font-weight:700;color:${verdict.col};letter-spacing:.12em;BEYOND-ORBIT-bottom:6px">
+        <div style="font-family:var(--font-display);font-size:14px;font-weight:700;color:${verdict.col};letter-spacing:.12em;margin-bottom:6px">
           ${verdict.title}
         </div>
         ${verdict.reasons.map(r => `<div class="hint" style="font-size:11.5px;color:var(--bone);line-height:1.6">• ${esc(r)}</div>`).join("")}
       </div>
 
       <!-- Metric Comparison Rows -->
-      <div style="border-top:1px solid var(--hairline);BEYOND-ORBIT-top:14px;padding-top:8px">
+      <div style="border-top:1px solid var(--hairline);margin-top:14px;padding-top:8px">
         <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:6px;padding:5px 0;border-bottom:1px solid var(--hairline)">
           <span class="hint" style="font-size:10.5px">CRITERIA</span>
           <span class="hint" style="font-size:10.5px;color:var(--phosphor)">${esc(nameA)}</span>
@@ -7015,7 +7047,7 @@ function historyModal(){
   }).join(""):`<p class="hint">No completed runs yet. Finish a mission and it will appear here.</p>`;
   el("mbox").innerHTML=`<h3>MISSION HISTORY <span class="code">HIST-01</span></h3>
     <div class="mb" style="font-size:12.5px;max-height:62vh;overflow:auto">
-      <p class="hint" style="font-size:12px;BEYOND-ORBIT-bottom:8px">Every run is kept with its build, its five rails and its outcome. COMPARE opens it against the best run of the same mission, difficulty and seed.</p>
+      <p class="hint" style="font-size:12px;margin-bottom:8px">Every run is kept with its build, its five rails and its outcome. COMPARE opens it against the best run of the same mission, difficulty and seed.</p>
       ${rows}
       <p class="hint mt-s" style="font-size:11px">Ranking reads only runs recorded under the current ruleset (v${RULES_V}). Sandbox runs and launch failures are stored and shown, but never become a best.</p>
       <button class="btn ghost mt" data-act="closeModal" style="width:100%">CLOSE</button></div>`;
@@ -7241,7 +7273,7 @@ function teamHandoffWhy(key){
   if(key==="brief") return "Choose the objectives and the landing site. Only this seat can change them without an override.";
   if(key==="build:payload") return "Pick the instruments that cover the objectives. The Science Lead owns what the spacecraft measures.";
   if(key==="build:systems") return "Size the bus: power, comms, propulsion, shielding. The Science Lead still owns the instruments.";
-  if(key==="build:review") return "Certify the build against the BEYOND-ORBITs before the launch planner takes over.";
+  if(key==="build:review") return "Certify the build against the margins before the launch planner takes over.";
   if(key==="launch") return "Pick the launch vehicle and the launch window. When every seat has called GO, the Flight Director takes the commit.";
   if(key==="ops") return "Fly the mission: anomalies, proximity ops, landing and the extension review.";
   return "";
@@ -7510,6 +7542,7 @@ document.addEventListener("click",e=>{
       break;
     }
     case "fly": {
+      if(!S.launch||!S.launch.lv||launchReadinessChecks(derive(S)).some(check=>!check[1])) break;
       if(teamActive()) S.team.goAll=null;
       /* COMMIT transition: expand the live 3D vehicle preview to full screen,
          then hand off to the ascent cinematic. Without the 3D layer the commit
@@ -7761,8 +7794,8 @@ document.addEventListener("click",e=>{
     if(D.cm)rows.push([D.cm.n+" (transmit)",D.cm.w+" W"]);
     rows.push(["Generation at end of life",fmt(D.genEOL)+" W"]);
   }else if(k==="data"){
-    D.instr.forEach(i=>i.d>0&&rows.push([i.n,fmtData(i.d*DATA_DUTY*DAY)+"/day"]));
-    rows.push(["Downlink capacity",fmtData(D.downMbPerDay)+"/day"]);
+    D.instr.forEach(i=>i.d>0&&rows.push([i.n,fmtDailyData(generatedDataMbPerDay(i.d,L))+"/day"]));
+    rows.push(["Downlink capacity",fmtDailyData(D.downMbPerDay)+"/day"]);
     rows.push(["Link: "+(D.cm?D.cm.n:"\u2014")+" at "+D.linkAu.toFixed(2)+" AU",
                D.rate>1e6?(D.rate/1e6).toFixed(2)+" Mb/s":(D.rate/1e3).toFixed(2)+" kb/s"]);
   }else if(k==="cost"){
@@ -7861,7 +7894,7 @@ function flightKeysFor(lvId){ return FLIGHT_KEYS[lvId] || FLIGHT_KEYS.f9; }
    it, the flightDownrangeAt integral (no separate rebuild needed). */
 const PAD_ISP = 280; // s sea-level, ESTIMATE (<1% effect on tower-clear)
 const PAD_HOLD_S = { f9:.5, fhr:.5, fhe:.5, av401:.4, av551:.4, vc4:.4, vc6:.4, ng:.4, sls:.3, saturn5:.3 }; // ESTIMATE
-const PAD_REAL_BEYOND-ORBIT_S = 1.5; // wall-map real-time span past display tower-top
+const PAD_REAL_BEYOND_ORBIT_S = 1.5; // wall-map real-time span past display tower-top
 const PAD_LIFT_U = 16; // PRESENTATION: true-scale pad region height (display units)
 const PAD_M_PER_UNIT = 9.95; // mirrors launch-view SITE_VK (fixed site truth, 1 u = 9.95 m)
 const TOWER_U = 10.3; // display tower-top above nozzle (~103 m, NASA ML on slab)
@@ -7899,7 +7932,7 @@ function padParams(lvId){
     if(riseOfAlt(_pad.h * P.sh, P.Hm) < TOWER_U) lo = m; else hi = m;
   }
   P.tauTower = hi;
-  P.w1 = P.hold + P.tauTower + PAD_REAL_BEYOND-ORBIT_S;
+  P.w1 = P.hold + P.tauTower + PAD_REAL_BEYOND_ORBIT_S;
   return P;
 }
 /* Raw REFERENCE key lerp (verbatim prior flightStateAt body — the un-overridden path). */
@@ -7979,7 +8012,7 @@ function launchOutcomeText(out){
   const lv=byId(LV,out.lv);
   const base="Vehicle reliability "+(out.rel*100).toFixed(0)+"% ("+(lv?lv.n:"")+")";
   if(out.type==="nominal") return {h:"LAUNCH NOMINAL",w:"What happened? Clean ascent to the planned trajectory.",y:"Why it matters? Full propellant, power, and schedule preserved.",n:"What happens next? Cruise operations begin.",base};
-  if(out.type==="scrub") return {h:"LAUNCH SCRUB — RANGE HOLD",w:"What happened? Countdown held; liftoff slipped ~2 months.",y:"Why it matters? Spacecraft is safe. Schedule BEYOND-ORBIT absorbs a 2-month slip.",n:"What happens next? Same vehicle flies on the next window — no duplicate launch.",base};
+  if(out.type==="scrub") return {h:"LAUNCH SCRUB — RANGE HOLD",w:"What happened? Countdown held; liftoff slipped ~2 months.",y:"Why it matters? Spacecraft is safe. Schedule margin absorbs a 2-month slip.",n:"What happens next? Same vehicle flies on the next window — no duplicate launch.",base};
   if(out.type==="partial") return {h:"PARTIAL LAUNCH SHORTFALL",w:"What happened? Upper stage underperformed; spacecraft compensates.",y:"Why it matters? 6% propellant spent, 5% power and science efficiency lost, +$10M recovery.",n:"What happens next? Degraded but flyable mission continues.",base};
   return {h:"CATASTROPHIC LAUNCH FAILURE",w:"What happened? Vehicle lost during ascent; spacecraft did not reach orbit.",y:"Why it matters? No cruise, no science — reliability is a real constraint.",n:"What happens next? Mishap report explains the loss.",base};
 }
@@ -8110,8 +8143,8 @@ function aboutModal(){
       <button class="modal-close-icon" data-act="closeModal" aria-label="Close dialog">&times;</button>
     </div>
     <div class="modal-scroll-body" style="padding:20px 24px">
-      <p style="font-size:13.5px;line-height:1.7;color:var(--text-1)">Designing a space mission is a fight over BEYOND-ORBIT. Add a better camera and you gain science &mdash; and lose eighteen kilograms, which costs you array area, which costs you propellant, which costs you two years of cruise, which costs you the transmitter you needed to send any of it home.</p>
-      <p style="BEYOND-ORBIT-top:14px;font-size:13px;line-height:1.7;color:var(--text-2)">Pick a real NASA science objective. Build the spacecraft. Choose a launch window off a real Lambert solution. Then fly it, and live with what you built.</p>
+      <p style="font-size:13.5px;line-height:1.7;color:var(--text-1)">Designing a space mission is a fight over margins. Add a better camera and you gain science &mdash; and lose eighteen kilograms, which costs you array area, which costs you propellant, which costs you two years of cruise, which costs you the transmitter you needed to send any of it home.</p>
+      <p style="margin-top:14px;font-size:13px;line-height:1.7;color:var(--text-2)">Pick a real NASA science objective. Build the spacecraft. Choose a launch window off a real Lambert solution. Then fly it, and live with what you built.</p>
     </div>
     <div class="modal-bottom-bar">
       <span class="modal-status-text">OFFLINE-FIRST SIMULATION</span>
@@ -8135,7 +8168,7 @@ const GLOSSARY=[
  ["Bus","Everything that is not payload or propellant: structure, avionics, thermal control, harness."],
  ["Payload","The mass you actually came for: instruments, power source, antenna, propulsion hardware, shielding, rover."],
  ["TRL","Technology readiness level, 1 to 9. Anything below 8 adds schedule and cost, because it still needs to be proven."],
- ["BEYOND-ORBIT","The five rails: how much room is left against mass, power, data, cost and schedule. Negative means over budget."],
+ ["Margin","The five rails: how much room is left against mass, power, data, cost and schedule. Negative means over budget."],
  ["Cost cap","The mission's maximum cost. Exceeding it fails the mission regardless of the science."],
  ["BOL / EOL power","Beginning and end of life. Solar arrays and radioisotope sources both degrade, so plan against end of life."],
  ["Downlink","The data you can actually send home. An instrument can collect far more than the antenna can deliver."],
@@ -8304,19 +8337,19 @@ function cadetTourModal(step){
 
         <!-- Telemetry Readout Pane -->
         <div class="academy-right-pane">
-          <div style="font-family:var(--mono);font-size:10px;color:var(--phosphor);letter-spacing:0.12em;BEYOND-ORBIT-bottom:4px">MISSION SCIENCE METRICS</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--phosphor);letter-spacing:0.12em;margin-bottom:4px">MISSION SCIENCE METRICS</div>
           
           <div class="academy-readout-row">
             <span class="k">Science Productivity</span>
             <span class="v" style="color:${gradeCol}">${score}%</span>
           </div>
-          <div class="tour-gauge-bar" style="BEYOND-ORBIT-bottom:8px">
+          <div class="tour-gauge-bar" style="margin-bottom:8px">
             <div class="tour-gauge-fill" style="width:${score}%;background:${gradeCol}"></div>
           </div>
 
           <div style="background:#020408;border:1px solid rgba(255,255,255,0.08);border-radius:6px;padding:8px 10px;text-align:center">
             <span style="font-family:var(--mono);font-size:9.5px;color:var(--dim);letter-spacing:0.12em">PROJECTED NASA REPORT CARD</span>
-            <div style="font-size:26px;font-weight:700;color:${gradeCol};letter-spacing:0.05em;BEYOND-ORBIT:2px 0">${grade}</div>
+            <div style="font-size:26px;font-weight:700;color:${gradeCol};letter-spacing:0.05em;margin:2px 0">${grade}</div>
             <div class="hint" style="font-size:10.5px">
               ${score === 100 ? 'Exceeds all baseline requirements with A+ honors.' : score >= 70 ? 'Meets full Level-1 NASA mission requirements.' : 'Below minimum scientific threshold.'}
             </div>
@@ -8344,13 +8377,13 @@ function cadetTourModal(step){
     if(CADET_SIM.payloads.mag) { mass += 20; power += 15; data += 5; }
 
     const powerGen = CADET_SIM.pwrChoice === "upgraded" ? 850 : 550;
-    const pwrBEYOND-ORBIT = Math.round(((powerGen - power) / powerGen) * 100);
+    const pwrBeyondOrbit = Math.round(((powerGen - power) / powerGen) * 100);
     const massLimit = 1250;
-    const massBEYOND-ORBIT = Math.round(((massLimit - mass) / massLimit) * 100);
+    const massBeyondOrbit = Math.round(((massLimit - mass) / massLimit) * 100);
 
-    const pwrCol = pwrBEYOND-ORBIT > 15 ? "#65f2a5" : pwrBEYOND-ORBIT > 0 ? "#f59e0b" : "#ef4444";
-    const massCol = massBEYOND-ORBIT > 10 ? "#65f2a5" : massBEYOND-ORBIT > 0 ? "#f59e0b" : "#ef4444";
-    const tiltDeg = pwrBEYOND-ORBIT < 0 || massBEYOND-ORBIT < 0 ? -7 : pwrBEYOND-ORBIT < 15 ? -3 : 4;
+    const pwrCol = pwrBeyondOrbit > 15 ? "#65f2a5" : pwrBeyondOrbit > 0 ? "#f59e0b" : "#ef4444";
+    const massCol = massBeyondOrbit > 10 ? "#65f2a5" : massBeyondOrbit > 0 ? "#f59e0b" : "#ef4444";
+    const tiltDeg = pwrBeyondOrbit < 0 || massBeyondOrbit < 0 ? -7 : pwrBeyondOrbit < 15 ? -3 : 4;
 
     const svgBusCrossSection = `
       <div class="academy-svg-wrap">
@@ -8388,9 +8421,9 @@ function cadetTourModal(step){
           </g>
 
           <!-- Top Status Ribbon -->
-          <rect x="130" y="32" width="200" height="24" rx="12" fill="#040810" stroke="${pwrBEYOND-ORBIT < 0 ? '#ef4444' : '#65f2a5'}" stroke-width="1.2"/>
-          <text x="230" y="48" text-anchor="middle" fill="${pwrBEYOND-ORBIT < 0 ? '#ef4444' : '#cfe3ff'}" font-family="monospace" font-size="9.5" font-weight="600">
-            ${pwrBEYOND-ORBIT < 0 ? 'CRITICAL ELECTRICAL DEFICIT' : pwrBEYOND-ORBIT < 15 ? 'TIGHT BEYOND-ORBIT RESERVE' : 'SYSTEM BEYOND-ORBIT EQUILIBRIUM'}
+          <rect x="130" y="32" width="200" height="24" rx="12" fill="#040810" stroke="${pwrBeyondOrbit < 0 ? '#ef4444' : '#65f2a5'}" stroke-width="1.2"/>
+          <text x="230" y="48" text-anchor="middle" fill="${pwrBeyondOrbit < 0 ? '#ef4444' : '#cfe3ff'}" font-family="monospace" font-size="9.5" font-weight="600">
+            ${pwrBeyondOrbit < 0 ? 'CRITICAL ELECTRICAL DEFICIT' : pwrBeyondOrbit < 15 ? 'TIGHT MARGIN RESERVE' : 'SYSTEM MARGIN EQUILIBRIUM'}
           </text>
         </svg>
       </div>
@@ -8429,14 +8462,14 @@ function cadetTourModal(step){
               <div class="academy-toy-btn-desc">Draws: +20 kg · 15 W · 5 Mb/d. Minimal resource impact.</div>
             </div>
 
-            <button class="btn ${CADET_SIM.pwrChoice==='upgraded'?'primary':'ghost'} btn-sm" data-act="tour-toy-pwr" style="BEYOND-ORBIT-top:4px">
+            <button class="btn ${CADET_SIM.pwrChoice==='upgraded'?'primary':'ghost'} btn-sm" data-act="tour-toy-pwr" style="margin-top:4px">
               ${CADET_SIM.pwrChoice==='upgraded' ? 'SOLAR ARRAYS: UPGRADED (850 W GENERATION)' : 'SOLAR ARRAYS: STANDARD (550 W) — CLICK TO UPGRADE WINGS'}
             </button>
           </div>
         </div>
 
         <div class="academy-right-pane">
-          <div style="font-family:var(--mono);font-size:10px;color:var(--phosphor);letter-spacing:0.12em;BEYOND-ORBIT-bottom:4px">TELEMETRY RAILS READOUT</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--phosphor);letter-spacing:0.12em;margin-bottom:4px">TELEMETRY RAILS READOUT</div>
 
           <div class="academy-readout-row">
             <span class="k">Power Generation</span>
@@ -8447,11 +8480,11 @@ function cadetTourModal(step){
             <span class="v" style="color:${pwrCol}">${power} W</span>
           </div>
           <div class="academy-readout-row">
-            <span class="k">Net Power BEYOND-ORBIT</span>
-            <span class="v" style="color:${pwrCol}">${pwrBEYOND-ORBIT}%</span>
+            <span class="k">Net Power Margin</span>
+            <span class="v" style="color:${pwrCol}">${pwrBeyondOrbit}%</span>
           </div>
-          <div class="tour-gauge-bar" style="BEYOND-ORBIT-bottom:8px">
-            <div class="tour-gauge-fill" style="width:${Math.max(0, Math.min(100, pwrBEYOND-ORBIT))}%;background:${pwrCol}"></div>
+          <div class="tour-gauge-bar" style="margin-bottom:8px">
+            <div class="tour-gauge-fill" style="width:${Math.max(0, Math.min(100, pwrBeyondOrbit))}%;background:${pwrCol}"></div>
           </div>
 
           <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:8px">
@@ -8464,16 +8497,16 @@ function cadetTourModal(step){
               <span class="v">${massLimit} kg</span>
             </div>
             <div class="academy-readout-row">
-              <span class="k">Mass BEYOND-ORBIT</span>
-              <span class="v" style="color:${massCol}">${massBEYOND-ORBIT}%</span>
+              <span class="k">Mass Margin</span>
+              <span class="v" style="color:${massCol}">${massBeyondOrbit}%</span>
             </div>
             <div class="tour-gauge-bar">
-              <div class="tour-gauge-fill" style="width:${Math.max(0, Math.min(100, massBEYOND-ORBIT))}%;background:${massCol}"></div>
+              <div class="tour-gauge-fill" style="width:${Math.max(0, Math.min(100, massBeyondOrbit))}%;background:${massCol}"></div>
             </div>
           </div>
 
           <div class="academy-rule-callout">
-            <b>CADET RULE OF THUMB:</b> Never launch with a negative BEYOND-ORBIT! If loading a heavy sensor creates a deficit, upgrade your power array or upgrade your launch vehicle before flight authorization.
+            <b>CADET RULE OF THUMB:</b> Never launch with a negative margin! If loading a heavy sensor creates a deficit, upgrade your power array or upgrade your launch vehicle before flight authorization.
           </div>
         </div>
       </div>
@@ -8486,7 +8519,7 @@ function cadetTourModal(step){
     const isNuclear = CADET_SIM.powerSource === "mmrtg";
 
     let effectivePower = isNuclear ? 220 : Math.round(520 * (solarFlux / 1361));
-    const pwrStatus = effectivePower >= 180 ? "FLIGHT NOMINAL" : effectivePower >= 80 ? "BEYOND-ORBITAL LOAD" : "BATTERY STARVATION";
+    const pwrStatus = effectivePower >= 180 ? "FLIGHT NOMINAL" : effectivePower >= 80 ? "ELEVATED LOAD" : "BATTERY STARVATION";
     const pwrColor = effectivePower >= 180 ? "#65f2a5" : effectivePower >= 80 ? "#f59e0b" : "#ef4444";
 
     const linkLossDb = distAU === 1.0 ? "-12 dB (NEAR-EARTH)" : distAU <= 1.55 ? "-28 dB (MARS TRANSIT)" : "-52 dB (JOVIAN DISTANCE)";
@@ -8618,7 +8651,7 @@ function cadetTourModal(step){
         </div>
 
         <div class="academy-right-pane">
-          <div style="font-family:var(--mono);font-size:10px;color:var(--phosphor);letter-spacing:0.12em;BEYOND-ORBIT-bottom:4px">ENVIRONMENTAL READOUT</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--phosphor);letter-spacing:0.12em;margin-bottom:4px">ENVIRONMENTAL READOUT</div>
 
           <div class="academy-readout-row">
             <span class="k">Solar Irradiance Flux</span>
@@ -8633,8 +8666,8 @@ function cadetTourModal(step){
             <span class="v" style="color:${pwrColor}">${effectivePower} W (${pwrStatus})</span>
           </div>
 
-          <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;BEYOND-ORBIT-top:6px">
-            <div style="font-family:var(--mono);font-size:10px;color:var(--phosphor);BEYOND-ORBIT-bottom:4px">DEEP SPACE NETWORK (DSN) COMM LINK</div>
+          <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;margin-top:6px">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--phosphor);margin-bottom:4px">DEEP SPACE NETWORK (DSN) COMM LINK</div>
             <div class="academy-readout-row"><span class="k">Free-Space Path Loss</span><span class="v">${linkLossDb}</span></div>
             <div class="academy-readout-row"><span class="k">One-Way Light Delay</span><span class="v">${lightDelay}</span></div>
             <div class="academy-readout-row"><span class="k">Flight Antenna Solution</span><span class="v" style="color:var(--phosphor)">${linkHardware}</span></div>
@@ -8711,7 +8744,7 @@ function cadetTourModal(step){
         </div>
 
         <div class="academy-right-pane">
-          <div style="font-family:var(--mono);font-size:10px;color:var(--phosphor);letter-spacing:0.12em;BEYOND-ORBIT-bottom:4px">TRAJECTORY INJECTION TELEMETRY</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--phosphor);letter-spacing:0.12em;margin-bottom:4px">TRAJECTORY INJECTION TELEMETRY</div>
 
           <div class="academy-readout-row">
             <span class="k">Required Energy (C3)</span>
@@ -8730,11 +8763,11 @@ function cadetTourModal(step){
             <span class="v">${curPork.cost}</span>
           </div>
 
-          <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;BEYOND-ORBIT-top:6px">
-            <div style="font-family:var(--mono);font-size:10px;color:var(--phosphor);BEYOND-ORBIT-bottom:4px">MULTIPLAYER COMMAND STATIONS (2–4 SEATS)</div>
+          <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:8px;margin-top:6px">
+            <div style="font-family:var(--mono);font-size:10px;color:var(--phosphor);margin-bottom:4px">MULTIPLAYER COMMAND STATIONS (2–4 SEATS)</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;font-family:var(--mono);font-size:9.5px">
               <div style="background:rgba(255,255,255,0.04);padding:4px 6px;border-radius:3px">FLIGHT DIRECTOR: Go/No-Go</div>
-              <div style="background:rgba(255,255,255,0.04);padding:4px 6px;border-radius:3px">SYSTEMS: Bus BEYOND-ORBITs</div>
+              <div style="background:rgba(255,255,255,0.04);padding:4px 6px;border-radius:3px">SYSTEMS: Bus margins</div>
               <div style="background:rgba(255,255,255,0.04);padding:4px 6px;border-radius:3px">SCIENCE: Sensor Payloads</div>
               <div style="background:rgba(255,255,255,0.04);padding:4px 6px;border-radius:3px">TRAJECTORY: Porkchop Arcs</div>
             </div>
@@ -8768,7 +8801,7 @@ function cadetTourModal(step){
     <div class="academy-card-body">
       <div class="tour-stepper-nav">${navPills}</div>
       ${frameHtml}
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;BEYOND-ORBIT-top:8px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;flex-wrap:wrap">
         <label style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--dim);cursor:pointer;user-select:none">
           <input type="checkbox" id="chkTourDismiss" checked style="accent-color:var(--phosphor);cursor:pointer">
           <span>Remember that I completed Flight Academy</span>
@@ -8787,15 +8820,15 @@ function cadetTourModal(step){
 function howModal(){
   const firstRun=!Object.keys(S.progress||{}).length;
   const tourBanner = `
-    <div style="background:rgba(101,242,165,.08);border:1px solid rgba(101,242,165,.25);border-radius:6px;padding:12px 14px;BEYOND-ORBIT-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+    <div style="background:rgba(101,242,165,.08);border:1px solid rgba(101,242,165,.25);border-radius:6px;padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:12px">
       <div>
         <span style="font-family:var(--mono);font-size:10px;color:var(--phosphor);letter-spacing:.12em;font-weight:600">INTERACTIVE GUIDANCE</span>
-        <div style="font-size:13px;color:#fff;BEYOND-ORBIT-top:2px;font-weight:600">CADET FLIGHT SCHOOL TOUR</div>
+        <div style="font-size:13px;color:#fff;margin-top:2px;font-weight:600">CADET FLIGHT SCHOOL TOUR</div>
         <div class="hint" style="font-size:11.5px;color:var(--dim)">4-step interactive micro-simulator: sensors, multi-rail bus, deep-space physics, and Porkchop trajectories.</div>
       </div>
       <button class="btn primary btn-sm" data-act="flight-school" style="white-space:nowrap;font-size:11px;letter-spacing:.06em">START TOUR &rarr;</button>
     </div>`;
-  const hint=firstRun?`<div style="background:rgba(237,176,78,.08);border:1px solid rgba(237,176,78,.25);border-radius:6px;padding:10px 14px;BEYOND-ORBIT-bottom:14px;font-size:11.5px;color:var(--bone);line-height:1.5">
+  const hint=firstRun?`<div style="background:rgba(237,176,78,.08);border:1px solid rgba(237,176,78,.25);border-radius:6px;padding:10px 14px;margin-bottom:14px;font-size:11.5px;color:var(--bone);line-height:1.5">
     <b>FIRST MISSION?</b> Read the four operational phases below, then open a brief. The five telemetry rails at the bottom of the screen are your primary health indicators &mdash; watch them closely before flight authorization.</div>`:"";
 
   el("mbox").className = "mbox modal-wide";
@@ -8822,7 +8855,7 @@ function howModal(){
           <div class="how-step-num">2</div>
           <div class="how-step-content">
             <b>2. Build</b>
-            <p>Equip instruments, solar arrays or RTGs, radio packages, and propulsion. Watch mass, power, and data BEYOND-ORBITs.</p>
+            <p>Equip instruments, solar arrays or RTGs, radio packages, and propulsion. Watch mass, power, and data margins.</p>
           </div>
         </div>
         <div class="how-step-card">
@@ -8836,7 +8869,7 @@ function howModal(){
           <div class="how-step-num">4</div>
           <div class="how-step-content">
             <b>4. Operate</b>
-            <p>Fly cruise and proximity. Navigate space hazards and ground station passes. BEYOND-ORBIT determines your survival.</p>
+            <p>Fly cruise and proximity. Navigate space hazards and ground station passes. Your margins determine your survival.</p>
           </div>
         </div>
       </div>
@@ -9097,13 +9130,13 @@ const GOLDEN_LINKS=[
   b64:"eyJsIjoibDMiLCJvIjpbIm9fbW1hcCIsIm9faWNlIiwib19nZW8iXSwiaSI6WyJjdHgiLCJ2bmlyIiwibXNwIiwiZ3JucyIsInJhZGFyIl0sInAiOiJzYTIiLCJjIjoiaGdhMyIsInIiOiJiaSIsInMiOiJzaDEiLCJhIjpmYWxzZSwicSI6InN0YW5kYXJkIiwidCI6ImplemVybyIsInYiOm51bGwsIm0iOiJjYWRldCIsInciOnsidiI6ImY5IiwiaSI6MTIsImoiOjl9fQ"}
 ];
 /* Numeric canonicalisation: fixed precision kills float last-bit noise while
-   still catching any real change to a mass, a cost or a BEYOND-ORBIT. */
+   still catching any real change to a mass, a cost or a margin. */
 function gnum(x){
   if(typeof x!=="number"||!isFinite(x)) return String(x);
   return (Math.round(x*1e6)/1e6).toFixed(6);
 }
 function gderive(D){
-  const m=D.BEYOND-ORBITs;
+  const m=D.m;
   return "wet="+gnum(D.wetMass)+" dry="+gnum(D.dryMass)+" pay="+gnum(D.payloadMass)
     +" prop="+gnum(D.propMass)+" cost="+gnum(D.cost)+" cap="+gnum(D.capability)
     +" peak="+gnum(D.loadPeak)+" genEOL="+gnum(D.genEOL)+" gen="+gnum(D.genMbPerDay)
@@ -9185,7 +9218,7 @@ function goldenShow(txt){
   const d=document.createElement("pre");
   d.id="goldenOut";
   d.textContent=txt;
-  d.style.cssText="position:fixed;inset:0;z-index:99999;BEYOND-ORBIT:0;padding:18px;overflow:auto;"
+  d.style.cssText="position:fixed;inset:0;z-index:99999;margin:0;padding:18px;overflow:auto;"
     +"background:#05070c;color:#cfe3ff;font:12px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap";
   document.body.appendChild(d);
 }
@@ -9239,7 +9272,7 @@ addEventListener("resize",()=>{ if(S.screen==="build")drawBay(); if(S.screen==="
 /* ── 3D presentation (Phase 3B): progressive enhancement, silent 2D fallback.
    Module loads only over http(s) with WebGL; file:// and ?no3d stay Canvas2D. */
 (function(){
-  const boot=window.__BEYOND-ORBIT_BOOT;
+  const boot=window.ORBIT_BOOT;
   try{
     if(location.protocol.indexOf("http")!==0 || /[?&]no3d/.test(location.search)){
       if(boot) boot.finish("2D FALLBACK MODE READY");
@@ -9256,9 +9289,9 @@ addEventListener("resize",()=>{ if(S.screen==="build")drawBay(); if(S.screen==="
       boot.finish("FLIGHT SYSTEM READY");
     }
     import("./js/view3d.js?v=" + Date.now()).catch(function(){});
-    import("./js/title-earth.js?v=20261111b").catch(function(){ if(boot) boot.finish("2D FALLBACK READY"); });
-    import("./js/select-viewer.js?v=20261111b").catch(function(){});
-    import("./js/brief-view.js").catch(function(){});
-    import("./js/ops-view.js?v=20261108n").catch(function(err){ console.error("[ops-view] import failed:", err); });
+    import("./js/title-earth.js?v=20261115a").catch(function(){ if(boot) boot.finish("2D FALLBACK READY"); });
+    import("./js/select-viewer.js?v=20261115a").catch(function(){});
+    import("./js/brief-view.js?v=20261115a").catch(function(){});
+    import("./js/ops-view.js?v=2026115a").catch(function(err){ console.error("[ops-view] import failed:", err); });
   }catch(e){ if(boot) boot.finish("FLIGHT SYSTEM READY"); }
 })();
