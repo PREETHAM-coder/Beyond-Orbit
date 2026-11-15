@@ -11,7 +11,39 @@
 
 BEYOND-ORBIT is a browser-based mission-design game that turns spacecraft engineering trade-offs into a playable end-to-end mission. Choose a destination, configure a spacecraft and science objectives, fly a launch, then operate the mission while balancing power, fuel, communications, data storage, risk, and time.
 
-The experience combines a 3D Earth and solar-system views with NASA/JPL-derived reference data, mission operations, and surface exploration. It is an educational prototype; it is not an official NASA product or a flight-planning tool.
+The experience combines a 3D Earth and solar-system visualization with NASA/JPL-derived reference data, mission operations, and surface exploration. It is an educational prototype; it is not an official NASA product or a flight-planning tool.
+
+## Project Gallery
+
+<p align="center">
+  <img src="assets/readme-home.png" alt="BEYOND-ORBIT title screen with the 3D Earth simulation" width="100%" />
+</p>
+<p align="center"><sub>Title screen · live 3D Earth and mission entry</sub></p>
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="assets/margin-mission-bus-preview.png" alt="Spacecraft mission bus engineering preview" width="100%" />
+      <br /><sub>Spacecraft engineering preview</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="assets/readme-earth.jpg" alt="Earth night-lights texture used by the 3D renderer" width="100%" />
+      <br /><sub>Earth · night-lights map</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="assets/readme-jupiter.jpg" alt="Jupiter texture used by the solar-system renderer" width="100%" />
+      <br /><sub>Jupiter · planetary texture</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="assets/readme-mars.jpg" alt="Mars texture used by the solar-system renderer" width="100%" />
+      <br /><sub>Mars · planetary texture</sub>
+    </td>
+  </tr>
+</table>
+
+<sub>Planetary texture attributions and license details: [SOURCES.md](SOURCES.md) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).</sub>
 
 ---
 
